@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -46,6 +46,11 @@ namespace leave_management
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            /*
+            services.AddDbContext<leave_managementContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("leave_managementContext")));
+            */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

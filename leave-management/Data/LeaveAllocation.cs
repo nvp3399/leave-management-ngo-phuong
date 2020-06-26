@@ -21,8 +21,9 @@ namespace leave_management.Data
         [ForeignKey("LeaveTypeId")]
         public LeaveType LeaveType { get; set; }
         public int LeaveTypeId { get; set; }
-
+        /*
         public IEnumerable<SelectListItem> Employees { get; set; }
         public IEnumerable<SelectListItem> LeaveTypes { get; set; }
+        */
     }
 }
