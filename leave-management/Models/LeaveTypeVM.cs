@@ -19,6 +19,8 @@ namespace leave_management.Models
 
         [Display(Name="Date Created")]
         public DateTime? DateCreated { get; set; }
+
+        public string Comments { get; set; }
     }
 
    

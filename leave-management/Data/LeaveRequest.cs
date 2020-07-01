@@ -27,6 +27,6 @@ namespace leave_management.Data
         public Employee ApproveBy { get; set; }
         public string ApprovedById { get; set; }
 
-
+        public bool Cancelled { get; set; }
     }
 }

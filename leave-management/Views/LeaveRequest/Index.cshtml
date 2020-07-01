@@ -11,7 +11,7 @@
     <title>Index</title>
 </head>
 <body>
-    <a asp-action="Create" class="btn btn-success">
+    <a asp-controller="LeaveTypes" asp-action="Create" class="btn btn-success">
         <i class="fa fa-plus" aria-hidden="true"></i> Add Leave For Employee
     </a>
     <br />
@@ -85,7 +85,9 @@
                     Approval Status
                 </th>
 
-                <th></th>
+                <th>
+                    Actions
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -108,9 +110,16 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.DateRequested)
                 </td>
-
+                    
                 <td>
-                    @if (item.Approved == true)
+                    @if (item.Cancelled == true)
+                    {
+                        <span class="badge badge-secondary">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            Cancelled
+                        </span>
+                    }
+                    else if (item.Approved == true)
                     {
                         <span class="badge badge-success">
                             <i class="fa fa-check"></i>
@@ -138,7 +147,10 @@
                         <i class="fa fa-file"></i>
                         Review
                     </a>
-
+                    <a asp-action="Delete" title="Delete" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to Delete this Request?')">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                        Delete
+                    </a>
                 </td>
             </tr>
             }

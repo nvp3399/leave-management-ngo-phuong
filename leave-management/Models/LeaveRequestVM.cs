@@ -42,6 +42,8 @@ namespace leave_management.Models
         public bool? Approved { get; set; }
         public EmployeeVM ApproveBy { get; set; }
         public string ApprovedById { get; set; }
+
+        public bool Cancelled { get; set; }
     }
 
     public class AdminLeaveRequestViewVM
@@ -79,5 +81,7 @@ namespace leave_management.Models
     {
         public List<LeaveRequestVM> LeaveRequests { get; set; }
         public List<LeaveAllocationVM> LeaveAllocations { get; set; }
+
+        public List<LeaveTypeVM> LeaveTypesInfo { get; set; }
     }
 }

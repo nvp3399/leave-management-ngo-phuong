@@ -9019,7 +9019,7 @@ jQuery.extend( {
 					return this;
 				},
 
-				// Cancel the request
+				// Cancelled the request
 				abort: function( statusText ) {
 					var finalText = statusText || strAbort;
 					if ( transport ) {

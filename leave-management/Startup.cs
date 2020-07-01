@@ -34,12 +34,13 @@ namespace leave_management
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            services.AddTransient<ApplicationDbContext>();
+
 
             //Add reference for Repository and Contracts to Startup file
             services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
             services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
             services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
-
             services.AddAutoMapper(typeof(Maps));
 
             services.AddDefaultIdentity<Employee>()

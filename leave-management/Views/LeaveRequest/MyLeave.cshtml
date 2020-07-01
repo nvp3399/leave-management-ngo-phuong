@@ -4,16 +4,19 @@
     ViewData["Title"] = "My Leave";
 }
 
-    <h1>Leave Allocations for <strong>@Model.LeaveRequests.FirstOrDefault().RequestingEmployee.Firstname @Model.LeaveRequests.FirstOrDefault().RequestingEmployee.LastName</strong></h1>
+<h1>Leave Allocations for <strong>@Model.LeaveAllocations.FirstOrDefault().Employee.Firstname @Model.LeaveAllocations.FirstOrDefault().Employee.Firstname</strong></h1>
 
 <hr />
 
 @foreach (var item in Model.LeaveAllocations)
 {
-    <div class="card bg-light">
+    <div class="card bg-light" title=@Model.LeaveTypesInfo.FirstOrDefault(q => q.Id == item.LeaveTypeId).Comments>
         <div class="card-body">
-            @Html.DisplayNameFor(modelItem => item.LeaveType.Name) <span class="badge badge-primary "> @item.NumberOfDays </span>
+            @Html.DisplayFor(modelItem => item.LeaveType.Name) <span class="badge badge-primary"> @item.NumberOfDays </span>
+            <i class="fa fa-info-circle" aria-hidden="true" title=@(  @Model.LeaveTypesInfo.FirstOrDefault(q => q.Id == item.LeaveTypeId).Comments + "\"" ) ></i>
+            
         </div>
+
     </div>
     <br />
 }
@@ -49,66 +52,80 @@
             </th>
 
             <th>
-                Actions
+                Cancelled
             </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.LeaveRequests)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LeaveType.Name)
-                </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LeaveType.Name)
+            </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateRequested)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateActioned)
-                </td>
-                <td>
-                    @if (item.Approved == true)
-                    {
-                        <span class="badge badge-success">
-                            <i class="fa fa-check"></i>
-                            Approved
-                        </span>
-                    }
-                    else if (item.Approved == false)
-                    {
-                        <span class="badge badge-danger">
-                            <i class="fa fa-times"></i>
-                            Rejected
-                        </span>
-                    }
-                    else
-                    {
-                        <span class="badge badge-warning">
-                            <i class="fa fa-clock-o"></i>
-                            Pending
-                        </span>
-                    }
-                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateRequested)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateActioned)
+            </td>
+            <td>
+                @if (item.Cancelled == true)
+                {
+                    <span class="badge badge-secondary">
+                        <i class="fa fa-ban" aria-hidden="true"></i>
+                        Cancelled
+                    </span>
+                }
+                else if (item.Approved == true)
+                {
+                    <span class="badge badge-success">
+                        <i class="fa fa-check"></i>
+                        Approved
+                    </span>
+                }
+                else if (item.Approved == false)
+                {
+                    <span class="badge badge-danger">
+                        <i class="fa fa-times"></i>
+                        Rejected
+                    </span>
+                }
+                else
+                {
+                    <span class="badge badge-warning">
+                        <i class="fa fa-clock-o"></i>
+                        Pending
+                    </span>
+                }
+            </td>
 
-                <td>
-                    @if (item.StartDate > DateTime.Now && item.Approved == true ||
-                      item.Approved == null)
-                    {
-                        <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete this record?')">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </a>
-                    }
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @if (item.StartDate > DateTime.Now && item.Approved == true && item.Cancelled == false ||
+                item.Approved == null && item.Cancelled == false)
+                {
+                    <a asp-action="Cancelled" title="Cancelled" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to cancel this Request?')">
+                        <i class="fa fa-ban" aria-hidden="true"></i>
+                        Cancelled
+                    </a>
+                }
 
-                </td>
-            </tr>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
+
+
+

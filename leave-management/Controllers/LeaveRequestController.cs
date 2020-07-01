@@ -130,16 +130,23 @@ namespace leave_management.Controllers
             var leaveAllocations = _leaveAllocationRepo.FindAll()
                                     .Where(q => q.EmployeeId == employee.Id);
 
+            var leaveAllocationsIds = leaveAllocations.Select(q => q.LeaveTypeId);
+            var leaveTypeInfo = _leaveTypeRepo.FindAll()
+                                    .Where(q => leaveAllocationsIds.Contains(q.Id));
+                                    
+
 
             var leaveRequestsVM = _mapper.Map<List<LeaveRequestVM>>(leaveRequests);
             var leaveAllocationsVM = _mapper.Map<List<LeaveAllocationVM>>(leaveAllocations);
+            var leaveTypeInfoVM = _mapper.Map<List<LeaveTypeVM>>(leaveTypeInfo);
 
             
 
             var model = new EmployeeLeaveRequestViewVM
             {
                 LeaveRequests = leaveRequestsVM,
-                LeaveAllocations = leaveAllocationsVM
+                LeaveAllocations = leaveAllocationsVM,
+                LeaveTypesInfo = leaveTypeInfoVM
             };
            
             return View(model);
@@ -148,7 +155,15 @@ namespace leave_management.Controllers
         // GET: LeaveRequestController/Create
         public ActionResult Create()
         {
-            var leaveTypes = _leaveTypeRepo.FindAll();
+            var employee = _userManager.GetUserAsync(User);
+
+            var leaveAllocationsIds = _leaveAllocationRepo.FindAll()
+                .Where(q => q.EmployeeId == employee.Id.ToString())
+                .Select( q => q.Id);
+
+            var leaveTypes = _leaveTypeRepo.FindAll()
+                .Where(q => leaveAllocationsIds.Contains(q.Id));
+
             var leaveTypeItems = leaveTypes.Select(q => new SelectListItem
             {
                 Text = q.Name,
@@ -199,6 +214,7 @@ namespace leave_management.Controllers
                     return View(model);
                 }
 
+
                 var employee = _userManager.GetUserAsync(User).Result;
                 var allocation = _leaveAllocationRepo.GetLeaveAllocationsByEmployeeAndType(employee.Id, model.LeaveTypeId);
                 int daysRequested = (int)(EndDate - StartDate).TotalDays;
@@ -208,6 +224,22 @@ namespace leave_management.Controllers
                     ModelState.AddModelError("", "You do not have sufficient Days for this request");
                     return View(model);
                 }
+
+                var previousApprovedLeaveRequests = _leaveRequestRepo.FindAll()
+                    .Where(q => q.RequestingEmployeeId == employee.Id && q.Approved == true);
+                foreach (var request in previousApprovedLeaveRequests)
+                {
+                    if (DateTime.Compare(StartDate, request.StartDate) >0 && DateTime.Compare(StartDate, request.EndDate) < 0 ||
+                        DateTime.Compare(EndDate, request.StartDate) > 0 && DateTime.Compare(EndDate, request.EndDate) < 0 ||
+                        DateTime.Compare(StartDate, request.StartDate) <= 0 && DateTime.Compare(EndDate, request.EndDate) >= 0
+                        )
+                    {
+                        ModelState.AddModelError("", "The Date Leave you choose coincided with your previously approved Leave.");
+                        return View(model);
+                    }
+                }
+
+
 
                 var leaveRequestModel = new LeaveRequestVM
                 {
@@ -274,7 +306,7 @@ namespace leave_management.Controllers
                 return BadRequest();
             }
 
-            return RedirectToAction(nameof(MyLeave));
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: LeaveRequestController/Delete/5
@@ -291,5 +323,23 @@ namespace leave_management.Controllers
                 return View();
             }
         }
+
+        public ActionResult Cancelled(int id)
+        {
+            try
+            {
+                var leaveRequest = _leaveRequestRepo.FindById(id);
+                leaveRequest.Cancelled = true;
+                _leaveRequestRepo.Update(leaveRequest);
+                return RedirectToAction(nameof(MyLeave));
+
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Cannot cancel this Request because of unknown reason.");
+                return RedirectToAction(nameof(MyLeave));
+            }
+        }
+
     }
 }
