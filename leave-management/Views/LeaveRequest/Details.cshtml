@@ -3,8 +3,22 @@
 @{
     ViewData["Title"] = "Details";
 }
+@if (Model.Cancelled == true)
+{
+    <div class="alert alert-secondary" role="alert">
+        <h4 class="alert-heading">Cancelled</h4>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.RequestingEmployeeId):</strong>
+            @Model.RequestingEmployee.Firstname @Model.RequestingEmployee.LastName
+        </p>
+        <hr />
+        <p>
+            @Html.DisplayNameFor(model => model.DateRequested) - @Html.DisplayFor(model => model.DateRequested)
+        </p>
+    </div>
+}
 
-@if (Model.Approved == null)
+else if (Model.Approved == null)
 {
     <div class="alert alert-warning" role="alert">
         <h4 class="alert-heading">Pending Approval</h4>
@@ -45,27 +59,27 @@ else if (Model.Approved == true)
 }
 else
 {
-<div class="alert alert-danger" role="alert">
-    <h4 class="alert-heading">
-        Rejected by
-        @if (Model.ApproveBy.Email == "admin@localhost.com")
-        {
-            <span><strong>Supreme Administrator</strong></span>
-        }
-        else
-        {
-            <span> @Model.ApproveBy.Firstname @Model.ApproveBy.LastName</span>
-        }
-    </h4>
-    <p>
-        <strong>@Html.DisplayNameFor(model => model.RequestingEmployeeId):</strong>
-        @Model.RequestingEmployee.Firstname @Model.RequestingEmployee.LastName
-    </p>
-    <hr />
-    <p>
-        @Html.DisplayNameFor(model => model.DateRequested) - @Html.DisplayFor(model => model.DateRequested)
-    </p>
-</div>
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">
+            Rejected by
+            @if (Model.ApproveBy.Email == "admin@localhost.com")
+            {
+                <span><strong>Supreme Administrator</strong></span>
+            }
+            else
+            {
+                <span> @Model.ApproveBy.Firstname @Model.ApproveBy.LastName</span>
+            }
+        </h4>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.RequestingEmployeeId):</strong>
+            @Model.RequestingEmployee.Firstname @Model.RequestingEmployee.LastName
+        </p>
+        <hr />
+        <p>
+            @Html.DisplayNameFor(model => model.DateRequested) - @Html.DisplayFor(model => model.DateRequested)
+        </p>
+    </div>
 }
 
 
@@ -146,7 +160,7 @@ else
                 </span>
             }
         </dd>
-        
+
         @*<dt class = "col-sm-2">
                 @Html.DisplayNameFor(model => model.ApprovedById)
             </dt>
@@ -156,7 +170,7 @@ else
     </dl>
 </div>
 <div>
-    @if (Model.ApproveBy == null)
+    @if (Model.ApproveBy == null && Model.Cancelled == false)
     {
         <a class="btn btn-success" asp-action="ApproveRequest" asp-route-id="@Model.Id">
             <i class="fa fa-check"></i>

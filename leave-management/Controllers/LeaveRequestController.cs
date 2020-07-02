@@ -52,6 +52,8 @@ namespace leave_management.Controllers
                                         .Count(q => q.Approved == null),
                 RejectedRequests = leaveRequestsModel
                                         .Count(q => q.Approved == false),
+                CancelledRequests = leaveRequestsModel
+                                        .Count(q => q.Cancelled == true),
                 LeaveRequests = leaveRequestsModel
 
             };
@@ -119,6 +121,7 @@ namespace leave_management.Controllers
 
         }
 
+        [Authorize(Roles ="Employee")]
         public ActionResult MyLeave()
         {
 
@@ -153,6 +156,7 @@ namespace leave_management.Controllers
         }
 
         // GET: LeaveRequestController/Create
+        [Authorize(Roles = "Employee")]
         public ActionResult Create()
         {
             var employee = _userManager.GetUserAsync(User);
