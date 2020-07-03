@@ -7,9 +7,10 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a  class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+        <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
             <i class="fas fa-user-alt"></i>
-            <p>@User.Identity.Name</p>
+            <p>@UserManager.GetUserAsync(User).Result.Firstname @UserManager.GetUserAsync(User).Result.LastName</p>
+           
         </a>
     </li>
     <li class="nav-item">

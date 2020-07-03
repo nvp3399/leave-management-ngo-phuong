@@ -90,7 +90,7 @@ namespace leave_management.Controllers
             {
                 return NotFound();
             }
-            var leavetype = _repo.FindById(id);
+            var leavetype = await _repo.FindById(id);
             var model = _mapper.Map<LeaveTypeVM>(leavetype);
             return View(model);
         }
