@@ -1,3 +1,15 @@
 {
-  "dependencies": {}
+  "dependencies": {
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "AzureConnection",
+      "suggestion": "true",
+      "ignored": "true"
+    },
+    "mssql1": {
+      "type": "mssql.local",
+      "connectionId": "DefaultConnection",
+      "secretStore": "LocalSecretsFile"
+    }
+  }
 }

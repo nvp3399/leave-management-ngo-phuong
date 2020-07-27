@@ -44,10 +44,10 @@ namespace leave_management
                     Configuration.GetConnectionString("DefaultConnection")));
             }
 
-            //services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
+            services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
 
 
-            services.AddTransient<ApplicationDbContext>();
+           services.AddTransient<ApplicationDbContext>();
 
 
             //Add reference for Repository and Contracts to Startup file

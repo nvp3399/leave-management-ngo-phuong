@@ -4,7 +4,7 @@
     ViewData["Title"] = "My Leave";
 }
 
-<h1>Leave Allocations for <strong>@Model.LeaveAllocations.FirstOrDefault().Employee.Firstname @Model.LeaveAllocations.FirstOrDefault().Employee.Firstname</strong></h1>
+<h1>Leave Allocations for <strong>@*@Model.LeaveAllocations.FirstOrDefault().Employee.Firstname @Model.LeaveAllocations.FirstOrDefault().Employee.Firstname*@</strong></h1>
 
 <hr />
 
@@ -13,7 +13,7 @@
     <div class="card bg-light" title=@Model.LeaveTypesInfo.FirstOrDefault(q => q.Id == item.LeaveTypeId).Comments>
         <div class="card-body">
             @Html.DisplayFor(modelItem => item.LeaveType.Name) <span class="badge badge-primary"> @item.NumberOfDays </span>
-            <i class="fa fa-info-circle" aria-hidden="true" title=@(  @Model.LeaveTypesInfo.FirstOrDefault(q => q.Id == item.LeaveTypeId).Comments + "\"" ) ></i>
+            <i class="fa fa-info-circle" aria-hidden="true" title="@Model.LeaveTypesInfo.FirstOrDefault(q => q.Id == item.LeaveTypeId).Comments" ></i>
             
         </div>
 

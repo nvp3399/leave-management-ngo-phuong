@@ -1,10 +1,3 @@
 {
-  "dependencies": {
-    "mssql1": {
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroup')]/providers/Microsoft.Sql/servers/ngophuongdb/databases/leave_management",
-      "type": "mssql.azure",
-      "connectionId": "DefaultConnection",
-      "secretStore": "AzureAppSettings"
-    }
-  }
+  "dependencies": {}
 }
