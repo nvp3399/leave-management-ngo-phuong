@@ -9,15 +9,24 @@
     <li class="nav-item">
         <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
             <i class="fas fa-user-alt"></i>
-            <p>@*@UserManager.GetUserAsync(User).Result.Firstname @UserManager.GetUserAsync(User).Result.LastName*@</p>
-           
+            @if (User.IsInRole("Administrator"))
+            {
+                <p>&nbsp;Administrator</p>
+            }
+            else
+            {
+                <p>&nbsp;@UserManager.GetUserAsync(User).Result.Firstname @UserManager.GetUserAsync(User).Result.LastName</p>
+
+            }
+
+
         </a>
     </li>
     <li class="nav-item">
         <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
             <button type="submit" class="nav-link btn btn-link text-white">
                 <i class="fas fa-sign-out-alt"></i>
-                <p>Logout</p>
+                <p>Đăng xuất</p>
             </button>
         </form>
     </li>
@@ -27,13 +36,13 @@ else
     <li class="nav-item">
         <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Register">
             <i class="fa fa-user-plus" aria-hidden="true"></i>
-            Register
+            Đăng ký
         </a>
     </li>
     <li class="nav-item">
         <a class="nav-link text-white" asp-area="Identity" asp-page="/Account/Login">
             <i class="fa fa-sign-in" aria-hidden="true"></i>
-            Login
+            Đăng nhập
         </a>
     </li>
 }

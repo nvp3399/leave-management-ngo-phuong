@@ -14,31 +14,31 @@ namespace leave_management.Models
 
         public EmployeeVM RequestingEmployee { get; set; }
 
-        [DisplayName("Employee Name")]
+        [DisplayName("Tên nhân viên")]
         public string RequestingEmployeeId { get; set; }
 
-        [DisplayName("Start Date")]
+        [DisplayName("Ngày bắt đầu")]
         [Required]
         [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
-        [DisplayName("End Date")]
+        [DisplayName("Ngày kết thúc")]
         [Required]
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
         public int LeaveTypeId { get; set; }
 
-        [DisplayName("Leave Type")]
+        [DisplayName("Loại nghỉ phép")]
         public LeaveTypeVM LeaveType { get; set; }
         
-        [DisplayName("Date Requested")]
+        [DisplayName("Ngày gửi yêu cầu")]
         public DateTime DateRequested { get; set; }
 
-        [DisplayName("Date Actioned")]
+        [DisplayName("Ngày duyệt")]
         public DateTime DateActioned { get; set; }
 
-        [DisplayName("Approved State")]
+        [DisplayName("Trạng thái")]
         public bool? Approved { get; set; }
         public EmployeeVM ApproveBy { get; set; }
         public string ApprovedById { get; set; }
@@ -48,16 +48,16 @@ namespace leave_management.Models
 
     public class AdminLeaveRequestViewVM
     {
-        [DisplayName("Total Requests")]
+        [DisplayName("Tổng các yêu cầu")]
         public int TotalRequests { get; set; }
-        [DisplayName("Approved Requests")]
+        [DisplayName("Yêu cầu được chấp thuận")]
         public int ApprovedRequets { get; set; }
-        [DisplayName("Pending Requests")]
+        [DisplayName("Yêu cầu đang chờ")]
         public int PendingRequests { get; set; }
-        [DisplayName("Rejected Requests")]
+        [DisplayName("Yêu cầu bị từ chối")]
         public int RejectedRequests { get; set; }
 
-        [DisplayName("Cancelled Requests")]
+        [DisplayName("Yêu cầu bị hủy")]
         public int CancelledRequests { get; set; }
 
         public List<LeaveRequestVM> LeaveRequests { get; set; }
@@ -65,17 +65,17 @@ namespace leave_management.Models
 
     public class CreateLeaveRequestVM
     {
-        [DisplayName("Start Date")]
+        [DisplayName("Ngày bắt đầu")]
         [Required]
         public string StartDate { get; set; }
 
-        [DisplayName("End Date")]
+        [DisplayName("Ngày kết thúc")]
         [Required]
         public string EndDate { get; set; }
 
         public IEnumerable<SelectListItem> LeaveTypes { get; set; }
 
-        [DisplayName("Leave Type")]
+        [DisplayName("Loại nghỉ phép")]
         public int LeaveTypeId { get; set; }
 
     }

@@ -11,13 +11,13 @@
             <div class="login-logo">
                 <a asp-controller="Home">
                     <i class="fas fa-home "></i>
-                    <strong>Leave Management</strong>
+                    <strong>Quản lý nghỉ phép</strong>
                 </a>
             </div>
             <!-- /.login-logo -->
             <div class="card">
                 <div class="card-body login-card-body">
-                    <p class="login-box-msg">Sign in to start your session</p>
+                    <p class="login-box-msg">Đăng nhập vào hệ thống</p>
 
                     <form id="account" method="post">
                         <div asp-validation-summary="All" class="text-danger"></div>
@@ -60,7 +60,7 @@
 
 
                             <div class="col-4">
-                                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                                <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
                             </div>
                             <!-- /.col -->
                         </div>
@@ -81,13 +81,13 @@
 
 
                     <p class="mb-1">
-                        <a id="forgot-password" asp-page="./ForgotPassword">I forgot my password</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Tôi quên mật khẩu</a>
                     </p>
                     <p class="mb-0">
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-center">Register a new Account</a>
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-center">Đăng ký tài khoản mới</a>
                     </p>
                     <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Gửi lại email xác nhận</a>
                     </p>
                 </div>
                 <!-- /.login-card-body -->

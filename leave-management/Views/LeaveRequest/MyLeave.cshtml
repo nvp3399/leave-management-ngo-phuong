@@ -4,7 +4,7 @@
     ViewData["Title"] = "My Leave";
 }
 
-<h1>Leave Allocations for <strong>@*@Model.LeaveAllocations.FirstOrDefault().Employee.Firstname @Model.LeaveAllocations.FirstOrDefault().Employee.Firstname*@</strong></h1>
+<h1>Phân bổ nghỉ phép cho <strong>@*@Model.LeaveAllocations.FirstOrDefault().Employee.Firstname @Model.LeaveAllocations.FirstOrDefault().Employee.Firstname*@</strong></h1>
 
 <hr />
 
@@ -25,34 +25,34 @@
 <p>
     <a asp-action="Create" class="btn btn-success">
         <i class="fa fa-plus" aria-hidden="true"></i>
-        Apply For Leave
+        Gửi yêu cầu nghỉ phép
     </a>
 </p>
 <table class="table tblData">
     <thead>
         <tr>
             <th>
-                Leave Type
+                Loại nghỉ phép
             </th>
             <th>
-                Start Date
+                Ngày bắt đầu
             </th>
             <th>
-                End Date
-            </th>
-
-            <th>
-                Date Requested
-            </th>
-            <th>
-                Date Actioned
-            </th>
-            <th>
-                Approved
+                Ngày kết thúc 
             </th>
 
             <th>
-                Cancelled
+                Ngày yêu cầu
+            </th>
+            <th>
+                Ngày duyệt
+            </th>
+            <th>
+                Được chấp thuận
+            </th>
+
+            <th>
+                Bị từ chối
             </th>
         </tr>
     </thead>
@@ -82,28 +82,28 @@
                 {
                     <span class="badge badge-secondary">
                         <i class="fa fa-ban" aria-hidden="true"></i>
-                        Cancelled
+                        Đã hủy
                     </span>
                 }
                 else if (item.Approved == true)
                 {
                     <span class="badge badge-success">
                         <i class="fa fa-check"></i>
-                        Approved
+                        Đã được chấp thuận 
                     </span>
                 }
                 else if (item.Approved == false)
                 {
                     <span class="badge badge-danger">
                         <i class="fa fa-times"></i>
-                        Rejected
+                        Đã bị từ chối
                     </span>
                 }
                 else
                 {
                     <span class="badge badge-warning">
                         <i class="fa fa-clock-o"></i>
-                        Pending
+                        Đang chờ
                     </span>
                 }
             </td>
@@ -117,7 +117,7 @@
                 {
                     <a asp-action="Cancelled" title="Cancelled" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to cancel this Request?')">
                         <i class="fa fa-ban" aria-hidden="true"></i>
-                        Cancel
+                        Hủy
                     </a>
                 }
 

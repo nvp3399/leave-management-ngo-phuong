@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 <br />
-<h1>Leave Allocation</h1>
+<h1>Phân bổ nghỉ phép</h1>
 <br />
 
 <table class="table">
@@ -12,10 +12,10 @@
         <tr>
             
             <th>
-                Leave Types
+                Loại nghỉ phép
             </th>
             
-            <th>Action</th>
+            <th>Hành động</th>
         </tr>
     </thead>
     <tbody>
@@ -30,7 +30,7 @@
              
                 <a asp-action="SetLeave" class="btn btn-outline-dark" asp-route-id="@item.Id">
                     <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-                    Allocate To Employees
+                    Phân bổ cho các nhân viên
                 </a>
             </td>
         </tr>
