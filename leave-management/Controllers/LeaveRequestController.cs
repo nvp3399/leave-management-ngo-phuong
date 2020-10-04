@@ -211,13 +211,13 @@ namespace leave_management.Controllers
 
                 if (DateTime.Compare(StartDate, EndDate) > 0)
                 {
-                    ModelState.AddModelError("", "Start Date cannot be further in the future than the End Date");
+                    ModelState.AddModelError("", "Ngày kết thúc phải sau ngày bắt đầu.");
                     return View(model);
                 }
 
                 if (DateTime.Compare(StartDate, DateTime.Now.Date) < 0)
                 {
-                    ModelState.AddModelError("", "Start Date and End Date must be in the future" + DateTime.Now.Date.ToString());
+                    ModelState.AddModelError("", "Ngày bắt đầu và ngày kết thúc phải ở tương lai." + DateTime.Now.Date.ToString());
                     return View(model);
                 }
 
@@ -228,7 +228,7 @@ namespace leave_management.Controllers
 
                 if(daysRequested > allocation.NumberOfDays)
                 {
-                    ModelState.AddModelError("", "You do not have sufficient Days for this request");
+                    ModelState.AddModelError("", "Số ngày bạn yêu cầu vượt quá số ngày cho phép");
                     return View(model);
                 }
 
@@ -241,7 +241,7 @@ namespace leave_management.Controllers
                         DateTime.Compare(StartDate, request.StartDate) <= 0 && DateTime.Compare(EndDate, request.EndDate) >= 0
                         )
                     {
-                        ModelState.AddModelError("", "The Date Leave you choose coincided with your previously approved Leave.");
+                        ModelState.AddModelError("", "Khoảng thời gian nghỉ phép mà bạn yêu cầu trùng với khoảng thời gian nghỉ phép đã được chấp thuận trước đó.");
                         return View(model);
                     }
                 }

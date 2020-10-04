@@ -21,6 +21,7 @@ namespace leave_management.Models
         [Display(Name="Ngày tạo")]
         public DateTime? DateCreated { get; set; }
 
+        [Display(Name="Ghi chú")]
         public string Comments { get; set; }
     }
 

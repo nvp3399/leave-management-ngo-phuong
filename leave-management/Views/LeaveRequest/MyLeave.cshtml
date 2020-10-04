@@ -4,7 +4,7 @@
     ViewData["Title"] = "My Leave";
 }
 
-<h1>Phân bổ nghỉ phép cho <strong>@*@Model.LeaveAllocations.FirstOrDefault().Employee.Firstname @Model.LeaveAllocations.FirstOrDefault().Employee.Firstname*@</strong></h1>
+<h1>Các loại nghỉ phép sẵn có <strong>@*@Model.LeaveAllocations.FirstOrDefault().Employee.Firstname @Model.LeaveAllocations.FirstOrDefault().Employee.Firstname*@</strong></h1>
 
 <hr />
 
@@ -48,11 +48,11 @@
                 Ngày duyệt
             </th>
             <th>
-                Được chấp thuận
+                Trạng thái
             </th>
 
             <th>
-                Bị từ chối
+                Tổng số ngày
             </th>
         </tr>
     </thead>
@@ -109,13 +109,13 @@
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @((item.EndDate.Date - item.StartDate.Date ).Days +1)
             </td>
             <td>
                 @if (item.StartDate > DateTime.Now && item.Approved == true && item.Cancelled == false ||
                 item.Approved == null && item.Cancelled == false)
                 {
-                    <a asp-action="Cancelled" title="Cancelled" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to cancel this Request?')">
+                    <a asp-action="Cancelled" title="Cancelled" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Bạn có chắc bạn muốn hủy yêu cầu này?')">
                         <i class="fa fa-ban" aria-hidden="true"></i>
                         Hủy
                     </a>
