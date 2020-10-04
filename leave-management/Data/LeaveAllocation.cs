@@ -22,5 +22,9 @@ namespace leave_management.Data
         public LeaveType LeaveType { get; set; }
         public int LeaveTypeId { get; set; }
         public int Period { get; set; }
+
+        [ForeignKey("MaNhanVienPhanBo")]
+        public Employee NhanVienPhanBo { get; set; }
+        public string MaNhanVienPhanBo { get; set; }
     }
 }
