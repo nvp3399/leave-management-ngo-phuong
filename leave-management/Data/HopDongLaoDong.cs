@@ -22,9 +22,12 @@ namespace leave_management.Data
         [Required]
         public DateTime NgayGuiBanScan { get; set; }
 
+        //[ForeignKey("NhanVienGuiBanScan")]
+        //public Employee NhanVienGuiBanScan { get; set; }
         public string MaNhanVienGuiBanScan { get; set; }
 
-
+        [ForeignKey("MaNhanVienChuTheHopDong")]
+        public Employee NhanVienChuTheHopDong { get; set; }
         public string MaNhanVienChuTheHopDong { get; set; }
 
         [ForeignKey("MaMauHopDong")]
@@ -32,6 +35,9 @@ namespace leave_management.Data
         public string MaMauHopDong { get; set; }
         public string GhiChu { get; set; }
         public DateTime NgayHopDongBiHuy { get; set; }
+
+        //[ForeignKey("MaNhanVienHuyHopDong")]
+        //public Employee NhanVienHuyHopDong { get; set; }
         public string MaNhanVienHuyHopDong { get; set; }
 
     }

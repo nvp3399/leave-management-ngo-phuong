@@ -11,9 +11,11 @@ namespace leave_management.Data
     {
         [Key]
         public int Id { get; set; }
-        //[Required]
+        [Required]
         public string Name { get; set; }
+        [Required]
         public int DefaultDays { get; set; }
+        [Required]
         public DateTime DateCreated { get; set; }
 
         public string Comments { get; set; }

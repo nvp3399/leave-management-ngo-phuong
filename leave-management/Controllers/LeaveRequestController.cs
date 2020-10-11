@@ -179,7 +179,7 @@ namespace leave_management.Controllers
 
             var model = new CreateLeaveRequestVM
             {
-                LeaveTypes = leaveTypeItems,
+                LeaveTypes = leaveTypeItems
           
             };
             return View(model);

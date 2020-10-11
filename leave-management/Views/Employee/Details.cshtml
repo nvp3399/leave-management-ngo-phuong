@@ -59,6 +59,60 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Employee.DateJoined)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee.GioiTinh)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.GioiTinh)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee.NoiSinh)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.NoiSinh)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee.DiaChiTamTru)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.DiaChiTamTru)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee.DiaChiLienLac)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.DiaChiLienLac)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee.NoiSinh)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.NoiSinh)
+        </dd>
+
+        <!--Chức vụ
+    Chuyên môn
+    Phòng ban
+    Hợp đồng-->
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee.MucLuongCoBan)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.MucLuongCoBan)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee.LoaiNhanVien)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.LoaiNhanVien)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee.NhanVienThemVaoHeThong)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.NhanVienThemVaoHeThong)
+        </dd>
     </dl>
 </div>
 
@@ -81,7 +135,7 @@
 </div>
 <div>
     <br />
-    <a asp-action="ListEmployees" class="btn btn-outline-dark col-md-12">
+    <a asp-action="Index" class="btn btn-outline-dark col-md-12">
         <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
         Quay lại danh sách nhân viên
     </a>

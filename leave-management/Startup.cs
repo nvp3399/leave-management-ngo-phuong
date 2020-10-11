@@ -54,6 +54,9 @@ namespace leave_management
             services.AddScoped<ILeaveTypeRepository, LeaveTypeRepository>();
             services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
             services.AddScoped<ILeaveAllocationRepository, LeaveAllocationRepository>();
+            services.AddScoped<IChucVuRepository, ChucVuRepository>();
+            services.AddScoped<IChuyenMonRepository, ChuyenMonRepository>();
+            services.AddScoped<IPhongBanRepository, PhongBanRepository>();
             services.AddAutoMapper(typeof(Maps));
 
             services.AddDefaultIdentity<Employee>()

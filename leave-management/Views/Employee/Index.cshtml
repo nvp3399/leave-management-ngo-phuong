@@ -1,0 +1,55 @@
+﻿@model IEnumerable<leave_management.Models.EmployeeVM>
+
+@{
+    ViewData["Title"] = "Nhân viên";
+
+}
+
+<a asp-controller="Employee" asp-action="Create" class="btn btn-success">
+    <i class="fa fa-plus" aria-hidden="true"></i> Thêm nhân viên mới
+</a>
+<br />
+<h1>Danh sách nhân viên</h1>
+<br />
+
+<table id="tblData" class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+
+                <td>
+                    <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.Id">
+                        <i class="fa fa-info" aria-hidden="true"></i>
+                        &nbsp;Hồ sơ
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -67,11 +67,13 @@ namespace leave_management.Models
     {
         [DisplayName("Ngày bắt đầu")]
         [Required]
-        public string StartDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime StartDate { get; set; }
 
         [DisplayName("Ngày kết thúc")]
         [Required]
-        public string EndDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime EndDate { get; set; }
 
         public IEnumerable<SelectListItem> LeaveTypes { get; set; }
 

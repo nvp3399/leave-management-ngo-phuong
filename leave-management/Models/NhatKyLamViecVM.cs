@@ -1,24 +1,20 @@
-﻿using System;
+﻿using leave_management.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace leave_management.Data
+namespace leave_management.Models
 {
-    public class NhatKyLamViec
+    public class NhatKyLamViecVM
     {
-        [ForeignKey("MaNhanVien")]
-        public Employee NhanVien { get; set; }
-        public string MaNhanVien { get; set; }
+        public EmployeeVM NhanVien { get; set; }
 
         public DateTime ThoiGianBatDau { get; set; }
         public DateTime ThoiGianKetThuc { get; set; }
-        [ForeignKey("MaLoaiLichBieu")]
-        public LoaiLichBieu LoaiLichBieu { get; set; }
-        public string MaLoaiLichBieu { get; set; }
-        [Required]
+        public LoaiLichBieuVM LoaiLichBieu { get; set; }
         public int SoTienThuongThem { get; set; }
         public string GhiChu { get; set; }
 

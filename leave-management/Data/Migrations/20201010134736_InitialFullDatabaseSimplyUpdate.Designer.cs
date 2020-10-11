@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using leave_management.Data;
 
 namespace leave_management.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201010134736_InitialFullDatabaseSimplyUpdate")]
+    partial class InitialFullDatabaseSimplyUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,7 +237,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasKey("MaChucVu");
 
-                    b.ToTable("DanhMucChucVus");
+                    b.ToTable("DanhSachDanhMucChucVu");
                 });
 
             modelBuilder.Entity("leave_management.Data.DanhMucChuyenMon", b =>
@@ -252,7 +254,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasKey("MaChuyenMon");
 
-                    b.ToTable("DanhMucChuyenMons");
+                    b.ToTable("DanhSachDanhMucChuyenMon");
                 });
 
             modelBuilder.Entity("leave_management.Data.DanhMucPhongBan", b =>
@@ -271,7 +273,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasIndex("MaNhanVienTruongPhong");
 
-                    b.ToTable("DanhMucPhongBans");
+                    b.ToTable("DanhSachDanhMucPhongBan");
                 });
 
             modelBuilder.Entity("leave_management.Data.GiayToTuyThan", b =>
@@ -301,7 +303,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasIndex("MaNhanVienGui");
 
-                    b.ToTable("GiayToTuyThans");
+                    b.ToTable("DanhSachGiayToTuyThan");
                 });
 
             modelBuilder.Entity("leave_management.Data.HopDongLaoDong", b =>
@@ -316,7 +318,7 @@ namespace leave_management.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("MaNhanVienChuTheHopDong")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MaNhanVienGuiBanScan")
                         .HasColumnType("nvarchar(max)");
@@ -347,9 +349,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasIndex("MaMauHopDong");
 
-                    b.HasIndex("MaNhanVienChuTheHopDong");
-
-                    b.ToTable("HopDongLaoDongs");
+                    b.ToTable("DanhSachHopDongLaoDong");
                 });
 
             modelBuilder.Entity("leave_management.Data.LeaveAllocation", b =>
@@ -477,7 +477,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasKey("MaLoaiGiayTo");
 
-                    b.ToTable("LoaiGiayToTuyThans");
+                    b.ToTable("DanhSachLoaiGiayToTuyThan");
                 });
 
             modelBuilder.Entity("leave_management.Data.LoaiHopDong", b =>
@@ -494,7 +494,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasKey("MaLoaiHopDong");
 
-                    b.ToTable("LoaiHopDongs");
+                    b.ToTable("DanhSachLoaiHopDong");
                 });
 
             modelBuilder.Entity("leave_management.Data.LoaiLichBieu", b =>
@@ -511,7 +511,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasKey("MaLoai");
 
-                    b.ToTable("LoaiLichBieus");
+                    b.ToTable("DanhSachLoaiLichBieu");
                 });
 
             modelBuilder.Entity("leave_management.Data.LuongTheoThang", b =>
@@ -539,7 +539,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasKey("MaNhanVien", "Nam", "Thang");
 
-                    b.ToTable("LuongTheoThangs");
+                    b.ToTable("DanhSachLuongTheoThang");
                 });
 
             modelBuilder.Entity("leave_management.Data.MauHopDong", b =>
@@ -573,7 +573,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasIndex("MaNhanVienLuuMauHopDong");
 
-                    b.ToTable("MauHopDongs");
+                    b.ToTable("DanhSachMauHopDong");
                 });
 
             modelBuilder.Entity("leave_management.Data.NhatKyLamViec", b =>
@@ -600,7 +600,30 @@ namespace leave_management.Data.Migrations
 
                     b.HasIndex("MaLoaiLichBieu");
 
-                    b.ToTable("NhatKyLamViecs");
+                    b.ToTable("DanhSachNhatKyLamViec");
+                });
+
+            modelBuilder.Entity("leave_management.Data.PhanBoNghiPhep", b =>
+                {
+                    b.Property<string>("MaNhanVien")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("MaLoaiNghiPhep")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MaNhanVienPhanBo")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("NgayPhanBo")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("MaNhanVien", "MaLoaiNghiPhep");
+
+                    b.HasIndex("MaLoaiNghiPhep");
+
+                    b.HasIndex("MaNhanVienPhanBo");
+
+                    b.ToTable("PhanBoNghiPhep");
                 });
 
             modelBuilder.Entity("leave_management.Data.PhieuChi", b =>
@@ -641,7 +664,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasIndex("MaNhanVienXuatPhieu");
 
-                    b.ToTable("PhieuChis");
+                    b.ToTable("DanhSachPhieuChi");
                 });
 
             modelBuilder.Entity("leave_management.Data.YeuCauDatLuongCoBan", b =>
@@ -680,7 +703,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasIndex("MaNhanVienGuiYeuCau");
 
-                    b.ToTable("YeuCauDatLuongCoBans");
+                    b.ToTable("DanhSachYeuCauDatLuongCoBan");
                 });
 
             modelBuilder.Entity("leave_management.Data.YeuCauTamUngLuong", b =>
@@ -716,7 +739,7 @@ namespace leave_management.Data.Migrations
 
                     b.HasIndex("MaNhanVienGuiYeuCau");
 
-                    b.ToTable("YeuCauTamUngLuongs");
+                    b.ToTable("DanhSachYeuCauTamUngLuong");
                 });
 
             modelBuilder.Entity("leave_management.Data.Employee", b =>
@@ -878,10 +901,6 @@ namespace leave_management.Data.Migrations
                     b.HasOne("leave_management.Data.MauHopDong", "MauHopDong")
                         .WithMany()
                         .HasForeignKey("MaMauHopDong");
-
-                    b.HasOne("leave_management.Data.Employee", "NhanVienChuTheHopDong")
-                        .WithMany()
-                        .HasForeignKey("MaNhanVienChuTheHopDong");
                 });
 
             modelBuilder.Entity("leave_management.Data.LeaveAllocation", b =>
@@ -956,6 +975,25 @@ namespace leave_management.Data.Migrations
                         .HasForeignKey("MaNhanVien")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("leave_management.Data.PhanBoNghiPhep", b =>
+                {
+                    b.HasOne("leave_management.Data.LeaveType", "LoaiNghiPhep")
+                        .WithMany()
+                        .HasForeignKey("MaLoaiNghiPhep")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("leave_management.Data.Employee", "NhanVien")
+                        .WithMany()
+                        .HasForeignKey("MaNhanVien")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("leave_management.Data.Employee", "NhanVienPhanBo")
+                        .WithMany()
+                        .HasForeignKey("MaNhanVienPhanBo");
                 });
 
             modelBuilder.Entity("leave_management.Data.PhieuChi", b =>

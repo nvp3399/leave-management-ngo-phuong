@@ -9,14 +9,12 @@ namespace leave_management.Data
 {
     public class GiayToTuyThan
     {
-        [ForeignKey("MaNhanVien"), Column(Order =0)]
+        [ForeignKey("MaNhanVien")]
         public Employee NhanVien { get; set; }
-        [Key]
         public string MaNhanVien { get; set; }
 
-        [ForeignKey("MaLoaiGiayTo"), Column(Order =1)]
+        [ForeignKey("MaLoaiGiayTo")]
         public LoaiGiayToTuyThan LoaiGiayTo { get; set; }
-        [Key]
         public string MaLoaiGiayTo { get; set; }
         [Required]
         public DateTime NgayLuuVaoHeThong { get; set; }

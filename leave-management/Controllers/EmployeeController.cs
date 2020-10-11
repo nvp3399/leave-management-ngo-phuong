@@ -16,7 +16,7 @@ namespace leave_management.Controllers
 {
 
     [Authorize(Roles = "Administrator")]
-    public class LeaveAllocationController : Controller
+    public class EmployeeController : Controller
     {
         private readonly ILeaveTypeRepository _leaverepo;
         private readonly ILeaveAllocationRepository _leaveallocationrepo;
@@ -26,7 +26,7 @@ namespace leave_management.Controllers
         private readonly IChuyenMonRepository _chuyenMonRepo;
         private readonly IPhongBanRepository _phongBanRep;
 
-        public LeaveAllocationController(ILeaveTypeRepository leaverepo,
+        public EmployeeController(ILeaveTypeRepository leaverepo,
             ILeaveAllocationRepository leaveallocationrepo,
             IMapper mapper,
             UserManager<Employee> userManager,
@@ -47,13 +47,17 @@ namespace leave_management.Controllers
         // GET: LeaveAllocationController
         public async Task<ActionResult> Index()
         {
-            var leavetypes = (await _leaverepo.FindAll()).ToList();
-            var mappedLeaveTypes = _mapper.Map<List<LeaveType>, List<LeaveTypeVM>>(leavetypes);
-            var model = new CreateLeaveAllocationVM
-            {
-                LeaveTypes = mappedLeaveTypes,
-                NumberUpdated = 0
-            };
+            //var leavetypes = (await _leaverepo.FindAll()).ToList();
+            //var mappedLeaveTypes = _mapper.Map<List<LeaveType>, List<LeaveTypeVM>>(leavetypes);
+            //var model = new CreateLeaveAllocationVM
+            //{
+            //    LeaveTypes = mappedLeaveTypes,
+            //    NumberUpdated = 0
+            //};
+
+            var employees = await _userManager.GetUsersInRoleAsync("Employee");
+            var model = _mapper.Map<List<EmployeeVM>>(employees);
+
             return View(model);
         }
 
@@ -81,32 +85,26 @@ namespace leave_management.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<ActionResult> ListEmployees()
-        {
-            var employees = await _userManager.GetUsersInRoleAsync("Employee");
-            var model = _mapper.Map<List<EmployeeVM>>(employees);
-
-            return View(model);
-        }
+       
 
 
         // GET: LeaveAllocationController/Details/5
         public async Task<ActionResult> Details(string id)
         {
             var employee = _mapper.Map<EmployeeVM>(await _userManager.FindByIdAsync(id));
-            var allocations = _mapper.Map<List<LeaveAllocationVM>>( 
+            var allocations = _mapper.Map<List<LeaveAllocationVM>>(
                 await _leaveallocationrepo.GetLeaveAllocationsByEmployee(id));
             var model = new ViewAllocationsVM
             {
                 Employee = employee,
                 LeaveAllocations = allocations,
-                
+
             };
             return View(model);
         }
 
         // GET: LeaveAllocationController/Create
-        public async Task<ActionResult> CreateEmployee()
+        public async Task<ActionResult> Create()
         {
             try
             {
@@ -149,7 +147,7 @@ namespace leave_management.Controllers
                     });
                 }
 
-                
+
 
                 var model = new CreateEmployeeVM
                 {
@@ -194,9 +192,9 @@ namespace leave_management.Controllers
         // GET: LeaveAllocationController/Edit/5
         public async Task<ActionResult> Edit(int id)
         {
-            var leaveallocation =  await _leaveallocationrepo.FindById(id);
+            var leaveallocation = await _leaveallocationrepo.FindById(id);
             var model = _mapper.Map<EditLeaveAllocationVM>(leaveallocation);
-            
+
             return View(model);
         }
 
@@ -223,7 +221,7 @@ namespace leave_management.Controllers
                 }
                 return RedirectToAction(nameof(Details), new { id = model.EmployeeId });
             }
-            catch 
+            catch
             {
                 return View();
             }
