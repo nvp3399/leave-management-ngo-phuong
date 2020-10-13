@@ -757,7 +757,7 @@ namespace leave_management.Data.Migrations
                     b.Property<string>("DiaChiTamTru")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Firstname")
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

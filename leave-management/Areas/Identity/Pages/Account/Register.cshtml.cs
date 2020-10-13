@@ -86,7 +86,7 @@ namespace leave_management.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new Employee { UserName = Input.Email, Email = Input.Email, 
-                    Firstname = Input.FirstName, LastName= Input.LastName };
+                    FirstName = Input.FirstName, LastName= Input.LastName };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

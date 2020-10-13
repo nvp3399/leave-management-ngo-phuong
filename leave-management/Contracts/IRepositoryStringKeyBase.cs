@@ -5,11 +5,12 @@ using System.Threading.Tasks;
 
 namespace leave_management.Contracts
 {
-    public interface IRepositoryBase<T> where T:class
+    public interface IRepositoryStringKeyBase<T>
+        where T: class
     {
         Task<ICollection<T>> FindAll();
-        Task<T> FindById(int id);
-        Task<bool> isExist(int id);
+        Task<T> FindById(string id);
+        Task<bool> isExist(string id);
         Task<bool> Create(T entity);
         Task<bool> Update(T entity);
         Task<bool> Delete(T entity);

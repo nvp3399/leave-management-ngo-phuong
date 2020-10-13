@@ -8,14 +8,17 @@
     {
         <li class="nav-item">
             <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                <i class="fas fa-user-alt"></i>
+                <img src="~/images/@UserManager.GetUserAsync(User).Result.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
                 @if (User.IsInRole("Administrator"))
                 {
                     <p>&nbsp;Administrator</p>
                 }
                 else
                 {
-                    <p>&nbsp;@UserManager.GetUserAsync(User).Result.Firstname @UserManager.GetUserAsync(User).Result.LastName</p>
+                    <p>&nbsp;@UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName</p>
 
                 }
 

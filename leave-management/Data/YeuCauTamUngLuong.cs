@@ -10,13 +10,16 @@ namespace leave_management.Data
     public class YeuCauTamUngLuong
     {
         [Key]
-        public int MaYeuCau { get; set; }
+        public string MaYeuCau { get; set; }
 
         [ForeignKey("MaNhanVienGuiYeuCau")]
         public Employee NhanVienGuiYeuCau { get; set; }
         public string MaNhanVienGuiYeuCau { get; set; }
         [Required]
         public DateTime NgayGuiYeuCau { get; set; }
+
+        [ForeignKey("MaNhanVienPheDuyet")]
+        public Employee NhanVienPheDuyet { get; set; }
         public string MaNhanVienPheDuyet { get; set; }
         public DateTime NgayPheDuyet { get; set; }
         [Required]

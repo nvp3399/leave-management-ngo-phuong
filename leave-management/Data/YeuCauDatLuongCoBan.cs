@@ -22,6 +22,9 @@ namespace leave_management.Data
         [Required]
         public DateTime ThoiGianGuiYeuCau { get; set; }
         public DateTime ThoiGianPheDuyet { get; set; }
+
+        [ForeignKey("MaNhanVienPheDuyet")]
+        public Employee NhanVienPheDuyet { get; set; }
         public string MaNhanVienPheDuyet { get; set; }
         [Required]
         public string TinhTrangPheDuyet { get; set; }

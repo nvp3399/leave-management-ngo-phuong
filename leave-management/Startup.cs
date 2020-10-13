@@ -47,7 +47,6 @@ namespace leave_management
             services.BuildServiceProvider().GetService<ApplicationDbContext>().Database.Migrate();
 
 
-           services.AddTransient<ApplicationDbContext>();
 
 
             //Add reference for Repository and Contracts to Startup file
@@ -57,6 +56,12 @@ namespace leave_management
             services.AddScoped<IChucVuRepository, ChucVuRepository>();
             services.AddScoped<IChuyenMonRepository, ChuyenMonRepository>();
             services.AddScoped<IPhongBanRepository, PhongBanRepository>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IMauHopDongRepository, MauHopDongRepository>();
+            services.AddScoped<ILoaiHopDongRepository, LoaiHopDongRepository>();
+            services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+            services.AddScoped<IHopDongLaoDongRepository, HopDongLaoDongRepository>();
             services.AddAutoMapper(typeof(Maps));
 
             services.AddDefaultIdentity<Employee>()
@@ -65,6 +70,7 @@ namespace leave_management
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.AddDbContext<ApplicationDbContext>();
             /*
             services.AddDbContext<leave_managementContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("leave_managementContext")));

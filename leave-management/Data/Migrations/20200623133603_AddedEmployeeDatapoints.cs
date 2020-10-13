@@ -24,7 +24,7 @@ namespace leave_management.Data.Migrations
                 nullable: true);
 
             migrationBuilder.AddColumn<string>(
-                name: "Firstname",
+                name: "FirstName",
                 table: "AspNetUsers",
                 nullable: true);
 
@@ -54,7 +54,7 @@ namespace leave_management.Data.Migrations
                 table: "AspNetUsers");
 
             migrationBuilder.DropColumn(
-                name: "Firstname",
+                name: "FirstName",
                 table: "AspNetUsers");
 
             migrationBuilder.DropColumn(

@@ -8,6 +8,12 @@ namespace leave_management.Repository
 {
     public class EmployeeRepository : IEmployeeRepository
     {
+        private readonly ApplicationDbContext _db;
+
+        public EmployeeRepository(ApplicationDbContext db)
+        {
+            _db = db;
+        }
         public Task<bool> Create(Employee entity)
         {
             throw new NotImplementedException();
@@ -23,12 +29,16 @@ namespace leave_management.Repository
             throw new NotImplementedException();
         }
 
-        public Task<Employee> FindById(int id)
+
+
+        public async Task<Employee> FindById(string id_string)
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> isExist(int id)
+
+
+        public Task<bool> isExist(string id_string)
         {
             throw new NotImplementedException();
         }

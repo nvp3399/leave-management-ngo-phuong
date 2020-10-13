@@ -7,7 +7,7 @@ using leave_management.Contracts;
 
 namespace leave_management.Contracts
 {
-    public interface IChuyenMonRepository : IRepositoryBase<DanhMucChuyenMon>
+    public interface IChuyenMonRepository : IRepositoryStringKeyBase<DanhMucChuyenMon>
     {
 
     }

@@ -33,12 +33,15 @@ namespace leave_management.Repository
                 .ToListAsync();
         }
 
-        public Task<DanhMucPhongBan> FindById(int id)
+
+        public async Task<DanhMucPhongBan> FindById(string id_string)
         {
-            throw new NotImplementedException();
+            return await _db.DanhMucPhongBans.FirstOrDefaultAsync(q => q.MaPhongBan == id_string);
         }
 
-        public Task<bool> isExist(int id)
+
+
+        public Task<bool> isExist(string id_string)
         {
             throw new NotImplementedException();
         }

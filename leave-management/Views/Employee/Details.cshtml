@@ -7,16 +7,32 @@
 <h1>Hồ sơ nhân viên</h1>
 
 <div>
-    <h4>Nhân viên: @Model.Employee.Firstname @Model.Employee.LastName</h4>
+    <h4>Nhân viên: @Model.Employee.FirstName @Model.Employee.LastName</h4>
     <hr />
+    <a asp-action="Index" class="btn btn-outline-dark col-md-12">
+        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+        Quay lại danh sách nhân viên
+    </a>
+    <hr />
+
+    <a asp-action="EditEmployee" class="btn btn-warning" asp-route-id="@Model.Employee.Id">
+        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+        Chỉnh sửa hồ sơ
+    </a>
+    <a asp-controller="HopDongLaoDong" asp-action="Index" class="btn btn-warning" asp-route-id="@Model.Employee.Id">
+        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+        Quản lý hợp đồng lao động
+    </a>
+    <hr />
+
+    @Html.DisplayNameFor(model => model.Employee.ProfileImage)
+    <br />
+    <img src="~/images/@Model.Employee.ProfilePicture"
+         class="rounded-circle"
+         height="100" width="100"
+         asp-append-version="true" />
     <dl class="row">
 
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.UserName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.UserName)
-        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Employee.Email)
         </dt>
@@ -30,10 +46,16 @@
             @Html.DisplayFor(model => model.Employee.PhoneNumber)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Employee.Firstname)
+            @Html.DisplayNameFor(model => model.Employee.FirstName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.Firstname)
+            @Html.DisplayFor(model => model.Employee.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee.MiddleName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.MiddleName)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Employee.LastName)
@@ -63,7 +85,14 @@
             @Html.DisplayNameFor(model => model.Employee.GioiTinh)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.GioiTinh)
+            @if (Model.Employee.GioiTinh == true)
+            {
+                <span>Nam</span>
+            }
+            else
+            {
+                <span>Nữ</span>
+            }
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Employee.NoiSinh)
@@ -91,9 +120,28 @@
         </dd>
 
         <!--Chức vụ
-    Chuyên môn
-    Phòng ban
-    Hợp đồng-->
+        Chuyên môn
+        Phòng ban
+        Hợp đồng-->
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee.MaChucVu)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.ChucVu.TenChucVu)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee.MaChuyenMon)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.ChuyenMon.TenChuyenMon)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee.MaPhongBan)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.PhongBan.TenPhongBan)
+        </dd>
 
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Employee.MucLuongCoBan)
@@ -111,8 +159,27 @@
             @Html.DisplayNameFor(model => model.Employee.NhanVienThemVaoHeThong)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Employee.NhanVienThemVaoHeThong)
+            @Html.DisplayFor(model => model.Employee.NhanVienThemVaoHeThong.LastName)
+            @Html.DisplayFor(model => model.Employee.NhanVienThemVaoHeThong.MiddleName)
+            @Html.DisplayFor(model => model.Employee.NhanVienThemVaoHeThong.FirstName)
+
         </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee.VaiTroTrenHeThong)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.VaiTroTrenHeThong.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Employee.SoCMND)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Employee.SoCMND)
+        </dd>
+
+
+
     </dl>
 </div>
 
@@ -126,18 +193,12 @@
         {
             <li class="list-group-item card text-center ">
                 @item.LeaveType.Name <span class="badge badge-secondary">@item.NumberOfDays</span>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning">
+                <a asp-action="EditLeaveAllocation" asp-route-id="@item.Id" class="btn btn-outline-warning">
                     <i class="fa fa-pencil" ></i> Chỉnh sửa
                 </a>
             </li>
         }
     </ul>
 </div>
-<div>
-    <br />
-    <a asp-action="Index" class="btn btn-outline-dark col-md-12">
-        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
-        Quay lại danh sách nhân viên
-    </a>
-</div>
+
 

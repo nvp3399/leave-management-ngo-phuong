@@ -29,6 +29,9 @@ namespace leave_management.Data
         public string GhiChu { get; set; }
         [Required]
         public string TrangThaiPhieuChi { get; set; }
+
+        [ForeignKey("MaNhanVienChiTien")]
+        public Employee NhanVienChiTien { get; set; }
         public string MaNhanVienChiTien { get; set; }
 
     }

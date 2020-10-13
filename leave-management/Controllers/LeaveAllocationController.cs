@@ -124,7 +124,7 @@ namespace leave_management.Controllers
                     chucVuItems.Add(new SelectListItem
                     {
                         Text = chucVu.TenChucVu,
-                        Value = chucVu.MaChucVu
+                        Value = chucVu.MaChucVu.ToString()
                     });
                 }
 
@@ -135,7 +135,7 @@ namespace leave_management.Controllers
                     chuyenMonItems.Add(new SelectListItem
                     {
                         Text = chuyenMon.TenChuyenMon,
-                        Value = chuyenMon.MaChuyenMon
+                        Value = chuyenMon.MaChuyenMon.ToString()
                     });
                 }
                 var phongBans = await _phongBanRep.FindAll();
@@ -145,7 +145,7 @@ namespace leave_management.Controllers
                     phongBanItems.Add(new SelectListItem
                     {
                         Text = phongBan.TenPhongBan,
-                        Value = phongBan.MaPhongBan
+                        Value = phongBan.MaPhongBan.ToString()
                     });
                 }
 

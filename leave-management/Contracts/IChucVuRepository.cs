@@ -6,7 +6,7 @@ using leave_management.Data;
 
 namespace leave_management.Contracts
 {
-    public interface IChucVuRepository : IRepositoryBase<DanhMucChucVu>
+    public interface IChucVuRepository : IRepositoryStringKeyBase<DanhMucChucVu>
     {
 
     }

@@ -1,19 +1,30 @@
 ﻿@model IEnumerable<leave_management.Models.LeaveTypeVM>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Quản lý nghỉ phép";
 }
 
-<h1>Loại nghỉ phép</h1>
+<h1>Quản lý nghỉ phép</h1>
 <hr />
 <p>
-    <a asp-action="Create" class="btn btn-success">
-        <i class="fa fa-plus" aria-hidden="true"></i> Tạo mới</a>
+
+    &nbsp;
+    <a asp-controller="LeaveRequest" asp-action="Index" class="btn btn-outline-info">
+        <i class="fa fa-list" aria-hidden="true"></i>
+        &nbsp;Danh sách yêu cầu nghỉ phép
+    </a>
 </p>
+<hr />
+<h3>Danh sách các loại nghỉ phép</h3>
+<a asp-action="Create" class="btn btn-success">
+    <i class="fa fa-plus" aria-hidden="true"></i> Tạo loại nghỉ phép mới
+</a>
+    <br />
+    <br />
 <table id="tblData" class="table">
     <thead>
         <tr>
-            
+
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
@@ -26,34 +37,40 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DefaultDays)
-            </td>
-            <td>
-                <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">
-                <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-                    Chỉnh sửa
-                </a> 
-                <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">
-                    &nbsp;<i class="fas fa-info" aria-hidden="true"></i>&nbsp;
-                    Chi tiết
-                </a> 
-                <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Bạn chắc chắn muốn xóa yêu cầu nghỉ phép này?')">
-                <i class="fas fa-trash" aria-hidden="true"></i>
-                    Xóa
-                </a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DefaultDays)
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@item.Id">
+                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                        Chỉnh sửa
+                    </a>
+                    <a asp-action="Details" class="btn btn-info" asp-route-id="@item.Id">
+                        &nbsp;<i class="fas fa-info" aria-hidden="true"></i>&nbsp;
+                        Chi tiết
+                    </a>
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Bạn chắc chắn muốn xóa yêu cầu nghỉ phép này?')">
+                        <i class="fas fa-trash" aria-hidden="true"></i>
+                        Xóa
+                    </a>
+
+                    <a asp-action="SetLeave" class="btn btn-outline-dark" asp-route-id="@item.Id">
+                        <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+                        Phân bổ cho các nhân viên
+                    </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
-@section Scripts{ 
-    
+@section Scripts{
+
 }
 

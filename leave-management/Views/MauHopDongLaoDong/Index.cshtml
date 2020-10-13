@@ -1,0 +1,128 @@
+﻿@model HomeIndexMauHopDongVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Danh sách mẫu hợp đồng lao động</h1>
+
+<p>
+    <a asp-action="CreateMauHopDong">Tạo mẫu hợp đồng mới</a>
+</p>
+<table id="tblData" class="table">
+    <thead>
+        <tr>
+            <th>
+                Mã mẫu hợp đồng
+            </th>
+            <th>
+                Tên mẫu hợp đồng
+            </th>
+            <th>
+                Ngày gửi mẫu hợp đồng
+            </th>
+
+
+            <th>
+                Hành động
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.mauHopDongVMs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaMauHopDong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenMauHopDong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayGuiMauHopDong)
+                </td>
+
+                <td>
+
+                    <a asp-action="EditMauHopDong" class="btn btn-warning" asp-route-id="@item.MaMauHopDong">
+                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                        Chỉnh sửa
+                    </a>
+                    <a asp-action="DetailsMauHopDong" class="btn btn-info" asp-route-id="@item.MaMauHopDong">
+                        &nbsp;<i class="fas fa-info" aria-hidden="true"></i>&nbsp;
+                        Chi tiết
+                    </a>
+                    <a asp-action="DeleteMauHopDong" class="btn btn-danger" asp-route-id="@item.MaMauHopDong" onclick="return confirm('Bạn chắc chắn muốn xóa mẫu hợp đồng này?')">
+                        <i class="fas fa-trash" aria-hidden="true"></i>
+                        Xóa
+                    </a>
+
+                    <a asp-action="DownloadMauHopDongLaoDong" class="btn btn-outline-dark" asp-route-Filename="@item.ViTriLuuMauHopDong">
+                        <i class="fa fa-download" aria-hidden="true"></i>
+                        Tải về
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h1>Quản lý hợp đồng lao động</h1>
+<br />
+
+    <table id="tblData" class="table">
+        <thead>
+            <tr>
+                <th>
+                    Ảnh
+                </th>
+                <th>
+                    Tên
+                </th>
+                <th>
+                    Họ
+                </th>
+                <th>
+                    Email
+                </th>
+
+                <th>
+                    Xem hợp đồng
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.EmployeeVMs)
+            {
+                <tr>
+                    <td>
+
+                        <img src="~/images/@item.ProfilePicture"
+                             class="rounded-circle"
+                             height="40" width="40"
+                             asp-append-version="true" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+
+
+                    <td>
+                        <a asp-controller="HopDongLaoDong" asp-action="Index" class="btn btn-outline-info" asp-route-id="@item.Id">
+                            <i class="fa fa-info" aria-hidden="true"></i>
+                            &nbsp;Xem hợp đồng
+                        </a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+

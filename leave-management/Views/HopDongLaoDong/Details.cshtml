@@ -1,0 +1,121 @@
+﻿@model leave_management.Models.HopDongLaoDongVM
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>HopDongLaoDongVM</h4>
+    <hr />
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NgayKyKet)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NgayKyKet)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NgayBatDau)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NgayBatDau)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NgayKetThuc)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NgayKetThuc)
+        </dd>
+
+
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NgayGuiBanScan)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NgayGuiBanScan)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NhanVienGuiBanScan)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NhanVienGuiBanScan.FirstName)
+            @Html.DisplayFor(model => model.NhanVienGuiBanScan.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NhanVienChuTheHopDong)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NhanVienChuTheHopDong.FirstName)
+            @Html.DisplayFor(model => model.NhanVienChuTheHopDong.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MauHopDong)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MauHopDong.TenMauHopDong)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GhiChu)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GhiChu)
+        </dd>
+        @if (Model.NhanVienChinhSuaLanCuoi != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NhanVienChinhSuaLanCuoi)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NhanVienChinhSuaLanCuoi.FirstName)
+                @Html.DisplayFor(model => model.NhanVienChinhSuaLanCuoi.LastName)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ThoiGianChinhSuaLanCuoi)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ThoiGianChinhSuaLanCuoi)
+            </dd>
+        }
+        @if (Model.NhanVienHuyHopDong != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NgayHopDongBiHuy)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NgayHopDongBiHuy)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NhanVienHuyHopDong)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NhanVienHuyHopDong)
+            </dd>
+        }
+
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Index" asp-route-id="@Model.MaNhanVienChuTheHopDong" class="btn btn-outline-dark">
+        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+        Quay lại danh sách hợp đồng
+    </a>
+    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.MaHopDong">
+        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+        Chỉnh sửa
+    </a>
+
+    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@Model.MaHopDong" onclick="return confirm('Bạn chắc chắn muốn xóa hợp đồng này?')">
+        <i class="fas fa-trash" aria-hidden="true"></i>
+        Xóa
+    </a>
+
+    <a asp-action="DownloadHopDongLaoDong" class="btn btn-outline-dark" asp-route-Filename="@Model.ViTriLuuBanScan">
+        <i class="fa fa-download" aria-hidden="true"></i>
+        Tải về
+    </a>
+</div>

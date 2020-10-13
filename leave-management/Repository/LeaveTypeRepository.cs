@@ -23,7 +23,7 @@ namespace leave_management.Repository
 
         public async Task<bool> Delete(LeaveType entity)
         {
-            await _db.LeaveTypes.AddAsync(entity);
+             _db.LeaveTypes.Remove(entity);
             return await Save();
         }
 
@@ -37,6 +37,11 @@ namespace leave_management.Repository
             return await _db.LeaveTypes.FindAsync(id);
         }
 
+        public Task<LeaveType> FindById(string id_string)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ICollection<LeaveType>> GetEmployeesByleaveType(int Id)
         {
             throw new NotImplementedException();
@@ -46,6 +51,11 @@ namespace leave_management.Repository
         {
             var exists = await  _db.LeaveTypes.AnyAsync(q => q.Id == id);
             return exists;
+        }
+
+        public Task<bool> isExist(string id_string)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> Save()

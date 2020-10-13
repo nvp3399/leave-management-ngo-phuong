@@ -52,6 +52,11 @@ namespace leave_management.Repository
                     .FirstOrDefaultAsync(q => q.Id == id);
         }
 
+        public Task<LeaveAllocation> FindById(string id_string)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ICollection<LeaveAllocation>> GetLeaveAllocationsByEmployee(string id)
         {
             var period = DateTime.Now.Year;
@@ -72,6 +77,11 @@ namespace leave_management.Repository
         {
             var exists = await _db.LeaveAllocations.AnyAsync(q => q.Id == id);
             return exists;
+        }
+
+        public Task<bool> isExist(string id_string)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> Save()

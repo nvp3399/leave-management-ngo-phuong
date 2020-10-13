@@ -9,7 +9,7 @@
         <h4 class="alert-heading">Đã bị hủy</h4>
         <p>
             <strong>@Html.DisplayNameFor(model => model.RequestingEmployeeId):</strong>
-            @Model.RequestingEmployee.Firstname @Model.RequestingEmployee.LastName
+            @Model.RequestingEmployee.FirstName @Model.RequestingEmployee.LastName
         </p>
         <hr />
         <p>
@@ -24,7 +24,7 @@ else if (Model.Approved == null)
         <h4 class="alert-heading">Chờ phê duyệt</h4>
         <p>
             <strong>@Html.DisplayNameFor(model => model.RequestingEmployeeId):</strong>
-            @Model.RequestingEmployee.Firstname @Model.RequestingEmployee.LastName
+            @Model.RequestingEmployee.FirstName @Model.RequestingEmployee.LastName
         </p>
         <hr />
         <p>
@@ -49,7 +49,7 @@ else if (Model.Approved == true)
         </h4>
         <p>
             <strong>@Html.DisplayNameFor(model => model.RequestingEmployeeId):</strong>
-            @Model.RequestingEmployee.Firstname @Model.RequestingEmployee.LastName
+            @Model.RequestingEmployee.FirstName @Model.RequestingEmployee.LastName
         </p>
         <hr />
         <p>
@@ -68,12 +68,12 @@ else
             }
             else
             {
-                <span> @Model.ApproveBy.Firstname @Model.ApproveBy.LastName</span>
+                <span> @Model.ApproveBy.FirstName @Model.ApproveBy.LastName</span>
             }
         </h4>
         <p>
             <strong>@Html.DisplayNameFor(model => model.RequestingEmployeeId):</strong>
-            @Model.RequestingEmployee.Firstname @Model.RequestingEmployee.LastName
+            @Model.RequestingEmployee.FirstName @Model.RequestingEmployee.LastName
         </p>
         <hr />
         <p>
@@ -93,7 +93,7 @@ else
             Tên nhân viên
         </dt>
         <dd class="col-sm-10">
-            @Model.RequestingEmployee.Firstname @Model.RequestingEmployee.LastName
+            @Model.RequestingEmployee.FirstName @Model.RequestingEmployee.LastName
         </dd>
 
         <dt class="col-sm-2">

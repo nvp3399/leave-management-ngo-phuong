@@ -308,6 +308,7 @@ namespace leave_management.Controllers
             }
             var isSuccess = await _leaveRequestRepo.Delete(leavetype);
 
+
             if (!isSuccess)
             {
                 return BadRequest();

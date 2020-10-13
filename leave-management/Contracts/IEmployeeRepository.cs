@@ -6,7 +6,7 @@ using leave_management.Data;
 
 namespace leave_management.Contracts
 {
-    interface IEmployeeRepository : IRepositoryBase<Employee>
+    public interface IEmployeeRepository : IRepositoryStringKeyBase<Employee>
     {
         
     }

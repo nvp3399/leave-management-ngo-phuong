@@ -1,16 +1,15 @@
 ﻿@model leave_management.Models.CreateEmployeeVM
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Thêm nhân viên mới";
 }
 
-<h1>Create</h1>
+<h1>Thêm nhân viên mới</h1>
 
-<h4>CreateEmployeeVM</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form enctype="multipart/form-data" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
@@ -20,7 +19,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <input asp-for="Password" class="form-control" value="Password0." />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -29,9 +28,9 @@
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Firstname" class="control-label"></label>
-                <input asp-for="Firstname" class="form-control" />
-                <span asp-validation-for="Firstname" class="text-danger"></span>
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MiddleName" class="control-label"></label>
@@ -53,11 +52,7 @@
                 <input asp-for="DateOfBirth" class="form-control" />
                 <span asp-validation-for="DateOfBirth" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DateJoined" class="control-label"></label>
-                <input asp-for="DateJoined" class="form-control" />
-                <span asp-validation-for="DateJoined" class="text-danger"></span>
-            </div>
+
             <div class="form-group form-check">
                 <strong>@Html.DisplayNameFor(model => model.GioiTinh) </strong>
                 <label class="form-check-label">
@@ -98,24 +93,37 @@
                 @Html.DropDownListFor(q => q.MaPhongBan, new SelectList(Model.CacPhongBan, "Value", "Text"), "Chọn phòng ban", new { @class = "form-control" })
                 <span asp-validation-for="MaPhongBan" class="text-danger"></span>
             </div>
-
-
+            <div class="form-group">
+                <label asp-for="LoaiNhanVien" class="control-label"></label>
+                @Html.DropDownListFor(q => q.LoaiNhanVien, new SelectList(Model.CacLoaiNhanVien), "Chọn loại nhân viên", new { @class = "form-control" })
+                <span asp-validation-for="LoaiNhanVien" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaVaiTroTrenHeThong" class="control-label"></label>
+                @Html.DropDownListFor(q => q.MaVaiTroTrenHeThong, new SelectList(Model.CacVaiTro, "Value", "Text"), "Chọn vai trò", new { @class = "form-control" })
+                <span asp-validation-for="MaVaiTroTrenHeThong" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="MucLuongCoBan" class="control-label"></label>
                 <input asp-for="MucLuongCoBan" class="form-control" value="10000000" />
                 <span asp-validation-for="MucLuongCoBan" class="text-danger"></span>
             </div>
 
-
-
-            <div class="form-group">
-                <label asp-for="LoaiNhanVien" class="control-label"></label>
-                @Html.DropDownListFor(q => q.LoaiNhanVien, new SelectList( Model.CacLoaiNhanVien), "Chọn loại nhân viên", new { @class = "form-control" })
-                <span asp-validation-for="LoaiNhanVien" class="text-danger"></span>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="ProfileImage" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="ProfileImage" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                    <span asp-validation-for="ProfileImage" class="text-danger"></span>
+                </div>
             </div>
 
+
+
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Thêm vào hệ thống" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -125,3 +133,13 @@
     <a asp-action="Index">Quay lại danh sách nhân viên</a>
 </div>
 
+@section scripts{
+    <script type="text/javascript">
+
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+}  

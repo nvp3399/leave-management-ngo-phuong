@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<leave_management.Models.EmployeeVM>
 
 @{
-    ViewData["Title"] = "Nhân viên";
 
 }
 
@@ -15,9 +14,11 @@
 <table id="tblData" class="table">
     <thead>
         <tr>
-
             <th>
-                @Html.DisplayNameFor(model => model.Firstname)
+                Ảnh
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.LastName)
@@ -25,8 +26,19 @@
             <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaPhongBan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaChuyenMon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VaiTroTrenHeThong)
+            </th>
+            <th>
+                Hành động
+            </th>
 
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -34,7 +46,14 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Firstname)
+
+                    <img src="~/images/@item.ProfilePicture"
+                         class="rounded-circle"
+                         height="40" width="40"
+                         asp-append-version="true" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.LastName)
@@ -42,14 +61,30 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhongBan.TenPhongBan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChuyenMon.TenChuyenMon)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VaiTroTrenHeThong.Name)
+                </td>
 
                 <td>
                     <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.Id">
                         <i class="fa fa-info" aria-hidden="true"></i>
                         &nbsp;Hồ sơ
                     </a>
+                    <a asp-action="EditEmployee" class="btn btn-warning" asp-route-id="@item.Id">
+                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                        Chỉnh sửa
+                    </a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+

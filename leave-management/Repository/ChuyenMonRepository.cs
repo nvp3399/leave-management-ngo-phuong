@@ -32,12 +32,16 @@ namespace leave_management.Repository
             
         }
 
-        public Task<DanhMucChuyenMon> FindById(int id)
+
+
+        public async Task<DanhMucChuyenMon> FindById(string id_string)
         {
-            throw new NotImplementedException();
+            return await _db.DanhMucChuyenMons.FirstOrDefaultAsync(q => q.MaChuyenMon == id_string);
         }
 
-        public Task<bool> isExist(int id)
+
+
+        public Task<bool> isExist(string id_string)
         {
             throw new NotImplementedException();
         }

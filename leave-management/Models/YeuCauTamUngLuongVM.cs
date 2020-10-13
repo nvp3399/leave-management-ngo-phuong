@@ -10,7 +10,7 @@ namespace leave_management.Models
 {
     public class YeuCauTamUngLuongVM
     {
-        public int MaYeuCau { get; set; }
+        public string MaYeuCau { get; set; }
 
         public EmployeeVM NhanVienGuiYeuCau { get; set; }
         public DateTime NgayGuiYeuCau { get; set; }

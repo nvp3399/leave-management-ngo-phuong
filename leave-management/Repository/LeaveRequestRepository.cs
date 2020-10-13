@@ -45,6 +45,11 @@ namespace leave_management.Repository
                 .FirstOrDefaultAsync(q => q.Id == id);
         }
 
+        public Task<LeaveRequest> FindById(string id_string)
+        {
+            throw new NotImplementedException();
+        }
+
         public ICollection<LeaveRequest> GetEmployeesByLeaveHistory(int id)
         {
             throw new Exception();
@@ -54,6 +59,11 @@ namespace leave_management.Repository
         {
             var exists = await _db.LeaveRequests.AnyAsync(q => q.Id == id);
             return exists;
+        }
+
+        public Task<bool> isExist(string id_string)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> Save()

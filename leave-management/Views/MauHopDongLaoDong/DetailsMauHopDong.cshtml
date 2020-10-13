@@ -1,0 +1,92 @@
+﻿@model leave_management.Models.MauHopDongVM
+
+@{
+    ViewData["Title"] = "Chi tiết mẫu hợp đồng";
+}
+
+<h1>Chi tiết mẫu hợp đồng</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaMauHopDong)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MaMauHopDong)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TenMauHopDong)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TenMauHopDong)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaNhanVienLuuMauHopDong)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NhanVienLuuMauHopDong.FirstName)
+            @Html.DisplayFor(model => model.NhanVienLuuMauHopDong.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NgayGuiMauHopDong)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NgayGuiMauHopDong)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ViTriLuuMauHopDong)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.ActionLink("Download", "DownloadMauHopDongLaoDong", new { filename = Model.ViTriLuuMauHopDong })
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GhiChu)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GhiChu)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaLoaiHopDong)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LoaiHopDong.TenLoai)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MaNhanVienChinhSuaLanCuoi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NhanVienChinhSuaLanCuoi.FirstName)
+            @Html.DisplayFor(model => model.NhanVienChinhSuaLanCuoi.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ThoiGianChinhSuaLanCuoi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ThoiGianChinhSuaLanCuoi)
+        </dd>
+       
+    </dl>
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-outline-dark">
+        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+        Quay lại danh sách
+    </a>
+    <a asp-action="EditMauHopDong" class="btn btn-warning" asp-route-id="@Model.MaMauHopDong">
+        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+        Chỉnh sửa
+    </a>
+
+    <a asp-action="DeleteMauHopDong" class="btn btn-danger" asp-route-id="@Model.MaMauHopDong" onclick="return confirm('Bạn chắc chắn muốn xóa mẫu hợp đồng này?')">
+        <i class="fas fa-trash" aria-hidden="true"></i>
+        Xóa
+    </a>
+
+    <a asp-action="DownloadMauHopDongLaoDong" class="btn btn-outline-dark" asp-route-Filename="@Model.ViTriLuuMauHopDong">
+        <i class="fa fa-download" aria-hidden="true"></i>
+        Tải về
+    </a>
+
+</div>

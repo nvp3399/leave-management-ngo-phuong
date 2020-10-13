@@ -1,0 +1,82 @@
+﻿@model leave_management.Models.CreateEditHopDongLaoDongVM
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Tải lên bản scan hợp đồng lao động</h1>
+<hr />
+<h3>Tên nhân viên: @Model.NhanVienChuTheHopDong.FirstName @Model.NhanVienChuTheHopDong.LastName</h3>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form enctype="multipart/form-data" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="MaHopDong" type="hidden" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="NgayKyKet" class="control-label"></label>
+                <input asp-for="NgayKyKet" class="form-control" />
+                <span asp-validation-for="NgayKyKet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NgayBatDau" class="control-label"></label>
+                <input asp-for="NgayBatDau" class="form-control" />
+                <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NgayKetThuc" class="control-label"></label>
+                <input asp-for="NgayKetThuc" class="form-control" />
+                <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="FileHopDongScan" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="FileHopDongScan" class="custom-file-input" id="customFile" accept="application/pdf">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                    <span asp-validation-for="FileHopDongScan" class="text-danger"></span>
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <input asp-for="MaNhanVienChuTheHopDong" type="hidden" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="MaMauHopDong" class="control-label"></label>
+                @Html.DropDownListFor(q => q.MaMauHopDong, new SelectList(Model.MauHopDongs, "Value", "Text"), "Chọn Mẫu hợp đồng", new { @class = "form-control" })
+                <span asp-validation-for="MaMauHopDong" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GhiChu" class="control-label"></label>
+                <input asp-for="GhiChu" class="form-control" />
+                <span asp-validation-for="GhiChu" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-id="@Model.MaNhanVienChuTheHopDong">Quay lại danh sách hợp đồng</a>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+}  

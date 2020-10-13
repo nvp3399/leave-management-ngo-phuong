@@ -11,7 +11,7 @@ namespace leave_management.Data
     public class Employee : IdentityUser
     {
         [Required]
-        public string Firstname { get; set; }
+        public string FirstName { get; set; }
 
         public string MiddleName { get; set; }
         [Required]
@@ -38,9 +38,6 @@ namespace leave_management.Data
         public string MaPhongBan { get; set; }
         public string MaSoThue { get; set; }
 
-        [ForeignKey("MaHopDong")]
-        public HopDongLaoDong HopDong { get; set; }
-        public string MaHopDong { get; set; }
 
         [Required]
         public int MucLuongCoBan { get; set; }
@@ -51,6 +48,10 @@ namespace leave_management.Data
         public string MaNhanVienThemVaoHeThong { get; set; }
         public string ViTriLuuAnhDaiDien { get; set; }
 
+        
+        public string SoCMND { get; set; }
 
+
+        public string ProfilePicture { get; set; }
     }
 }

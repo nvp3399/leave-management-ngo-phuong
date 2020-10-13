@@ -8,6 +8,7 @@ using leave_management.Data;
 using leave_management.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace leave_management.Controllers
@@ -15,19 +16,26 @@ namespace leave_management.Controllers
     [Authorize(Roles = "Administrator")]
     public class LeaveTypesController : Controller
     {
-        private readonly ILeaveTypeRepository _repo;
+        private readonly ILeaveTypeRepository _leaveTypeRepository;
         private readonly IMapper _mapper;
+        private readonly ILeaveAllocationRepository _leaveAllocationRepository;
+        private readonly UserManager<Employee> _userManager;
 
-        public LeaveTypesController(ILeaveTypeRepository repo, IMapper mapper)
+        public LeaveTypesController(ILeaveTypeRepository leaveTypeRepository,
+            IMapper mapper,
+            ILeaveAllocationRepository leaveAllocationRepository,
+            UserManager<Employee> userManager)
         {
-            _repo = repo;
+            _leaveTypeRepository = leaveTypeRepository;
             _mapper = mapper;
+            _leaveAllocationRepository = leaveAllocationRepository;
+            _userManager = userManager;
         }
 
         // GET: LeaveTypesController
         public async Task<ActionResult> Index()
         {
-            var leavetypes = (await _repo.FindAll()).ToList();
+            var leavetypes = (await _leaveTypeRepository.FindAll()).ToList();
             var model = _mapper.Map<List<LeaveType>, List<LeaveTypeVM>>(leavetypes);
             return View(model);
         }
@@ -35,11 +43,11 @@ namespace leave_management.Controllers
         // GET: LeaveTypesController/Details/5
         public async Task<ActionResult> Details(int id)
         {
-            if (!(await _repo.isExist(id)))
+            if (!(await _leaveTypeRepository.isExist(id)))
             {
                 return NotFound();
             }
-            var leavetype = await _repo.FindById(id);
+            var leavetype = await _leaveTypeRepository.FindById(id);
             var model = _mapper.Map<LeaveTypeVM>(leavetype);
             return View(model);
         }
@@ -65,7 +73,7 @@ namespace leave_management.Controllers
                 var leaveType = _mapper.Map<LeaveType>(model);
                 leaveType.DateCreated = DateTime.Now;
                 
-                var isSuccess = await _repo.Create(leaveType);
+                var isSuccess = await _leaveTypeRepository.Create(leaveType);
 
                 if(!isSuccess)
                 {
@@ -86,11 +94,11 @@ namespace leave_management.Controllers
         public async Task<ActionResult> Edit(int id)
         {
             
-            if (!(await _repo.isExist(id)))
+            if (!(await _leaveTypeRepository.isExist(id)))
             {
                 return NotFound();
             }
-            var leavetype = await _repo.FindById(id);
+            var leavetype = await _leaveTypeRepository.FindById(id);
             var model = _mapper.Map<LeaveTypeVM>(leavetype);
             return View(model);
         }
@@ -108,7 +116,7 @@ namespace leave_management.Controllers
                 }
 
                 var leaveType = _mapper.Map<LeaveType>(model);
-                var isSuccess = await _repo.Update(leaveType);
+                var isSuccess = await _leaveTypeRepository.Update(leaveType);
                 if(! isSuccess)
                 {
                     ModelState.AddModelError("", "Something Went Wrong...");
@@ -127,12 +135,12 @@ namespace leave_management.Controllers
         // GET: LeaveTypesController/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
-            var leavetype = await _repo.FindById(id);
+            var leavetype = await _leaveTypeRepository.FindById(id);
             if (leavetype == null)
             {
                 return NotFound();
             }
-            var isSuccess = await _repo.Delete(leavetype);
+            var isSuccess = await _leaveTypeRepository.Delete(leavetype);
 
             if (!isSuccess)
             {
@@ -156,6 +164,30 @@ namespace leave_management.Controllers
             {
                 return View(model);
             }
+        }
+
+        public async Task<ActionResult> SetLeave(int id)
+        {
+            var leavetype = await _leaveTypeRepository.FindById(id);
+            var employees = await _userManager.GetUsersInRoleAsync("Employee");
+            foreach (var emp in employees)
+            {
+                if (await _leaveAllocationRepository.CheckAllocation(id, emp.Id))
+                {
+                    continue;
+                }
+                var allocation = new LeaveAllocationVM
+                {
+                    DateCreated = DateTime.Now,
+                    EmployeeId = emp.Id,
+                    LeaveTypeId = id,
+                    NumberOfDays = leavetype.DefaultDays,
+                    Period = DateTime.Now.Year
+                };
+                var leaveallocation = _mapper.Map<LeaveAllocation>(allocation);
+                await _leaveAllocationRepository.Create(leaveallocation);
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }

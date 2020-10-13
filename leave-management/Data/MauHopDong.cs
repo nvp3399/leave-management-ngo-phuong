@@ -26,5 +26,10 @@ namespace leave_management.Data
         public LoaiHopDong LoaiHopDong { get; set; }
         public string MaLoaiHopDong { get; set; }
 
+        [ForeignKey("MaNhanVienChinhSuaLanCuoi")]
+        public Employee NhanVienChinhSuaLanCuoi { get; set; }
+        public string MaNhanVienChinhSuaLanCuoi { get; set; }
+        public DateTime ThoiGianChinhSuaLanCuoi { get; set; }
+
     }
 }
