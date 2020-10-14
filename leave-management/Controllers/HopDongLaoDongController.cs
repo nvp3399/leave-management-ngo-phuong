@@ -24,7 +24,6 @@ namespace leave_management.Controllers
         private readonly IChucVuRepository chucVuRepo;
         private readonly IChuyenMonRepository chuyenMonRepo;
         private readonly IPhongBanRepository phongBanRep;
-        private readonly IEmployeeRepository employeeRepository;
         private readonly IRoleRepository roleRepository;
         private readonly IWebHostEnvironment webHostEnvironment;
         private readonly IUserRoleRepository userRoleRepository;
@@ -38,7 +37,6 @@ namespace leave_management.Controllers
             IChucVuRepository chucVuRepo,
             IChuyenMonRepository chuyenMonRepo,
             IPhongBanRepository phongBanRepo,
-            IEmployeeRepository employeeRepository,
             IRoleRepository roleRepository,
             IWebHostEnvironment hostEnvironment,
             IUserRoleRepository userRoleRepository,
@@ -53,7 +51,6 @@ namespace leave_management.Controllers
             this.chucVuRepo = chucVuRepo;
             this.chuyenMonRepo = chuyenMonRepo;
             phongBanRep = phongBanRepo;
-            this.employeeRepository = employeeRepository;
             this.roleRepository = roleRepository;
             webHostEnvironment = hostEnvironment;
             this.userRoleRepository = userRoleRepository;

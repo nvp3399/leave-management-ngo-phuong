@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using leave_management.Data;
 
 namespace leave_management.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201014091219_TableNhatKyLamViecAdd2Properties")]
+    partial class TableNhatKyLamViecAdd2Properties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -280,16 +282,10 @@ namespace leave_management.Data.Migrations
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MaNhanVienChinhSuaLanCuoi")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("MaNhanVienGui")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("NgayLuuVaoHeThong")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ThoiGianChinhSuaLanCuoi")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ViTriLuuBanScan")
@@ -299,8 +295,6 @@ namespace leave_management.Data.Migrations
                     b.HasKey("MaNhanVien", "MaLoaiGiayTo");
 
                     b.HasIndex("MaLoaiGiayTo");
-
-                    b.HasIndex("MaNhanVienChinhSuaLanCuoi");
 
                     b.HasIndex("MaNhanVienGui");
 
@@ -896,10 +890,6 @@ namespace leave_management.Data.Migrations
                         .HasForeignKey("MaNhanVien")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("leave_management.Data.Employee", "NhanVienChinhSuaLanCuoi")
-                        .WithMany()
-                        .HasForeignKey("MaNhanVienChinhSuaLanCuoi");
 
                     b.HasOne("leave_management.Data.Employee", "NhanVienGui")
                         .WithMany()

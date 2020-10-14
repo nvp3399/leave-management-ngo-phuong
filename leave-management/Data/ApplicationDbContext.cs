@@ -50,7 +50,7 @@ namespace leave_management.Data
                 .HasKey(c => new { c.MaNhanVien, c.ThoiGianXuatPhieuChi });
 
             modelBuilder.Entity<NhatKyLamViec>()
-                .HasKey(c => new { c.MaNhanVien, c.ThoiGianBatDau, c.ThoiGianKetThuc });
+                .HasKey(c => new { c.MaNhanVien, c.ThoiGianBatDau });
 
             //modelBuilder.Entity<Employee>()
             //    .HasOne(emp => emp.HopDong)

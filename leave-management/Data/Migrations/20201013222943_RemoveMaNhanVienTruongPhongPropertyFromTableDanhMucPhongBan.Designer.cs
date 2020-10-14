@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using leave_management.Data;
 
 namespace leave_management.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201013222943_RemoveMaNhanVienTruongPhongPropertyFromTableDanhMucPhongBan")]
+    partial class RemoveMaNhanVienTruongPhongPropertyFromTableDanhMucPhongBan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -280,16 +282,10 @@ namespace leave_management.Data.Migrations
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("MaNhanVienChinhSuaLanCuoi")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("MaNhanVienGui")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("NgayLuuVaoHeThong")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ThoiGianChinhSuaLanCuoi")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("ViTriLuuBanScan")
@@ -299,8 +295,6 @@ namespace leave_management.Data.Migrations
                     b.HasKey("MaNhanVien", "MaLoaiGiayTo");
 
                     b.HasIndex("MaLoaiGiayTo");
-
-                    b.HasIndex("MaNhanVienChinhSuaLanCuoi");
 
                     b.HasIndex("MaNhanVienGui");
 
@@ -517,8 +511,8 @@ namespace leave_management.Data.Migrations
                     b.Property<string>("MaLoai")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<float>("HeSoLuongCoBan")
-                        .HasColumnType("real");
+                    b.Property<byte>("HeSoLuongCoBan")
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("TenLoaiLichBieu")
                         .IsRequired()
@@ -607,29 +601,21 @@ namespace leave_management.Data.Migrations
                     b.Property<DateTime>("ThoiGianBatDau")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("ThoiGianKetThuc")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MaLoaiLichBieu")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("MaNhanVienThemVaoHeThong")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("NgayThemVaoHeThong")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("SoTienThuongThem")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ThoiGianKetThuc")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("MaNhanVien", "ThoiGianBatDau");
+                    b.HasKey("MaNhanVien", "ThoiGianBatDau", "ThoiGianKetThuc");
 
                     b.HasIndex("MaLoaiLichBieu");
-
-                    b.HasIndex("MaNhanVienThemVaoHeThong");
 
                     b.ToTable("NhatKyLamViecs");
                 });
@@ -897,10 +883,6 @@ namespace leave_management.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("leave_management.Data.Employee", "NhanVienChinhSuaLanCuoi")
-                        .WithMany()
-                        .HasForeignKey("MaNhanVienChinhSuaLanCuoi");
-
                     b.HasOne("leave_management.Data.Employee", "NhanVienGui")
                         .WithMany()
                         .HasForeignKey("MaNhanVienGui");
@@ -1005,10 +987,6 @@ namespace leave_management.Data.Migrations
                         .HasForeignKey("MaNhanVien")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("leave_management.Data.Employee", "NhanVienThemVaoHeThong")
-                        .WithMany()
-                        .HasForeignKey("MaNhanVienThemVaoHeThong");
                 });
 
             modelBuilder.Entity("leave_management.Data.PhieuChi", b =>

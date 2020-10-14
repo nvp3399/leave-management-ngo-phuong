@@ -75,10 +75,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="GeneralFunctions\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\mauHopDongLaoDongs\" />
     <Folder Include="wwwroot\hopDongLaoDongs\" />
+    <Folder Include="wwwroot\giayToTuyThans\" />
   </ItemGroup>
 
 </Project>

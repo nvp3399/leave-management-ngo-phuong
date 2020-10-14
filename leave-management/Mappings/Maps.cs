@@ -38,6 +38,21 @@ namespace leave_management.Mappings
             CreateMap<HopDongLaoDong, HopDongLaoDongVM>().ReverseMap();
             CreateMap<HopDongLaoDong, CreateEditHopDongLaoDongVM>().ReverseMap();
 
+            CreateMap<GiayToTuyThan, GiayToTuyThanVM>().ReverseMap();
+            CreateMap<LoaiGiayToTuyThan, LoaiGiayToTuyThanVM>().ReverseMap();
+            CreateMap<LoaiLichBieu, LoaiLichBieuVM>().ReverseMap();
+            CreateMap<LuongTheoThang, LuongTheoThangVM>().ReverseMap();
+            CreateMap<NhatKyLamViec, NhatKyLamViecVM>().ReverseMap();
+            CreateMap<PhieuChi, PhieuChiVM>().ReverseMap();
+            CreateMap<YeuCauDatLuongCoBan, YeuCauDatLuongCoBanVM>().ReverseMap();
+            CreateMap<YeuCauTamUngLuong, YeuCauTamUngLuongVM>().ReverseMap();
+            CreateMap<NhatKyLamViec, CreateEditNhatKyLamViecVM>().ReverseMap();
+            CreateMap<Employee, ChamCongVM>().ReverseMap();
+            CreateMap<GiayToTuyThan, CreateEditGiayToTuyThanVM>().ReverseMap();
+
+
+
+
         }
     }
 }

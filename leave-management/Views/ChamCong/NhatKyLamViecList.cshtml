@@ -1,0 +1,87 @@
+﻿@model IEnumerable<leave_management.Models.NhatKyLamViecVM>
+
+@{
+    ViewData["Title"] = "NhatKyLamViecList";
+}
+
+<h1>Quản lý chấm công</h1>
+<hr />
+<h3>Nhân viên: @ViewBag.EmployeeName</h3>
+
+<p>
+    <a asp-action="Create" asp-route-employeeId="@ViewBag.EmployeeId">Thêm nhật ký làm việc</a>
+</p>
+
+<h3>Nhật ký làm việc</h3>
+<table id="tblData" class="table">
+    <thead>
+        <tr>
+            <th>
+                Ngày
+            </th>
+            <th>
+                Thời gian bắt đầu
+            </th>
+            <th>
+                Thời gian kết thúc
+            </th>
+            <th>
+                Loại lịch biểu
+            </th>
+            <th>
+                Hệ số lương
+            </th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.ThoiGianBatDau.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThoiGianBatDau.TimeOfDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThoiGianKetThuc.TimeOfDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoaiLichBieu.TenLoaiLichBieu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LoaiLichBieu.HeSoLuongCoBan)
+                </td>
+                <td>
+
+
+                    @*<a asp-controller="ChamCong" asp-action="Delete" class="btn btn-danger" asp-route-employeeId="@item.NhanVien.Id" asp-route-thoiGianBatDau="@item.ThoiGianBatDau"
+           onclick="return confirm('Bạn có chắc muốn xóa record này?')">
+            <i class="fas fa-trash" aria-hidden="true"></i>
+             Xóa
+        </a>*@
+                    @*<a class="btn btn-outline-primary" asp-controller="ChamCong" asp-action="Details" asp-route-id="@item.">
+                        <i class="fa fa-file"></i>
+                        Chi tiết
+                    </a>*@
+
+                    <span >
+                        <i class="fas fa-file" aria-hidden="true"></i>
+                        @Html.ActionLink("Chi tiết", "Details", "ChamCong", new { employeeId = item.NhanVien.Id, thoiGianBatDau = item.ThoiGianBatDau }, new { @class = "btn btn-outline-primary" })
+                    </span>
+
+                    <span btn btn-danger>
+                        <i class="fas fa-trash" aria-hidden="true"></i>
+                        @Html.ActionLink("Xóa", "Delete", "ChamCong", new { employeeId = item.NhanVien.Id, thoiGianBatDau = item.ThoiGianBatDau }, new { @class = "btn btn-danger", onclick = "return confirm('Bạn có chắc muốn xóa record này?')" })
+                    </span>
+
+                    @*<a asp-action="Cancelled" title="Cancelled" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Bạn có chắc bạn muốn hủy yêu cầu này?')">
+            <i class="fa fa-ban" aria-hidden="true"></i>
+            Hủy
+        </a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

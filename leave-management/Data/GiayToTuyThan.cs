@@ -26,5 +26,10 @@ namespace leave_management.Data
         public string ViTriLuuBanScan { get; set; }
         public string GhiChu { get; set; }
 
+        [ForeignKey("MaNhanVienChinhSuaLanCuoi")]
+        public Employee NhanVienChinhSuaLanCuoi { get; set; }
+        public string MaNhanVienChinhSuaLanCuoi { get; set; }
+        public DateTime ThoiGianChinhSuaLanCuoi { get; set; }
+
     }
 }

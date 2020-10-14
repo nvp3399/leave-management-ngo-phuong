@@ -3,11 +3,12 @@
 @{
 
 }
-<h1>Trang này dành cho nhân viên phòng nhân sự (và các tác nhân kế thừa). Có thể trưởng phòng cũng xem được trang này</h1>
+<h1>Quản lý giấy tờ tùy thân</h1>
 <hr />
-<a asp-controller="Employee" asp-action="Create" class="btn btn-success">
-    <i class="fa fa-plus" aria-hidden="true"></i> Thêm nhân viên mới
-</a>
+
+<h2>Trang này dành cho nhân viên phòng nhân sự (và các tác nhân kế thừa).</h2>
+<hr />
+
 <br />
 <h1>Danh sách nhân viên</h1>
 <br />
@@ -73,14 +74,11 @@
                 </td>
 
                 <td>
-                    <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.Id">
+                    <a asp-action="Index" class="btn btn-outline-info" asp-route-id="@item.Id">
                         <i class="fa fa-info" aria-hidden="true"></i>
-                        &nbsp;Hồ sơ
+                        &nbsp;Xem giấy tờ tùy thân
                     </a>
-                    <a asp-action="EditEmployee" class="btn btn-warning" asp-route-id="@item.Id">
-                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-                        Chỉnh sửa
-                    </a>
+
                 </td>
             </tr>
         }

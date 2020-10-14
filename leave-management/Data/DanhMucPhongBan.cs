@@ -13,8 +13,6 @@ namespace leave_management.Data
         public string MaPhongBan { get; set; }
         [Required]
         public string TenPhongBan { get; set; }
-        [ForeignKey("MaNhanVienTruongPhong")]
-        public Employee NhanVienTruongPhong { get; set; }
-        public string MaNhanVienTruongPhong { get; set; }
+
     }
 }

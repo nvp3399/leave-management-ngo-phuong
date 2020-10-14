@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Tải lên bản scan Giấy tờ tùy thân</h1>
+<h1>Tải lên bản scan hợp đồng lao động</h1>
 <hr />
 <h3>Tên nhân viên: @Model.NhanVien.FirstName @Model.NhanVien.LastName</h3>
 
@@ -13,11 +13,24 @@
     <div class="col-md-4">
         <form enctype="multipart/form-data" asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
             <div class="form-group">
                 <input asp-for="MaNhanVien" type="hidden" class="form-control" />
             </div>
-
+            @*<div class="form-group">
+                <label asp-for="NgayKyKet" class="control-label"></label>
+                <input asp-for="NgayKyKet" class="form-control" />
+                <span asp-validation-for="NgayKyKet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NgayBatDau" class="control-label"></label>
+                <input asp-for="NgayBatDau" class="form-control" />
+                <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NgayKetThuc" class="control-label"></label>
+                <input asp-for="NgayKetThuc" class="form-control" />
+                <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+            </div>*@
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="FileGiayToTuyThanScan" class="control-label"></label>
@@ -31,10 +44,12 @@
 
 
 
-
+            <div class="form-group">
+                <input asp-for="MaNhanVien" type="hidden" class="form-control" />
+            </div>
             <div class="form-group">
                 <label asp-for="MaLoaiGiayTo" class="control-label"></label>
-                @Html.DropDownListFor(q => q.MaLoaiGiayTo, new SelectList(Model.MauGiayToTuyThans, "Value", "Text"), "Chọn Mẫu hợp đồng", new { @class = "form-control" })
+                @Html.DropDownListFor(q => q.MaLoaiGiayTo, new SelectList(Model.MauGiayToTuyThans, "Value", "Text"), "Chọn loại giấy tờ tùy thân", new { @class = "form-control" })
                 <span asp-validation-for="MaLoaiGiayTo" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -52,7 +67,7 @@
 </div>
 
 <div>
-    <a asp-action="Index" asp-route-id="@Model.MaNhanVien">Quay lại danh sách giấy tờ tùy thân</a>
+    <a asp-action="Index" asp-route-id="@Model.MaNhanVien">Quay lại danh sách hợp đồng</a>
 </div>
 
 @section scripts{

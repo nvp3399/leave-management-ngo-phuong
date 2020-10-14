@@ -1,0 +1,117 @@
+﻿@model leave_management.Models.ChamCongVMList
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Trang này dành cho trưởng phòng</h1>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label asp-for="ViewForm.CurrentYear" class="control-label"></label>
+                    @Html.DropDownListFor(q => q.ViewForm.CurrentYear, new SelectList(Model.Years, "Value", "Text"), "Chọn năm", new { @class = "form-control" })
+                    <span asp-validation-for="ViewForm.CurrentYear" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ViewForm.CurrentMonth" class="control-label"></label>
+                    @Html.DropDownListFor(q => q.ViewForm.CurrentMonth, new SelectList(Model.MonthsInYear, "Value", "Text"), "Chọn tháng", new { @class = "form-control" })
+                    <span asp-validation-for="ViewForm.CurrentMonth" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Xem" class="btn btn-primary btn-block" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<hr />
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>*@
+
+<table id="tblData" class="table">
+    <thead>
+        <tr>
+            <th>
+                Ảnh
+            </th>
+            <th>
+                Tên
+            </th>
+            <th>
+                Họ
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Tổng số giờ làm đã tích lũy
+            </th>
+            <td>
+                Tổng tiền lương cơ bản (basic) đã tích lũy
+            </td>
+            <td>
+                Tổng tiền thưởng (bonus) đã tích lũy
+            </td>
+            <td>
+                Tổng tiền lương đã tích lũy
+            </td>
+
+            <th>
+                Hành động
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ChamCongList)
+        {
+            <tr>
+                <td>
+
+                    <img src="~/images/@item.ProfilePicture"
+                         class="rounded-circle"
+                         height="40" width="40"
+                         asp-append-version="true" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TongSoGioLam)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TongTienLuongCoBanDaTichLuyTrongThang)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TongTienThuongDaTichLuyTrongThang)
+                </td>
+                <td>
+                    @item.TongTienLuong
+                </td>
+                <td>
+
+                    <a asp-action="NhatKyLamViecList" class="btn btn-toolbar" asp-route-employeeId="@item.Id">
+                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                        Chấm công
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

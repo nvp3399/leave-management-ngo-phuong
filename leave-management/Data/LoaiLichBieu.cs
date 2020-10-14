@@ -13,7 +13,7 @@ namespace leave_management.Data
         [Required]
         public string TenLoaiLichBieu { get; set; }
         [Required]
-        public byte HeSoLuongCoBan { get; set; }
+        public float HeSoLuongCoBan { get; set; }
 
     }
 }
