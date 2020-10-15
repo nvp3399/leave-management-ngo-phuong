@@ -6,7 +6,11 @@
 
 <h1>Quản lý chấm công</h1>
 <hr />
-<h3>Nhân viên: @ViewBag.EmployeeName</h3>
+<h3>Nhân viên:
+    <img src="~/images/@ViewBag.ProfilePicture"
+     class="rounded-circle"
+     height="60" width="60"
+     asp-append-version="true" /> @ViewBag.EmployeeName</h3>
 
 <p>
     <a asp-action="Create" asp-route-employeeId="@ViewBag.EmployeeId">Thêm nhật ký làm việc</a>

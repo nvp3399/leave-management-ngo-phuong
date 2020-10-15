@@ -32,9 +32,13 @@ namespace leave_management.Data
         public DbSet<LuongTheoThang> LuongTheoThangs { get; set; }
         public DbSet<MauHopDong> MauHopDongs { get; set; }
         public DbSet<NhatKyLamViec> NhatKyLamViecs { get; set; }
-        public DbSet<PhieuChi> PhieuChis { get; set; }
+
         public DbSet<YeuCauDatLuongCoBan> YeuCauDatLuongCoBans { get; set; }
         public DbSet<YeuCauTamUngLuong> YeuCauTamUngLuongs { get; set; }
+
+        public DbSet<PhieuChi_NKLV> PhieuChi_NKLVs { get; set; }
+        public DbSet<PhieuChi_LuongCuoiThang> PhieuChi_LuongCuoiThangs { get; set; }
+        public DbSet<PhieuChi_TamUngLuong> PhieuChi_TamUngLuongs { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -46,19 +50,23 @@ namespace leave_management.Data
             modelBuilder.Entity<LuongTheoThang>()
                 .HasKey(c => new { c.MaNhanVien, c.Nam, c.Thang });
 
-            modelBuilder.Entity<PhieuChi>()
-                .HasKey(c => new { c.MaNhanVien, c.ThoiGianXuatPhieuChi });
+            //modelBuilder.Entity<PhieuChi>()
+            //    .HasKey(c => new { c.MaNhanVien, c.ThoiGianXuatPhieuChi });
 
             modelBuilder.Entity<NhatKyLamViec>()
                 .HasKey(c => new { c.MaNhanVien, c.ThoiGianBatDau });
 
-            //modelBuilder.Entity<Employee>()
-            //    .HasOne(emp => emp.HopDong)
-            //    .WithOne(hd => hd.NhanVienChuTheHopDong);
+            //modelBuilder.Entity<NhatKyLamViec>()
+            //    .HasNoKey()
+            //    .Ignore(c => c.MaNhanVien);
 
-            //modelBuilder.Entity<HopDongLaoDong>()
-            //    .HasOne(hd => hd.NhanVienGuiBanScan);
-                
+            //modelBuilder.Entity<NhatKyLamViec>()
+            //    .HasNoKey()
+            //    .Ignore(c => c.MaNhanVien);
+            //modelBuilder.Entity<PhieuChi_NKLV>()
+            //    .HasKey(c => new { c.MaNhanVien_PhieuChi, c.ThoiGianXuatPhieuChi_PhieuChi, c.MaNhanVien_NKLV, c.ThoiGianBatDau_NKLV });
+
+
         }
 
     }

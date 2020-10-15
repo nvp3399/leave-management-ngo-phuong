@@ -13,8 +13,8 @@
     <div class="card bg-light" title=@Model.LeaveTypesInfo.FirstOrDefault(q => q.Id == item.LeaveTypeId).Comments>
         <div class="card-body">
             @Html.DisplayFor(modelItem => item.LeaveType.Name) <span class="badge badge-primary"> @item.NumberOfDays </span>
-            <i class="fa fa-info-circle" aria-hidden="true" title="@Model.LeaveTypesInfo.FirstOrDefault(q => q.Id == item.LeaveTypeId).Comments" ></i>
-            
+            <i class="fa fa-info-circle" aria-hidden="true" title="@Model.LeaveTypesInfo.FirstOrDefault(q => q.Id == item.LeaveTypeId).Comments"></i>
+
         </div>
 
     </div>
@@ -28,6 +28,8 @@
         Gửi yêu cầu nghỉ phép
     </a>
 </p>
+
+
 <table class="table tblData">
     <thead>
         <tr>
@@ -38,7 +40,7 @@
                 Ngày bắt đầu
             </th>
             <th>
-                Ngày kết thúc 
+                Ngày kết thúc
             </th>
 
             <th>
@@ -54,75 +56,78 @@
             <th>
                 Tổng số ngày
             </th>
+            <th>
+                Hành động
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.LeaveRequests)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LeaveType.Name)
-            </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LeaveType.Name)
+                </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.DateRequested)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateActioned)
-            </td>
-            <td>
-                @if (item.Cancelled == true)
-                {
-                    <span class="badge badge-secondary">
-                        <i class="fa fa-ban" aria-hidden="true"></i>
-                        Đã hủy
-                    </span>
-                }
-                else if (item.Approved == true)
-                {
-                    <span class="badge badge-success">
-                        <i class="fa fa-check"></i>
-                        Đã được chấp thuận 
-                    </span>
-                }
-                else if (item.Approved == false)
-                {
-                    <span class="badge badge-danger">
-                        <i class="fa fa-times"></i>
-                        Đã bị từ chối
-                    </span>
-                }
-                else
-                {
-                    <span class="badge badge-warning">
-                        <i class="fa fa-clock-o"></i>
-                        Đang chờ
-                    </span>
-                }
-            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateRequested)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateActioned)
+                </td>
+                <td>
+                    @if (item.Cancelled == true)
+                    {
+                        <span class="badge badge-secondary">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            Đã hủy
+                        </span>
+                    }
+                    else if (item.Approved == true)
+                    {
+                        <span class="badge badge-success">
+                            <i class="fa fa-check"></i>
+                            Đã được chấp thuận
+                        </span>
+                    }
+                    else if (item.Approved == false)
+                    {
+                        <span class="badge badge-danger">
+                            <i class="fa fa-times"></i>
+                            Đã bị từ chối
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-warning">
+                            <i class="fa fa-clock-o"></i>
+                            Đang chờ
+                        </span>
+                    }
+                </td>
 
-            <td>
-                @((item.EndDate.Date - item.StartDate.Date ).Days +1)
-            </td>
-            <td>
-                @if (item.StartDate > DateTime.Now && item.Approved == true && item.Cancelled == false ||
-                item.Approved == null && item.Cancelled == false)
-                {
-                    <a asp-action="Cancelled" title="Cancelled" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Bạn có chắc bạn muốn hủy yêu cầu này?')">
-                        <i class="fa fa-ban" aria-hidden="true"></i>
-                        Hủy
-                    </a>
-                }
+                <td>
+                    @((item.EndDate.Date - item.StartDate.Date ).Days +1)
+                </td>
+                <td>
+                    @if (item.StartDate > DateTime.Now && item.Approved == true && item.Cancelled == false ||
+                   item.Approved == null && item.Cancelled == false)
+                    {
+                        <a asp-action="Cancelled" title="Cancelled" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Bạn có chắc bạn muốn hủy yêu cầu này?')">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            Hủy
+                        </a>
+                    }
 
-            </td>
-        </tr>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

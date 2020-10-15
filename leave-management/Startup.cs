@@ -67,9 +67,12 @@ namespace leave_management
             services.AddScoped<ILoaiLichBieuRepository, LoaiLichBieuRepository>();
             services.AddScoped<ILuongTheoThangRepository, LuongTheoThangRepository>();
             services.AddScoped<INhatKylamViecRepository, NhatKyLamViecRepository>();
-            services.AddScoped<IPhieuChiRepository, PhieuChiRepository>();
-            services.AddScoped<IYeuCauDatLuongCoBan, YeuCauDatLuongCoBanRepository>();
-            services.AddScoped<IYeuCauTamUngLuong, YeuCauTamUngLuongRepository>();
+            services.AddScoped<IPhieuChi_TamUngLuongRepository, PhieuChi_TamUngLuongRepository>();
+            services.AddScoped<IYeuCauDatLuongCoBanRepository, YeuCauDatLuongCoBanRepository>();
+            services.AddScoped<IYeuCauTamUngLuongRepository, YeuCauTamUngLuongRepository>();
+
+            services.AddScoped<IPhieuChi_LuongCuoiThangRepository, PhieuChi_LuongCuoiThangRepository>();
+            services.AddScoped<IPhieuChi_TamUngLuongRepository, PhieuChi_TamUngLuongRepository>();
             
             services.AddAutoMapper(typeof(Maps));
 

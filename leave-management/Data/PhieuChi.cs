@@ -9,30 +9,26 @@ namespace leave_management.Data
 {
     public class PhieuChi
     {
-        [ForeignKey("MaNhanVien")]
-        public Employee NhanVien { get; set; }
+        [StringLength(450)]
+        [Key]
+        public string MaPhieuChi { get; set; }
 
-        public string MaNhanVien { get; set; }
+
         public DateTime ThoiGianXuatPhieuChi { get; set; }
-        [Required]
-        public int SoTienChi { get; set; }
-        [Required]
-        public string LyDoChi { get; set; }
-
-        [ForeignKey("MaNhanVienXuatPhieu")]
-        public Employee NhanVienXuatPhieu { get; set; }
-        public string MaNhanVienXuatPhieu { get; set; }
-        [Required]
-        public ushort NamTinhLuong { get; set; }
-        [Required]
-        public byte ThangTinhLuong { get; set; }
-        public string GhiChu { get; set; }
-        [Required]
-        public string TrangThaiPhieuChi { get; set; }
 
         [ForeignKey("MaNhanVienChiTien")]
         public Employee NhanVienChiTien { get; set; }
         public string MaNhanVienChiTien { get; set; }
 
+        public DateTime ThoiGianChiTien { get; set; }
+
+
+        [ForeignKey("MaNhanVienThuHoi")]
+        public Employee NhanVienThuHoi { get; set; }
+        public string MaNhanVienThuHoi { get; set; }
+
+        public DateTime ThoiGianThuHoi { get; set; }
+
+        public string GhiChu { get; set; }
     }
 }

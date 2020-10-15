@@ -205,7 +205,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </p>
                                 </a>
                             </li>
-
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="YeuCauDatLuongCoBan" asp-action="MyRequest" class="nav-link">
+                                    &nbsp; <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                    <p>
+                                        Gửi yêu cầu đặt lương
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="YeuCauTamUngLuong" asp-action="MyRequest" class="nav-link">
+                                    &nbsp; <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                    <p>
+                                        Gửi yêu cầu tạm ứng lương
+                                    </p>
+                                </a>
+                            </li>
                         }
 
 
@@ -252,6 +267,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         <a asp-controller="GiayToTuyThan" asp-action="EmployeeList" class="nav-link">
                                             <i class="fas fa-users nav-icon"></i>
                                             <p>Quản lý giấy tờ tùy thân</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="YeuCauDatLuongCoBan" asp-action="Index" class="nav-link">
+                                            <i class="fas fa-users nav-icon"></i>
+                                            <p>Quản lý lương cơ bản</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-controller="YeuCauTamUngLuong" asp-action="Index" class="nav-link">
+                                            <i class="fas fa-users nav-icon"></i>
+                                            <p>Quản lý tạm ứng lương</p>
                                         </a>
                                     </li>
                                 </ul>

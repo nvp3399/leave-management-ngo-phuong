@@ -1,0 +1,187 @@
+﻿@model AdminYeuCauTamUngLuongViewVM
+@using leave_management.GeneralData
+@{
+    
+    }
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Yêu cầu tạm ứng lương</title>
+</head>
+<body>
+
+    <br />
+
+    <h1>Trang này dành cho nhân viên phòng nhân sự</h1>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-info"><i class="fas fa-tachometer-alt"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">@Html.DisplayNameFor(model => model.TotalRequests)</span>
+                    <span class="info-box-number">@Model.TotalRequests</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-warning"><i class="fas fa-exclamation-circle"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text ">@Html.DisplayNameFor(model => model.PendingRequests)</span>
+                    <span class="info-box-number">@Model.PendingRequests</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-success"><i class="far fa-check-circle"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text ">@Html.DisplayNameFor(model => model.ApprovedRequets)</span>
+                    <span class="info-box-number ">@Model.ApprovedRequets</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-secondary"><i class="fa fa-ban"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text ">@Html.DisplayNameFor(model => model.CancelledRequests)</span>
+                    <span class="info-box-number ">@Model.CancelledRequests</span>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div class="info-box">
+                <span class="info-box-icon bg-danger"><i class="fa fa-minus-circle"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text ">@Html.DisplayNameFor(model => model.RejectedRequests)</span>
+                    <span class="info-box-number text-danger">@Model.RejectedRequests</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <br />
+
+    <a asp-controller="YeuCauTamUngLuong" asp-action="Index" class="btn btn-outline-dark col-md-12">
+        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+        Quay lại trang chính 
+    </a>
+    <br />
+
+    <hr />
+    <h1>Danh sách yêu cầu tạm ứng</h1>
+
+    <table id="tblData" class="table">
+        <thead>
+            <tr>
+
+                <th>
+                    Nhân viên yêu cầu
+                </th>
+               
+                <th>
+                    Số tiền tạm ứng
+                </th>
+
+                <th>
+                    Ngày yêu cầu
+                </th>
+
+                <th>
+                    Trạng thái
+                </th>
+
+                <th>
+                    Hành động
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.YeuCauTamUngLuongs)
+            {
+            <tr>
+                <td>
+                    <img src="~/images/@item.NhanVienGuiYeuCau.ProfilePicture"
+                         class="rounded-circle"
+                         height="40" width="40"
+                         asp-append-version="true" />
+                    @Html.DisplayFor(modelItem => item.NhanVienGuiYeuCau.LastName)
+                    @Html.DisplayFor(modelItem => item.NhanVienGuiYeuCau.MiddleName)
+                    @Html.DisplayFor(modelItem => item.NhanVienGuiYeuCau.FirstName)
+                </td>
+
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoTienTamUng)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayGuiYeuCau)
+                </td>
+               
+
+
+                <td>
+                    @if (item.TinhTrangPheDuyet == Data.YeuCauTamUngLuongStatusString[Data.YeuCauTamUngLuongStatus.DaBiHuy])
+                    {
+                        <span class="badge badge-secondary">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            Đã hủy
+                        </span>
+                    }
+                    else if (item.TinhTrangPheDuyet == Data.YeuCauTamUngLuongStatusString[Data.YeuCauTamUngLuongStatus.DaDuocChapThuan])
+                    {
+                        <span class="badge badge-success">
+                            <i class="fa fa-check"></i>
+                            Đã được chấp thuận
+                        </span>
+                    }
+                    else if (item.TinhTrangPheDuyet == Data.YeuCauTamUngLuongStatusString[Data.YeuCauTamUngLuongStatus.DaBiTuChoi])
+                    {
+                        <span class="badge badge-danger">
+                            <i class="fa fa-times"></i>
+                            Đã bị từ chối
+                        </span>
+                    }
+                    else if (item.TinhTrangPheDuyet == Data.YeuCauTamUngLuongStatusString[Data.YeuCauTamUngLuongStatus.DangCho])
+                    {
+                        <span class="badge badge-warning">
+                            <i class="fa fa-clock" aria-hidden="true"></i>
+                            Đang chờ
+                        </span>
+
+
+                    }
+                </td>
+
+                <td>
+                    <a class="btn btn-outline-primary" asp-action="Details" asp-route-id="@item.MaYeuCau">
+                        <i class="fa fa-file"></i>
+                        Chi tiết
+                    </a>
+                    <a asp-action="Delete" title="Delete" class="btn btn-danger" asp-route-id="@item.MaYeuCau" onclick="return confirm('Bạn chắc chắn muốn xóa yêu cầu này?')">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                        Xóa
+                    </a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

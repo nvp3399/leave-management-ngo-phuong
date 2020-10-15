@@ -220,6 +220,7 @@ namespace leave_management.Controllers
             var employee = await userManager.FindByIdAsync(employeeId);
             ViewBag.EmployeeName = employee.LastName + " " + employee.MiddleName + " " + employee.FirstName;
             ViewBag.EmployeeId = employeeId;
+            ViewBag.ProfilePicture = employee.ProfilePicture;
 
             return View(model);
         }

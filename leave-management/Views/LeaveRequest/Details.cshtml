@@ -8,8 +8,14 @@
     <div class="alert alert-secondary" role="alert">
         <h4 class="alert-heading">Đã bị hủy</h4>
         <p>
-            <strong>@Html.DisplayNameFor(model => model.RequestingEmployeeId):</strong>
-            @Model.RequestingEmployee.FirstName @Model.RequestingEmployee.LastName
+            <strong>@Html.DisplayNameFor(model => model.RequestingEmployee):</strong>
+            <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Model.RequestingEmployee.LastName
+            @Model.RequestingEmployee.MiddleName
+            @Model.RequestingEmployee.FirstName
         </p>
         <hr />
         <p>
@@ -24,7 +30,13 @@ else if (Model.Approved == null)
         <h4 class="alert-heading">Chờ phê duyệt</h4>
         <p>
             <strong>@Html.DisplayNameFor(model => model.RequestingEmployeeId):</strong>
-            @Model.RequestingEmployee.FirstName @Model.RequestingEmployee.LastName
+            <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Model.RequestingEmployee.LastName 
+            @Model.RequestingEmployee.MiddleName
+            @Model.RequestingEmployee.FirstName
         </p>
         <hr />
         <p>
@@ -36,19 +48,22 @@ else if (Model.Approved == true)
 {
     <div class="alert alert-success" role="alert">
         <h4 class="alert-heading">
-            Được chấp thuận bởi
-            @if (Model.ApproveBy.Email == "admin@localhost.com")
-            {
-                <span>Supreme Administrator</span>
-            }
-            else
-            {
-                <span><strong>Supreme Administrator</strong></span>
+            <strong>  Được chấp thuận bởi: </strong>
+            <img src="~/images/@Model.ApproveBy.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Model.ApproveBy.LastName
+            @Model.ApproveBy.MiddleName
+            @Model.ApproveBy.FirstName
 
-            }
         </h4>
         <p>
             <strong>@Html.DisplayNameFor(model => model.RequestingEmployeeId):</strong>
+            <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
             @Model.RequestingEmployee.FirstName @Model.RequestingEmployee.LastName
         </p>
         <hr />
@@ -61,18 +76,21 @@ else
 {
     <div class="alert alert-danger" role="alert">
         <h4 class="alert-heading">
-            Bị từ chối bởi
-            @if (Model.ApproveBy.Email == "admin@localhost.com")
-            {
-                <span><strong>Supreme Administrator</strong></span>
-            }
-            else
-            {
-                <span> @Model.ApproveBy.FirstName @Model.ApproveBy.LastName</span>
-            }
+            <strong>Bị từ chối bởi: </strong>
+            <img src="~/images/@Model.ApproveBy.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Model.ApproveBy.LastName
+            @Model.ApproveBy.MiddleName
+            @Model.ApproveBy.FirstName
         </h4>
         <p>
             <strong>@Html.DisplayNameFor(model => model.RequestingEmployeeId):</strong>
+            <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
             @Model.RequestingEmployee.FirstName @Model.RequestingEmployee.LastName
         </p>
         <hr />
@@ -93,7 +111,13 @@ else
             Tên nhân viên
         </dt>
         <dd class="col-sm-10">
-            @Model.RequestingEmployee.FirstName @Model.RequestingEmployee.LastName
+            <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Model.RequestingEmployee.LastName
+            @Model.RequestingEmployee.MiddleName
+            @Model.RequestingEmployee.FirstName
         </dd>
 
         <dt class="col-sm-2">

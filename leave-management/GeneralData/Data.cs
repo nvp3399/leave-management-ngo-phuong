@@ -58,6 +58,36 @@ namespace leave_management.GeneralData
             {PhieuChiStatus.DaBiThuHoi,"Đã bị thu hồi" }
         };
 
+        public enum YeuCauDatLuongCoBanStatus
+        {
+            DangCho,
+            DaDuocChapThuan,
+            DaBiTuChoi,
+            DaBiHuy
+        }
+        public static Dictionary<YeuCauDatLuongCoBanStatus, string> YeuCauDatLuongCoBanStatusString = new Dictionary<YeuCauDatLuongCoBanStatus, string>
+        {
+            {YeuCauDatLuongCoBanStatus.DangCho, "Đang chờ" },
+            {YeuCauDatLuongCoBanStatus.DaDuocChapThuan,"Đã được chấp thuận" },
+            {YeuCauDatLuongCoBanStatus.DaBiTuChoi,"Đã bị từ chối" },
+            {YeuCauDatLuongCoBanStatus.DaBiHuy,"Đã bị hủy" }
+        };
+
+
+        public enum YeuCauTamUngLuongStatus
+        {
+            DangCho,
+            DaDuocChapThuan,
+            DaBiTuChoi,
+            DaBiHuy
+        }
+        public static Dictionary<YeuCauTamUngLuongStatus, string> YeuCauTamUngLuongStatusString = new Dictionary<YeuCauTamUngLuongStatus, string>
+        {
+            {YeuCauTamUngLuongStatus.DangCho, "Đang chờ" },
+            {YeuCauTamUngLuongStatus.DaDuocChapThuan,"Đã được chấp thuận" },
+            {YeuCauTamUngLuongStatus.DaBiTuChoi,"Đã bị từ chối" },
+            {YeuCauTamUngLuongStatus.DaBiHuy,"Đã bị hủy" }
+        };
     }
 
 

@@ -121,7 +121,13 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.RequestingEmployee.FirstName)  @Html.DisplayFor(modelItem => item.RequestingEmployee.FirstName)
+                        <img src="~/images/@item.RequestingEmployee.ProfilePicture"
+                             class="rounded-circle"
+                             height="40" width="40"
+                             asp-append-version="true" />
+                        @Html.DisplayFor(modelItem => item.RequestingEmployee.LastName)
+                        @Html.DisplayFor(modelItem => item.RequestingEmployee.MiddleName)
+                        @Html.DisplayFor(modelItem => item.RequestingEmployee.FirstName)
                     </td>
 
                     <td>

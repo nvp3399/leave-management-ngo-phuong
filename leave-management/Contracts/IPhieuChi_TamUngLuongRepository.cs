@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace leave_management.Contracts
 {
-    public interface IPhieuChiRepository : IRepositoryStringKeyBase<PhieuChi>
+    public interface IPhieuChi_TamUngLuongRepository : IRepositoryStringKeyBase<PhieuChi_TamUngLuong>
     {
     }
 }

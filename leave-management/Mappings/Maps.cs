@@ -50,6 +50,11 @@ namespace leave_management.Mappings
             CreateMap<Employee, ChamCongVM>().ReverseMap();
             CreateMap<GiayToTuyThan, CreateEditGiayToTuyThanVM>().ReverseMap();
 
+            CreateMap<PhieuChi, PhieuChiVM>().ReverseMap();
+            CreateMap<PhieuChi_LuongCuoiThang, PhieuChi_LuongCuoiThangVM>().ReverseMap();
+            CreateMap<PhieuChi_TamUngLuong, PhieuChi_TamUngLuongVM>().ReverseMap();
+            CreateMap<PhieuChi_NKLV, PhieuChi_NKLVVM>().ReverseMap();
+
 
 
 

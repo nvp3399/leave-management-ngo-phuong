@@ -1,0 +1,239 @@
+﻿@model leave_management.Models.YeuCauDatLuongCoBanVM
+@using leave_management.GeneralData
+
+@{
+    ViewData["Title"] = "Details";
+}
+@if (Model.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.YeuCauDatLuongCoBanStatus.DaBiHuy])
+{
+<div class="alert alert-secondary" role="alert">
+    <h4 class="alert-heading">Đã bị hủy</h4>
+    <p>
+        <strong>@Html.DisplayNameFor(model => model.NhanVienGuiYeuCau):</strong>
+        <img src="~/images/@Model.NhanVienGuiYeuCau.ProfilePicture"
+             class="rounded-circle"
+             height="40" width="40"
+             asp-append-version="true" />
+
+        @Model.NhanVienGuiYeuCau.LastName @Model.NhanVienGuiYeuCau.MiddleName @Model.NhanVienGuiYeuCau.FirstName
+    </p>
+    <hr />
+    <p>
+        <strong>@Html.DisplayNameFor(model => model.NhanVienDuocDatLuong):</strong>
+        <img src="~/images/@Model.NhanVienDuocDatLuong.ProfilePicture"
+             class="rounded-circle"
+             height="40" width="40"
+             asp-append-version="true" />
+
+        @Model.NhanVienDuocDatLuong.LastName @Model.NhanVienDuocDatLuong.MiddleName @Model.NhanVienDuocDatLuong.FirstName
+    </p>
+    <hr />
+    <p>
+        @Html.DisplayNameFor(model => model.MucLuongCoBan)
+        @Model.MucLuongCoBan
+    </p>
+</div>
+}
+
+else if (Model.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.YeuCauDatLuongCoBanStatus.DangCho])
+{
+<div class="alert alert-warning" role="alert">
+    <h4 class="alert-heading">Chờ phê duyệt</h4>
+    <p>
+        <strong>@Html.DisplayNameFor(model => model.NhanVienGuiYeuCau):</strong>
+        <img src="~/images/@Model.NhanVienGuiYeuCau.ProfilePicture"
+             class="rounded-circle"
+             height="40" width="40"
+             asp-append-version="true" />
+        @Model.NhanVienGuiYeuCau.LastName @Model.NhanVienGuiYeuCau.MiddleName @Model.NhanVienGuiYeuCau.FirstName
+    </p>
+    <hr />
+    <p>
+        <strong>@Html.DisplayNameFor(model => model.NhanVienDuocDatLuong):</strong>
+        <img src="~/images/@Model.NhanVienDuocDatLuong.ProfilePicture"
+             class="rounded-circle"
+             height="40" width="40"
+             asp-append-version="true" />
+        @Model.NhanVienDuocDatLuong.LastName @Model.NhanVienDuocDatLuong.MiddleName @Model.NhanVienDuocDatLuong.FirstName
+    </p>
+    <hr />
+    <p>
+        @Html.DisplayNameFor(model => model.MucLuongCoBan)
+        @Model.MucLuongCoBan
+    </p>
+</div>
+}
+else if (Model.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.YeuCauDatLuongCoBanStatus.DaDuocChapThuan])
+{
+<div class="alert alert-success" role="alert">
+    <h4 class="alert-heading">
+        Được chấp thuận bởi:
+
+        <img src="~/images/@Model.NhanVienPheDuyet.ProfilePicture"
+             class="rounded-circle"
+             height="40" width="40"
+             asp-append-version="true" />
+
+        @Model.NhanVienPheDuyet.LastName @Model.NhanVienPheDuyet.MiddleName @Model.NhanVienPheDuyet.FirstName
+
+    </h4>
+    <p>
+        <strong>@Html.DisplayNameFor(model => model.NhanVienGuiYeuCau):</strong>
+        <img src="~/images/@Model.NhanVienGuiYeuCau.ProfilePicture"
+             class="rounded-circle"
+             height="40" width="40"
+             asp-append-version="true" />
+        @Model.NhanVienGuiYeuCau.LastName @Model.NhanVienGuiYeuCau.MiddleName @Model.NhanVienGuiYeuCau.FirstName
+    </p>
+    <hr />
+    <p>
+        <strong>@Html.DisplayNameFor(model => model.NhanVienDuocDatLuong):</strong>
+        <img src="~/images/@Model.NhanVienDuocDatLuong.ProfilePicture"
+             class="rounded-circle"
+             height="40" width="40"
+             asp-append-version="true" />
+        @Model.NhanVienDuocDatLuong.LastName @Model.NhanVienDuocDatLuong.MiddleName @Model.NhanVienDuocDatLuong.FirstName
+    </p>
+    <hr />
+    <p>
+        @Html.DisplayNameFor(model => model.MucLuongCoBan)
+        @Model.MucLuongCoBan
+    </p>
+</div>
+}
+else if (Model.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.YeuCauDatLuongCoBanStatus.DaBiTuChoi])
+{
+<div class="alert alert-danger" role="alert">
+    <h4 class="alert-heading">
+        Bị từ chối bởi:
+        <img src="~/images/@Model.NhanVienPheDuyet.ProfilePicture"
+             class="rounded-circle"
+             height="40" width="40"
+             asp-append-version="true" />
+        @Model.NhanVienPheDuyet.LastName @Model.NhanVienPheDuyet.MiddleName @Model.NhanVienPheDuyet.FirstName
+
+    </h4>
+    <p>
+        <strong>@Html.DisplayNameFor(model => model.NhanVienGuiYeuCau):</strong>
+        <img src="~/images/@Model.NhanVienGuiYeuCau.ProfilePicture"
+             class="rounded-circle"
+             height="40" width="40"
+             asp-append-version="true" />
+        @Model.NhanVienGuiYeuCau.LastName @Model.NhanVienGuiYeuCau.MiddleName @Model.NhanVienGuiYeuCau.FirstName
+    </p>
+    <hr />
+    <p>
+        <strong>@Html.DisplayNameFor(model => model.NhanVienDuocDatLuong):</strong>
+        <img src="~/images/@Model.NhanVienDuocDatLuong.ProfilePicture"
+             class="rounded-circle"
+             height="40" width="40"
+             asp-append-version="true" />
+        @Model.NhanVienDuocDatLuong.LastName @Model.NhanVienDuocDatLuong.MiddleName @Model.NhanVienDuocDatLuong.FirstName
+    </p>
+    <hr />
+    <p>
+        @Html.DisplayNameFor(model => model.MucLuongCoBan)
+        @Model.MucLuongCoBan
+    </p>
+</div>
+}
+
+
+
+
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NhanVienGuiYeuCau)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.NhanVienGuiYeuCau.LastName @Model.NhanVienGuiYeuCau.MiddleName @Model.NhanVienGuiYeuCau.FirstName
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NhanVienDuocDatLuong)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.NhanVienDuocDatLuong.LastName @Model.NhanVienDuocDatLuong.MiddleName @Model.NhanVienDuocDatLuong.FirstName
+        </dd>
+
+        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ThoiGianGuiYeuCau)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ThoiGianGuiYeuCau)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ThoiGianPheDuyet)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ThoiGianPheDuyet)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TinhTrangPheDuyet)
+        </dt>
+        <dd class="col-sm-10">
+
+            @if (Model.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.YeuCauDatLuongCoBanStatus.DaBiHuy])
+            {
+                <span class="badge badge-secondary">
+                    <i class="fa fa-ban" aria-hidden="true"></i>
+                    Đã bị hủy
+                </span>
+            }
+            else if (Model.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.YeuCauDatLuongCoBanStatus.DaDuocChapThuan])
+            {
+                <span class="badge badge-success">
+                    <i class="fa fa-check"></i>
+                    Đã được chấp thuận
+                </span>
+            }
+            else if (Model.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.YeuCauDatLuongCoBanStatus.DaBiTuChoi])
+            {
+                <span class="badge badge-danger">
+                    <i class="fa fa-times"></i>
+                    Đã bị từ chối
+                </span>
+            }
+            else if (Model.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.YeuCauDatLuongCoBanStatus.DangCho])
+            {
+                <span class="badge badge-warning">
+                    <i class="fa fa-clock-o"></i>
+                    Đang chờ phê duyệt
+                </span>
+            }
+        </dd>
+
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ApprovedById)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ApprovedById)
+        </dd>*@
+    </dl>
+</div>
+<div>
+    @if (Model.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.YeuCauDatLuongCoBanStatus.DangCho])
+    {
+        <a class="btn btn-success" asp-action="ApproveRequest" asp-route-id="@Model.MaYeuCau">
+            <i class="fa fa-check"></i>
+            Chấp thuận
+        </a>
+        <a class="btn btn-danger" asp-action="RejectRequest" asp-route-id="@Model.MaYeuCau">
+            <i class="fa fa-remove"></i>
+            Từ chối
+        </a>
+    }
+    <a asp-action="Delete" title="Delete" class="btn btn-danger" asp-route-id="@Model.MaYeuCau" onclick="return confirm('Bạn có chắc muốn xóa yêu cầu này?')">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+        Xóa
+    </a>
+    <a asp-action="Index" class="btn btn-outline-dark">
+        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+        Quay lại danh sách yêu cầu
+    </a>
+</div>

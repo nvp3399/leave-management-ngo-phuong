@@ -1,0 +1,113 @@
+﻿@model EmployeeYeuCauTamUngLuongViewVM
+@using leave_management.GeneralData
+@{
+    ViewData["Title"] = "My Request";
+}
+
+<h2>Trang này dành cho nhân viên</h2>
+
+<h1>Danh sách yêu cầu tạm ứng đã gửi</h1>
+<hr />
+
+<img src="~/images/@Model.NhanVienYeuCau.ProfilePicture"
+     class="rounded-circle"
+     height="40" width="40"
+     asp-append-version="true" />
+<h3>
+    @Model.NhanVienYeuCau.LastName
+    @Model.NhanVienYeuCau.MiddleName
+    @Model.NhanVienYeuCau.FirstName
+</h3>
+
+<hr />
+<p>
+    <a asp-action="Create" class="btn btn-success">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Gửi yêu cầu tạm ứng
+    </a>
+</p>
+<table class="table tblData">
+    <thead>
+        <tr>
+
+            <th>
+                Mức lương
+            </th>
+
+            <th>
+                Ngày yêu cầu
+            </th>
+
+            <th>
+                Trạng thái
+            </th>
+
+            <th>
+                Hành động
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.YeuCauTamUngLuongs)
+        {
+            <tr>
+                
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoTienTamUng)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayGuiYeuCau)
+                </td>
+
+
+
+                <td>
+                    @if (item.TinhTrangPheDuyet == Data.YeuCauTamUngLuongStatusString[Data.YeuCauTamUngLuongStatus.DaBiHuy])
+                    {
+                        <span class="badge badge-secondary">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            Đã hủy
+                        </span>
+                    }
+                    else if (item.TinhTrangPheDuyet == Data.YeuCauTamUngLuongStatusString[Data.YeuCauTamUngLuongStatus.DaDuocChapThuan])
+                    {
+                        <span class="badge badge-success">
+                            <i class="fa fa-check"></i>
+                            Đã được chấp thuận
+                        </span>
+                    }
+                    else if (item.TinhTrangPheDuyet == Data.YeuCauTamUngLuongStatusString[Data.YeuCauTamUngLuongStatus.DaBiTuChoi])
+                    {
+                        <span class="badge badge-danger">
+                            <i class="fa fa-times"></i>
+                            Đã bị từ chối
+                        </span>
+                    }
+                    else if (item.TinhTrangPheDuyet == Data.YeuCauTamUngLuongStatusString[Data.YeuCauTamUngLuongStatus.DangCho])
+                    {
+                        <span class="badge badge-warning">
+                            <i class="fa fa-clock-o"></i>
+                            Đang chờ
+                        </span>
+                    }
+                </td>
+
+
+                <td>
+                    @if (item.TinhTrangPheDuyet == Data.YeuCauTamUngLuongStatusString[Data.YeuCauTamUngLuongStatus.DangCho])
+                    {
+                        <a asp-action="Cancelled" title="Cancelled" class="btn btn-danger" asp-route-id="@item.MaYeuCau" onclick="return confirm('Bạn có chắc bạn muốn hủy yêu cầu này?')">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            Hủy
+                        </a>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

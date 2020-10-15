@@ -59,19 +59,16 @@ namespace leave_management.Controllers
         // GET: LeaveAllocationController
         public async Task<ActionResult> Index()
         {
-            
-
-            var employees = await _userManager.Users.ToListAsync();
-
+            var employees = await _userManager.Users
+                .Include(q => q.ChucVu)
+                .Include(q => q.ChuyenMon)
+                .Include(q => q.PhongBan)
+                .ToListAsync();
 
             var model = _mapper.Map<List<EmployeeVM>>(employees);
             
-
             foreach (var employee in model)
             {
-                employee.ChucVu = _mapper.Map<ChucVusVM>( await _chucVuRepo.FindById(employee.MaChucVu));
-                employee.ChuyenMon = _mapper.Map<ChuyenMonsVM>( await _chuyenMonRepo.FindById(employee.MaChuyenMon));
-                employee.PhongBan = _mapper.Map<PhongBansVM>(await _phongBanRep.FindById(employee.MaPhongBan));
                 var MaVaiTroTrenHeThong = await userRoleRepository.FindRoleIdByUserID(employee.Id);
                 employee.VaiTroTrenHeThong = await _roleRepository.FindById(MaVaiTroTrenHeThong);
             }

@@ -12,9 +12,11 @@ namespace leave_management.Models
     {
         public int Id { get; set; }
 
+        [DisplayName("Nhân viên")]
+
         public EmployeeVM RequestingEmployee { get; set; }
 
-        [DisplayName("Tên nhân viên")]
+        [DisplayName("Nhân viên")]
         public string RequestingEmployeeId { get; set; }
 
         [DisplayName("Ngày bắt đầu")]

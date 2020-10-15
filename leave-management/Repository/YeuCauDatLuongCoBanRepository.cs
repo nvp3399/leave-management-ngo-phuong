@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace leave_management.Repository
 {
-    public class YeuCauDatLuongCoBanRepository : IYeuCauDatLuongCoBan
+    public class YeuCauDatLuongCoBanRepository : IYeuCauDatLuongCoBanRepository
     {
         private readonly ApplicationDbContext _db;
 
