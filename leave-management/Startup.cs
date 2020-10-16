@@ -73,6 +73,7 @@ namespace leave_management
 
             services.AddScoped<IPhieuChi_LuongCuoiThangRepository, PhieuChi_LuongCuoiThangRepository>();
             services.AddScoped<IPhieuChi_TamUngLuongRepository, PhieuChi_TamUngLuongRepository>();
+            services.AddScoped<IPhieuChi_NKLVRepository, PhieuChi_NKLVRepository>();
             
             services.AddAutoMapper(typeof(Maps));
 

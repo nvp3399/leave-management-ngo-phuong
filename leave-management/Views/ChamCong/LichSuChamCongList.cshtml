@@ -1,7 +1,7 @@
-﻿@model IEnumerable<leave_management.Models.NhatKyLamViecVM>
+﻿@model IEnumerable<leave_management.Models.LichSuChamCongVM>
 
 @{
-    ViewData["Title"] = "NhatKyLamViecList";
+    ViewData["Title"] = "LichSuChamCongList";
 }
 
 <h1>Quản lý chấm công</h1>
@@ -13,10 +13,10 @@
      asp-append-version="true" /> @ViewBag.EmployeeName</h3>
 
 <p>
-    <a asp-action="Create" asp-route-employeeId="@ViewBag.EmployeeId">Thêm nhật ký làm việc</a>
+    <a asp-action="Create" asp-route-employeeId="@ViewBag.EmployeeId">Thêm chấm công</a>
 </p>
 
-<h3>Nhật ký làm việc</h3>
+<h3>Lịch sử chấm công</h3>
 <table id="tblData" class="table">
     <thead>
         <tr>
@@ -33,8 +33,9 @@
                 Loại lịch biểu
             </th>
             <th>
-                Hệ số lương
+                Tổng tiền lương 
             </th>
+
             <th>Hành động</th>
         </tr>
     </thead>
@@ -55,7 +56,7 @@
                     @Html.DisplayFor(modelItem => item.LoaiLichBieu.TenLoaiLichBieu)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LoaiLichBieu.HeSoLuongCoBan)
+                    @Html.DisplayFor(modelItem => item.TongTienLuong)
                 </td>
                 <td>
 

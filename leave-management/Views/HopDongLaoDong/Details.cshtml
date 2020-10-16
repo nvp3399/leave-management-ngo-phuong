@@ -4,10 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Chi tiết hợp đồng lao động</h1>
 
 <div>
-    <h4>HopDongLaoDongVM</h4>
     <hr />
     <dl class="row">
 
@@ -42,15 +41,25 @@
             @Html.DisplayNameFor(model => model.NhanVienGuiBanScan)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NhanVienGuiBanScan.FirstName)
+            <img src="~/images/@Model.NhanVienGuiBanScan.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
             @Html.DisplayFor(model => model.NhanVienGuiBanScan.LastName)
+            @Html.DisplayFor(model => model.NhanVienGuiBanScan.MiddleName)
+            @Html.DisplayFor(model => model.NhanVienGuiBanScan.FirstName)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.NhanVienChuTheHopDong)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NhanVienChuTheHopDong.FirstName)
+            <img src="~/images/@Model.NhanVienChuTheHopDong.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
             @Html.DisplayFor(model => model.NhanVienChuTheHopDong.LastName)
+            @Html.DisplayFor(model => model.NhanVienChuTheHopDong.MiddleName)
+            @Html.DisplayFor(model => model.NhanVienChuTheHopDong.FirstName)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MauHopDong)
@@ -70,8 +79,13 @@
                 @Html.DisplayNameFor(model => model.NhanVienChinhSuaLanCuoi)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.NhanVienChinhSuaLanCuoi.FirstName)
+                <img src="~/images/@Model.NhanVienChinhSuaLanCuoi.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
                 @Html.DisplayFor(model => model.NhanVienChinhSuaLanCuoi.LastName)
+                @Html.DisplayFor(model => model.NhanVienChinhSuaLanCuoi.MiddleName)
+                @Html.DisplayFor(model => model.NhanVienChinhSuaLanCuoi.FirstName)
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.ThoiGianChinhSuaLanCuoi)
@@ -92,7 +106,13 @@
                 @Html.DisplayNameFor(model => model.NhanVienHuyHopDong)
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.NhanVienHuyHopDong)
+                <img src="~/images/@Model.NhanVienHuyHopDong.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Html.DisplayFor(model => model.NhanVienHuyHopDong.LastName)
+                @Html.DisplayFor(model => model.NhanVienHuyHopDong.MiddleName)
+                @Html.DisplayFor(model => model.NhanVienHuyHopDong.FirstName)
             </dd>
         }
 

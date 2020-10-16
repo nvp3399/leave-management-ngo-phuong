@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace leave_management.Models
 {
-    public class NhatKyLamViecVM
+    public class LichSuChamCongVM
     {
         
         public string MaNhanVien { get; set; }
@@ -26,22 +26,33 @@ namespace leave_management.Models
         [Required]
         [DisplayName("Loại lịch biểu")]
         public string MaLoaiLichBieu { get; set; }
+        [DisplayName("Loại lịch biểu")]
         public LoaiLichBieuVM LoaiLichBieu { get; set; }
         [DisplayName("Số tiền thưởng thêm")]
         public int SoTienThuongThem { get; set; }
         [DisplayName("Ghi chú")]
         public string GhiChu { get; set; }
 
-        [DisplayName("Nhân viên thêm vào hệ thống")]
+        [DisplayName("Trưởng phòng")]
         public EmployeeVM NhanVienThemVaoHeThong { get; set; }
         public string MaNhanVienThemVaoHeThong { get; set; }
 
         [DisplayName("Ngày thêm vào hệ thống")]
         public DateTime NgayThemVaoHeThong { get; set; }
 
+        [DisplayName("Hệ số lương cơ bản")]
+        public float HeSoLuongCoBan { get; set; }
+        [DisplayName("Mức lương cơ bản")]
+        public int MucLuongCoBan { get; set; }
+
+        [DisplayName("Tổng lương cơ bản")]
+        public int TongLuongCoBan { get; set; }
+        [DisplayName("Tổng tiền lương")]
+        public int TongTienLuong { get; set; }
+
     }
 
-    public class CreateEditNhatKyLamViecVM : NhatKyLamViecVM
+    public class CreateEditLichSuChamCongVM : LichSuChamCongVM
     {
         public IEnumerable<SelectListItem> LoaiLichBieus { get; set; }
 

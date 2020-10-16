@@ -1,10 +1,10 @@
-﻿@model leave_management.Models.NhatKyLamViecVM
+﻿@model leave_management.Models.LichSuChamCongVM
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Chi tiết nhật ký làm việc</h1>
+<h1>Chi tiết Lịch sử chấm công</h1>
 
 <div>
     <hr />
@@ -13,6 +13,10 @@
             @Html.DisplayNameFor(model => model.NhanVien)
         </dt>
         <dd class="col-sm-10">
+            <img src="~/images/@Model.NhanVien.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
             @Html.DisplayFor(model => model.NhanVien.LastName)
             @Html.DisplayFor(model => model.NhanVien.MiddleName)
             @Html.DisplayFor(model => model.NhanVien.FirstName)
@@ -42,11 +46,7 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.LoaiLichBieu.TenLoaiLichBieu)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.LoaiLichBieu.HeSoLuongCoBan)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.LoaiLichBieu.HeSoLuongCoBan)
+
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SoTienThuongThem)
@@ -64,6 +64,10 @@
             @Html.DisplayNameFor(model => model.NhanVienThemVaoHeThong)
         </dt>
         <dd class="col-sm-10">
+            <img src="~/images/@Model.NhanVienThemVaoHeThong.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
             @Html.DisplayFor(model => model.NhanVienThemVaoHeThong.LastName)
             @Html.DisplayFor(model => model.NhanVienThemVaoHeThong.MiddleName)
             @Html.DisplayFor(model => model.NhanVienThemVaoHeThong.FirstName)
@@ -73,6 +77,18 @@
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NgayThemVaoHeThong)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HeSoLuongCoBan)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HeSoLuongCoBan)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MucLuongCoBan)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MucLuongCoBan)
         </dd>
     </dl>
 </div>

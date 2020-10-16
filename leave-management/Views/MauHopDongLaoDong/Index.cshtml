@@ -71,59 +71,70 @@
 <h1>Quản lý hợp đồng lao động</h1>
 <br />
 
-    <table id="tblData" class="table">
-        <thead>
+<table id="TABLE_1" class="table">
+    <thead>
+        <tr>
+            <th>
+                Ảnh
+            </th>
+            <th>
+                Tên
+            </th>
+
+            <th>
+                Email
+            </th>
+
+            <th>
+                Xem hợp đồng
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.EmployeeVMs)
+        {
             <tr>
-                <th>
-                    Ảnh
-                </th>
-                <th>
-                    Tên
-                </th>
-                <th>
-                    Họ
-                </th>
-                <th>
-                    Email
-                </th>
+                <td>
 
-                <th>
-                    Xem hợp đồng
-                </th>
+                    <img src="~/images/@item.ProfilePicture"
+                         class="rounded-circle"
+                         height="40" width="40"
+                         asp-append-version="true" />
+                </td>
+                <td>
 
+                    @Html.DisplayFor(modelItem => item.LastName)
+                    @Html.DisplayFor(modelItem => item.MiddleName)
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+
+
+                <td>
+                    <a asp-controller="HopDongLaoDong" asp-action="Index" class="btn btn-outline-info" asp-route-id="@item.Id">
+                        <i class="fa fa-info" aria-hidden="true"></i>
+                        &nbsp;Xem hợp đồng
+                    </a>
+
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.EmployeeVMs)
-            {
-                <tr>
-                    <td>
-
-                        <img src="~/images/@item.ProfilePicture"
-                             class="rounded-circle"
-                             height="40" width="40"
-                             asp-append-version="true" />
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FirstName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
+        }
+    </tbody>
+</table>
 
 
-                    <td>
-                        <a asp-controller="HopDongLaoDong" asp-action="Index" class="btn btn-outline-info" asp-route-id="@item.Id">
-                            <i class="fa fa-info" aria-hidden="true"></i>
-                            &nbsp;Xem hợp đồng
-                        </a>
-
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
+@section Scripts{
+        <script>
+            $(document).ready(function () {
+                $("table[id^='TABLE']").DataTable({
+                    "scrollY": "1000px",
+                    "scrollCollapse": true,
+                    "searching": true,
+                    "paging": true
+                });
+            });
+        </script>
+    }

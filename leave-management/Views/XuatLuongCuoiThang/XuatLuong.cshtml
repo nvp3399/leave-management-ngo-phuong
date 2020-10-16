@@ -1,0 +1,94 @@
+﻿@model leave_management.Models.XuatLuongCuoiThangVM
+
+@{
+    ViewData["Title"] = "XuatLuong";
+}
+
+<h1>Xuất lương cuối tháng</h1>
+
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="XuatLuong">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input asp-for="MaNhanVienXuatLuong" type="hidden" class="form-control" />
+                <p>
+                    Nhân viên xuất lương:
+                    @Model.NhanVienDuocXuatLuong.LastName
+                    @Model.NhanVienDuocXuatLuong.MiddleName
+                    @Model.NhanVienDuocXuatLuong.FirstName
+                </p>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label asp-for="NamTinhLuong" class="control-label"></label>
+                    <input asp-for="NamTinhLuong" class="form-control" readonly />
+                    <span asp-validation-for="NamTinhLuong" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ThangTinhLuong" class="control-label"></label>
+                    <input asp-for="ThangTinhLuong" class="form-control" readonly />
+                    <span asp-validation-for="ThangTinhLuong" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <input asp-for="MaNhanVienDuocXuatLuong" type="hidden" class="form-control" />
+
+                <p>
+                    Nhân viên được xuất lương:
+                    @Model.NhanVienDuocXuatLuong.LastName
+                    @Model.NhanVienDuocXuatLuong.MiddleName
+                    @Model.NhanVienDuocXuatLuong.FirstName
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TongSoGio.SoGio" class="control-label"></label>
+                <input asp-for="TongSoGio.SoGio" class="form-control" readonly />
+                <span asp-validation-for="TongSoGio.SoGio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TongSoGio.SoPhut" class="control-label"></label>
+                <input asp-for="TongSoGio.SoPhut" class="form-control" readonly />
+                <span asp-validation-for="TongSoGio.SoPhut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TongTienLuongCoBan" class="control-label"></label>
+                <input asp-for="TongTienLuongCoBan" class="form-control" readonly />
+                <span asp-validation-for="TongTienLuongCoBan" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TongTienThuong" class="control-label"></label>
+                <input asp-for="TongTienThuong" class="form-control" readonly />
+                <span asp-validation-for="TongTienThuong" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TongTienLuong" class="control-label"></label>
+                <input asp-for="TongTienLuong" class="form-control" readonly />
+                <span asp-validation-for="TongTienLuong" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @if (Model.TrangThaiXuatLuong == true)
+                {
+                    <span class="btn btn-secondary">
+                        Đã xuất lương
+                    </span>
+                }
+                else
+                {
+                    <input type="submit" value="Xuất lương" class="btn btn-primary" />
+
+                }
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Quay lại danh sách</a>
+</div>
+

@@ -116,7 +116,7 @@ namespace leave_management.Controllers
 
                 var hopDongLaoDong = mapper.Map<HopDongLaoDong>(model);
                 hopDongLaoDong.NgayGuiBanScan = DateTime.Now;
-                hopDongLaoDong.MaNhanVienGuiBanScan = userManager.GetUserAsync(HttpContext.User).Result.Id;
+                hopDongLaoDong.MaNhanVienGuiBanScan =(await userManager.GetUserAsync(User)).Id;
                 hopDongLaoDong.MaHopDong = Guid.NewGuid().ToString();
                 hopDongLaoDong.NhanVienChuTheHopDong = null;
                 hopDongLaoDong.ViTriLuuBanScan = UploadHopDongLaoDong(model);

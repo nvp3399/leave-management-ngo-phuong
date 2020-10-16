@@ -65,6 +65,20 @@ namespace leave_management.Repository
                 
         }
 
+        public async Task<ICollection<NhatKyLamViec>> FindByMaNhanVienAndThangTinhLuong(string employeeId, int month, int year)
+        {
+            return (await db.NhatKyLamViecs
+                .Include(q => q.NhanVien)
+                .Include(q => q.LoaiLichBieu)
+                .Include(q => q.NhanVienThemVaoHeThong)
+                .ToListAsync())
+                .Where(q => q.MaNhanVien == employeeId && q.ThoiGianBatDau.Month == month && q.ThoiGianBatDau.Year == year)
+                .ToList();
+
+
+
+        }
+
         public async Task<NhatKyLamViec> FindByMaNhanVienAndThoiGianBatDau(string employeeId, DateTime thoiGianBatDau)
         {
 

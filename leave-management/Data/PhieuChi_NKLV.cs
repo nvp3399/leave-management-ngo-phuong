@@ -9,18 +9,17 @@ namespace leave_management.Data
 {
     public class PhieuChi_NKLV
     {
-        [Key]
+        public string ID { get; set; }
         public string MaPhieuChi { get; set; }
 
 
 
-        public Employee NhanVien_NKLV { get; set; }
 
-        [StringLength(450)]
         public string MaNhanVien_NKLV { get; set; }
 
         public DateTime ThoiGianBatDau_NKLV { get; set; }
 
-
+        //public virtual NhatKyLamViec NhatKyLamViec { get; set; }
+        //public virtual PhieuChi_LuongCuoiThang PhieuChi_LuongCuoiThang { get; set; }
     }
 }

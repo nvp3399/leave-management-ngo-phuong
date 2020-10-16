@@ -1,0 +1,147 @@
+﻿@model leave_management.Models.PhieuChiListVM
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Quản lý phiếu chi</h1>
+<h3>Trang này dành cho trưởng phòng nhân sự</h3>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<table id="tblData" class="table">
+    <thead>
+        <tr>
+            <th>
+                Nhân viên được chi tiền
+            </th>
+            <th>
+                Nhân viên xuất phiếu
+            </th>
+            <th>
+                Lý do chi
+            </th>
+            <th>
+                Ngày xuất phiếu
+            </th>
+            <th>
+                Trạng thái phiếu chi
+            </th>
+            <th>
+                Hành động
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PhieuChi_TamUngLuongs)
+        {
+            <tr>
+                <td>
+                    <img src="~/images/@item.NhanVienDuocChiTien.ProfilePicture"
+                         class="rounded-circle"
+                         height="40" width="40"
+                         asp-append-version="true" />
+                    @item.NhanVienDuocChiTien.LastName
+                    @item.NhanVienDuocChiTien.MiddleName
+                    @item.NhanVienDuocChiTien.FirstName
+                </td>
+                <td>
+                    <img src="~/images/@item.NhanVienXuatPhieuChi.ProfilePicture"
+                         class="rounded-circle"
+                         height="40" width="40"
+                         asp-append-version="true" />
+                    @item.NhanVienXuatPhieuChi.LastName
+                    @item.NhanVienXuatPhieuChi.MiddleName
+                    @item.NhanVienXuatPhieuChi.FirstName
+                </td>
+
+                <td>
+                    Tạm ứng lương
+                </td>
+                <td>
+                    @item.ThoiGianXuatPhieuChi
+                </td>
+                <td>
+                    @if (item.MaNhanVienChiTien != null)
+                    {
+                        <span>Đã chi tiền</span>
+                    }
+                    else if (item.MaNhanVienThuHoi != null)
+                    {
+                        <span>Đã bị thu hồi</span>
+                    }
+                    else
+                    {
+                        <span>Chưa chi tiền</span>
+                    }
+                </td>
+                <td>
+                    @if (item.MaNhanVienThuHoi == null)
+                    {
+                        <a asp-action="ThuHoi" title="Thu Hồi" class="btn btn-danger" asp-route-id="@item.MaPhieuChi" onclick="return confirm('Bạn có chắc bạn muốn thu hồi yêu cầu này?')">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            Thu hồi
+                        </a>
+                    }
+
+
+                </td>
+            </tr>
+        }
+        @foreach (var item in Model.PhieuChi_LuongCuoiThangs)
+        {
+            <tr>
+                <td>
+                    <img src="~/images/@item.NhanVienDuocChiTien.ProfilePicture"
+                         class="rounded-circle"
+                         height="40" width="40"
+                         asp-append-version="true" />
+                    @item.NhanVienDuocChiTien.LastName
+                    @item.NhanVienDuocChiTien.MiddleName
+                    @item.NhanVienDuocChiTien.FirstName
+                </td>
+                <td>
+                    <img src="~/images/@item.NhanVienXuatLuong.ProfilePicture"
+                         class="rounded-circle"
+                         height="40" width="40"
+                         asp-append-version="true" />
+                    @item.NhanVienXuatLuong.LastName
+                    @item.NhanVienXuatLuong.MiddleName
+                    @item.NhanVienXuatLuong.FirstName
+                </td>
+                <td>
+                    Lương cuối tháng
+                </td>
+                <td>
+                    @item.ThoiGianXuatPhieuChi
+                </td>
+                <td>
+                    @if (item.MaNhanVienChiTien != null)
+                    {
+                        <span>Đã chi tiền</span>
+                    }
+                    else if (item.MaNhanVienThuHoi != null)
+                    {
+                        <span>Đã bị thu hồi</span>
+                    }
+                    else
+                    {
+                        <span>Chưa chi tiền</span>
+                    }
+                </td>
+                <td>
+
+                    @if (item.MaNhanVienThuHoi == null)
+                    {
+                        <a asp-action="ThuHoi" title="Thu Hồi" class="btn btn-danger" asp-route-id="@item.MaPhieuChi" onclick="return confirm('Bạn có chắc bạn muốn thu hồi yêu cầu này?')">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            Thu hồi
+                        </a>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

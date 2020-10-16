@@ -9,27 +9,17 @@
 <h1>Danh sách yêu cầu đặt lương đã gửi</h1>
 <hr />
 
-@*@foreach (var item in Model.LeaveAllocations)
-    {
-        <div class="card bg-light" title=@Model.LeaveTypesInfo.FirstOrDefault(q => q.Id == item.LeaveTypeId).Comments>
-            <div class="card-body">
-                @Html.DisplayFor(modelItem => item.LeaveType.Name) <span class="badge badge-primary"> @item.NumberOfDays </span>
-                <i class="fa fa-info-circle" aria-hidden="true" title="@Model.LeaveTypesInfo.FirstOrDefault(q => q.Id == item.LeaveTypeId).Comments" ></i>
 
-            </div>
 
-        </div>
-        <br />
-    }*@
 
 
 <p>
-    <a asp-action="ChooseEmployee"  class="btn btn-success">
+    <a asp-action="ChooseEmployee" class="btn btn-success">
         <i class="fa fa-plus" aria-hidden="true"></i>
         Gửi yêu cầu đặt lương
     </a>
 </p>
-<table class="table tblData">
+<table id="tblData" class="table">
     <thead>
         <tr>
             <th>

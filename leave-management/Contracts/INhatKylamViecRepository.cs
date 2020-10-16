@@ -14,6 +14,8 @@ namespace leave_management.Contracts
         Task<ICollection<NhatKyLamViec>> FindByMaLoaiLichBieu(string maLoaiLichBieu);
         Task<NhatKyLamViec> FindByMaNhanVienAndThoiGianBatDau(string employeeId, DateTime thoiGianBatDau);
 
+        Task<ICollection<NhatKyLamViec>> FindByMaNhanVienAndThangTinhLuong(string employeeId, int month, int year);
+
 
     }
 }

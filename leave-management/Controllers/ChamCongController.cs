@@ -106,7 +106,12 @@ namespace leave_management.Controllers
                 //Tiền lương đã tích lũy = lương cơ bản /(6 ngày * 4 tuần *24 giờ* 60 phút)*hệ số lương * số phút của lịch biểu
                 employee.TongTienLuongCoBanDaTichLuyTrongThang = TinhTongLuongCoBanTichLuyTrongThang(employee.Id, year, month);
                 employee.TongTienThuongDaTichLuyTrongThang = TinhTongTienThuongDaTichLuyTrongThang(employee.Id, year, month);
-                employee.TongSoGioLam = TinhTongSoGioLamDaTichLuyTrongThang(employee.Id, year, month);
+
+
+                int tongSoPhut = TinhTongSoPhutLamDaTichLuyTrongThang(employee.Id, year, month);
+                employee.TongSoGio = new TongSoGioLam();
+                employee.TongSoGio.SoGio = tongSoPhut / 60;
+                employee.TongSoGio.SoPhut = tongSoPhut % 60;
                 employee.TongTienLuong = employee.TongTienLuongCoBanDaTichLuyTrongThang + employee.TongTienThuongDaTichLuyTrongThang;
             }
 
@@ -156,39 +161,42 @@ namespace leave_management.Controllers
         }
 
 
-        private double TinhTongSoGioLamDaTichLuyTrongThang(string employeeId, int year, int month)
+        private int TinhTongSoPhutLamDaTichLuyTrongThang(string employeeId, int year, int month)
         {
             var nhatKyLamViecs = nhatKylamViecRepository.FindByMaNhanVien(employeeId)
                 .Result
                 .Where(q => q.ThoiGianBatDau.Year == year && q.ThoiGianBatDau.Month == month);
 
-            double tongSoPhut = 0;
+            int tongSoPhut = 0;
             foreach (var nhatKy in nhatKyLamViecs)
             {
-                tongSoPhut += (nhatKy.ThoiGianKetThuc - nhatKy.ThoiGianBatDau).TotalMinutes;
+                tongSoPhut += (int)(nhatKy.ThoiGianKetThuc - nhatKy.ThoiGianBatDau).TotalMinutes;
             }
 
-            return tongSoPhut/60;
+            return tongSoPhut;
         }
 
 
         private int TinhTongLuongCoBanTichLuyTrongThang(string employeeId, int year, int month)
         {
-            //Tiền lương đã tích lũy = lương cơ bản /(6 ngày * 4 tuần *24 giờ* 60 phút)*hệ số lương * số phút của lịch biểu
+            //Tiền lương đã tích lũy = lương cơ bản /(6 ngày * 4 tuần *8 giờ* 60 phút)*hệ số lương * số phút của lịch biểu
             var nhatKyLamViecs = nhatKylamViecRepository.FindByMaNhanVien(employeeId)
                 .Result
                 .Where(q => q.ThoiGianBatDau.Year == year && q.ThoiGianBatDau.Month == month);
 
-            int luongCoBanTheoThang = userManager.FindByIdAsync(employeeId).Result.MucLuongCoBan;
             int tongSoTien = 0;
             foreach (var nhatKy in nhatKyLamViecs)
             {
                 int soPhut = (int)(nhatKy.ThoiGianKetThuc - nhatKy.ThoiGianBatDau).TotalMinutes;
-                tongSoTien += (int) (luongCoBanTheoThang / (6 * 4 * 24 * 60) * nhatKy.LoaiLichBieu.HeSoLuongCoBan * soPhut);
+                tongSoTien += (int) ((double)nhatKy.MucLuongCoBan / (6 * 4 * 8 * 60) * nhatKy.HeSoLuongCoBan * soPhut);
             }
 
             return tongSoTien;
         }
+
+        
+
+
 
         private int TinhTongTienThuongDaTichLuyTrongThang(string employeeId, int year, int month)
         {
@@ -208,15 +216,25 @@ namespace leave_management.Controllers
         // GET: ChamCongController/Details/5
         public async Task< ActionResult> Details(string EmployeeId, DateTime thoiGianBatDau)
         {
-            var model = mapper.Map<CreateEditNhatKyLamViecVM>(await nhatKylamViecRepository.FindByMaNhanVienAndThoiGianBatDau(EmployeeId, thoiGianBatDau));
-           
+            var model = mapper.Map<CreateEditLichSuChamCongVM>(await nhatKylamViecRepository.FindByMaNhanVienAndThoiGianBatDau(EmployeeId, thoiGianBatDau));
+
+            int soPhut = (int)(model.ThoiGianKetThuc - model.ThoiGianBatDau).TotalMinutes;
+             
+            model.TongLuongCoBan = (int)((double)model.MucLuongCoBan / (6 * 4 * 8 * 60) * model.HeSoLuongCoBan * soPhut);
+            model.TongTienLuong = model.TongLuongCoBan + model.SoTienThuongThem;
             return View(model);
         }
 
-        public async Task<ActionResult> NhatKyLamViecList(string employeeId)
+        public async Task<ActionResult> LichSuChamCongList(string employeeId)
         {
             var nhatKyLamViec = await nhatKylamViecRepository.FindByMaNhanVien(employeeId);
-            var model = mapper.Map<IEnumerable<NhatKyLamViecVM>>(nhatKyLamViec);
+            var model = mapper.Map<IEnumerable<LichSuChamCongVM>>(nhatKyLamViec);
+            foreach (var nhatky in model)
+            {
+                int soPhut = (int)(nhatky.ThoiGianKetThuc - nhatky.ThoiGianBatDau).TotalMinutes;
+                nhatky.TongLuongCoBan = (int)((double)nhatky.MucLuongCoBan / (6 * 4 * 8 * 60) * nhatky.HeSoLuongCoBan * soPhut);
+                nhatky.TongTienLuong = nhatky.TongLuongCoBan + nhatky.SoTienThuongThem;
+            }
             var employee = await userManager.FindByIdAsync(employeeId);
             ViewBag.EmployeeName = employee.LastName + " " + employee.MiddleName + " " + employee.FirstName;
             ViewBag.EmployeeId = employeeId;
@@ -225,7 +243,7 @@ namespace leave_management.Controllers
             return View(model);
         }
 
-        private async Task<CreateEditNhatKyLamViecVM> FeedSomeDataToCreateEditVM(CreateEditNhatKyLamViecVM model)
+        private async Task<CreateEditLichSuChamCongVM> FeedSomeDataToCreateEditVM(CreateEditLichSuChamCongVM model)
         {
             var loaiLichBieus = await loaiLichBieuRepository.FindAll();
 
@@ -267,12 +285,11 @@ namespace leave_management.Controllers
         public async Task<ActionResult> Create(string EmployeeId)
         {
             
-            var model = new CreateEditNhatKyLamViecVM();
+            var model = new CreateEditLichSuChamCongVM();
             model.MaNhanVien = EmployeeId;
             model = await FeedSomeDataToCreateEditVM(model);
             model.Date = DateTime.Now;
-
-
+            
 
             return View(model);
         }
@@ -280,7 +297,7 @@ namespace leave_management.Controllers
         // POST: ChamCongController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateEditNhatKyLamViecVM model)
+        public async Task<ActionResult> Create(CreateEditLichSuChamCongVM model)
         {
             try
             {
@@ -303,8 +320,8 @@ namespace leave_management.Controllers
                     return View(model);
                 }
 
-                var nhatKyLamViecList = await nhatKylamViecRepository.FindByMaNhanVien(model.NhanVien.Id);
-                foreach (var item in nhatKyLamViecList)
+                var LichSuChamCongList = await nhatKylamViecRepository.FindByMaNhanVien(model.NhanVien.Id);
+                foreach (var item in LichSuChamCongList)
                 {
                     if (model.ThoiGianBatDau.CompareTo(item.ThoiGianBatDau)>=0 && model.ThoiGianBatDau.CompareTo(item.ThoiGianKetThuc)<0
                         ||
@@ -315,9 +332,13 @@ namespace leave_management.Controllers
                             "\n Lịch biểu bị trùng: " + item.ThoiGianBatDau + " => " + item.ThoiGianKetThuc);
                     }
                 }
-                model.NhanVien = null;
                 var nhatKyLamViecRecord = mapper.Map<NhatKyLamViec>(model);
                 nhatKyLamViecRecord.NgayThemVaoHeThong = DateTime.Now;
+                nhatKyLamViecRecord.MucLuongCoBan = model.NhanVien.MucLuongCoBan;
+                nhatKyLamViecRecord.HeSoLuongCoBan = (await loaiLichBieuRepository.FindById(model.MaLoaiLichBieu)).HeSoLuongCoBan;
+                nhatKyLamViecRecord.MaNhanVienThemVaoHeThong = (await userManager.GetUserAsync(User)).Id;
+                nhatKyLamViecRecord.NhanVien = null;
+
 
                 var isSuccess = await nhatKylamViecRepository.Create(nhatKyLamViecRecord);
 
@@ -328,7 +349,7 @@ namespace leave_management.Controllers
                     return View(model);
                 }
 
-                return RedirectToAction(nameof(NhatKyLamViecList), new { employeeId = model.MaNhanVien });
+                return RedirectToAction(nameof(LichSuChamCongList), new { employeeId = model.MaNhanVien });
             }
             catch (Exception ex)
             {
@@ -379,7 +400,7 @@ namespace leave_management.Controllers
             }
 
 
-            return RedirectToAction(nameof(NhatKyLamViecList), new { employeeId = employeeId });
+            return RedirectToAction(nameof(LichSuChamCongList), new { employeeId = employeeId });
         }
 
         // POST: ChamCongController/Delete/5

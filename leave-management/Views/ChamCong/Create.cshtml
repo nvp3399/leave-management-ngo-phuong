@@ -1,12 +1,17 @@
-﻿@model leave_management.Models.CreateEditNhatKyLamViecVM
+﻿@model leave_management.Models.CreateEditLichSuChamCongVM
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Thêm nhật ký làm việc</h1>
+<h1>Thêm Lịch sử chấm công</h1>
 
-<h4>Nhân viên: @Model.NhanVien.LastName @Model.NhanVien.MiddleName @Model.NhanVien.FirstName</h4>
+<h4>Nhân viên: 
+    <img src="~/images/@Model.NhanVien.ProfilePicture"
+     class="rounded-circle"
+     height="40" width="40"
+     asp-append-version="true" /> 
+    @Model.NhanVien.LastName @Model.NhanVien.MiddleName @Model.NhanVien.FirstName</h4>
 <hr />
 <div class="row">
     <div class="col-md-8">
@@ -90,6 +95,6 @@
 </div>
 
 <div>
-    <a asp-action="NhatKyLamViecList" asp-route-employeeId="@Model.NhanVien.Id">Quay lại danh sách</a>
+    <a asp-action="LichSuChamCongList" asp-route-employeeId="@Model.NhanVien.Id">Quay lại danh sách</a>
 </div>
 

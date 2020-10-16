@@ -11,8 +11,12 @@ namespace leave_management.Models
 {
     public class ChamCongVM : EmployeeVM
     {
+        public ChamCongVM()
+        {
+            TongSoGio = new TongSoGioLam();
+        }
         [DisplayName("Tổng số giờ làm trong tháng")]
-        public double TongSoGioLam { get; set; }
+        public TongSoGioLam TongSoGio { get; set; }
         [DisplayName("Tổng tiền lương cơ bản(basic) đã tích lũy trong tháng")]
         public int TongTienLuongCoBanDaTichLuyTrongThang { get; set; }
 
@@ -22,8 +26,8 @@ namespace leave_management.Models
         [DisplayName("Tổng tiền lương đã tích lũy trong tháng")]
         public int TongTienLuong { get; set; }
 
+        public bool TrangThaiXuatLuong { get; set; }
 
-        
 
     }
 

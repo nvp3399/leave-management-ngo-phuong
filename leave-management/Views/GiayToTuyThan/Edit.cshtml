@@ -6,7 +6,14 @@
 
 <h1>Chỉnh sửa bản scan hợp đồng lao động</h1>
 <hr />
-<h3>Tên nhân viên: @Model.NhanVien.FirstName @Model.NhanVien.LastName</h3>
+<h3>Nhân viên:
+    <img src="~/images/@Model.NhanVien.ProfilePicture"
+         class="rounded-circle"
+         height="60" width="60"
+         asp-append-version="true" />
+    @Model.NhanVien.LastName 
+    @Model.NhanVien.MiddleName</h3>
+    @Model.NhanVien.FirstName</h3>
 
 <hr />
 <div class="row">

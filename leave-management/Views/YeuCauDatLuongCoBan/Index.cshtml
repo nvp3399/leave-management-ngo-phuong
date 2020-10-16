@@ -1,8 +1,8 @@
 ﻿@model AdminYeuCauDatLuongCoBanViewVM
 @using leave_management.GeneralData
 @{
-    
-    }
+
+}
 
 <!DOCTYPE html>
 
@@ -80,7 +80,7 @@
 
     <a asp-controller="YeuCauDatLuongCoBan" asp-action="Index" class="btn btn-outline-dark col-md-12">
         <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
-        Quay lại trang chính 
+        Quay lại trang chính
     </a>
     <br />
 
@@ -143,37 +143,37 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.ThoiGianGuiYeuCau)
                 </td>
-               
+
 
 
                 <td>
                     @if (item.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.YeuCauDatLuongCoBanStatus.DaBiHuy])
                     {
-                        <span class="badge badge-secondary">
-                            <i class="fa fa-ban" aria-hidden="true"></i>
-                            Đã hủy
-                        </span>
+                    <span class="badge badge-secondary">
+                        <i class="fa fa-ban" aria-hidden="true"></i>
+                        Đã hủy
+                    </span>
                     }
                     else if (item.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.YeuCauDatLuongCoBanStatus.DaDuocChapThuan])
                     {
-                        <span class="badge badge-success">
-                            <i class="fa fa-check"></i>
-                            Đã được chấp thuận
-                        </span>
+                    <span class="badge badge-success">
+                        <i class="fa fa-check"></i>
+                        Đã được chấp thuận
+                    </span>
                     }
                     else if (item.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.YeuCauDatLuongCoBanStatus.DaBiTuChoi])
                     {
-                        <span class="badge badge-danger">
-                            <i class="fa fa-times"></i>
-                            Đã bị từ chối
-                        </span>
+                    <span class="badge badge-danger">
+                        <i class="fa fa-times"></i>
+                        Đã bị từ chối
+                    </span>
                     }
                     else if (item.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.YeuCauDatLuongCoBanStatus.DangCho])
                     {
-                        <span class="badge badge-warning">
-                            <i class="fa fa-clock" aria-hidden="true"></i>
-                            Đang chờ
-                        </span>
+                    <span class="badge badge-warning">
+                        <i class="fa fa-clock" aria-hidden="true"></i>
+                        Đang chờ
+                    </span>
 
 
                     }
@@ -195,3 +195,4 @@
     </table>
 </body>
 </html>
+

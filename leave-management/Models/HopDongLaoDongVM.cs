@@ -28,7 +28,7 @@ namespace leave_management.Models
         [DisplayName("Ngày hợp đồng tải lên")]
         public DateTime NgayGuiBanScan { get; set; }
 
-        public string MaNNhanVienGuiBanScan { get; set; }
+        public string MaNhanVienGuiBanScan { get; set; }
         [DisplayName("Được tải lên bởi")]
         public EmployeeVM NhanVienGuiBanScan { get; set; }
 

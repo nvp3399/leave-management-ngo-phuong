@@ -55,6 +55,8 @@ namespace leave_management.Data
 
             modelBuilder.Entity<NhatKyLamViec>()
                 .HasKey(c => new { c.MaNhanVien, c.ThoiGianBatDau });
+            modelBuilder.Entity<PhieuChi_NKLV>()
+                .HasKey(c => new { c.MaNhanVien_NKLV, c.MaPhieuChi, c.ThoiGianBatDau_NKLV });
 
             //modelBuilder.Entity<NhatKyLamViec>()
             //    .HasNoKey()

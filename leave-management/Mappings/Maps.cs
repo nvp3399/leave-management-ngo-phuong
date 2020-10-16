@@ -29,7 +29,7 @@ namespace leave_management.Mappings
             CreateMap<LoaiLichBieu, LoaiLichBieuVM>().ReverseMap();
             CreateMap<LuongTheoThang, LuongTheoThangVM>().ReverseMap();
             CreateMap<MauHopDong, MauHopDongVM>().ReverseMap();
-            CreateMap<NhatKyLamViec, NhatKyLamViecVM>().ReverseMap();
+            CreateMap<NhatKyLamViec, LichSuChamCongVM>().ReverseMap();
             CreateMap<PhieuChi, PhieuChiVM>().ReverseMap();
             CreateMap<YeuCauDatLuongCoBan, YeuCauDatLuongCoBanVM>().ReverseMap();
             CreateMap<YeuCauTamUngLuong, YeuCauTamUngLuongVM>().ReverseMap();
@@ -42,11 +42,11 @@ namespace leave_management.Mappings
             CreateMap<LoaiGiayToTuyThan, LoaiGiayToTuyThanVM>().ReverseMap();
             CreateMap<LoaiLichBieu, LoaiLichBieuVM>().ReverseMap();
             CreateMap<LuongTheoThang, LuongTheoThangVM>().ReverseMap();
-            CreateMap<NhatKyLamViec, NhatKyLamViecVM>().ReverseMap();
+            CreateMap<NhatKyLamViec, LichSuChamCongVM>().ReverseMap();
             CreateMap<PhieuChi, PhieuChiVM>().ReverseMap();
             CreateMap<YeuCauDatLuongCoBan, YeuCauDatLuongCoBanVM>().ReverseMap();
             CreateMap<YeuCauTamUngLuong, YeuCauTamUngLuongVM>().ReverseMap();
-            CreateMap<NhatKyLamViec, CreateEditNhatKyLamViecVM>().ReverseMap();
+            CreateMap<NhatKyLamViec, CreateEditLichSuChamCongVM>().ReverseMap();
             CreateMap<Employee, ChamCongVM>().ReverseMap();
             CreateMap<GiayToTuyThan, CreateEditGiayToTuyThanVM>().ReverseMap();
 

@@ -28,5 +28,10 @@ namespace leave_management.Data
         [Required]
 
         public DateTime NgayThemVaoHeThong { get; set; }
+
+        [Required]
+        public float HeSoLuongCoBan { get; set; }
+        [Required]
+        public int MucLuongCoBan { get; set; }
     }
 }

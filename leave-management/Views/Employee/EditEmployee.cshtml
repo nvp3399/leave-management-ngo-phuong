@@ -5,7 +5,16 @@
 }
 
 <h1>Chỉnh sửa hồ sơ nhân viên</h1>
-
+<h3>
+    Nhân viên:
+    <img src="~/images/@Model.ProfilePicture"
+         class="rounded-circle"
+         height="60" width="60"
+         asp-append-version="true" />
+    @Model.LastName
+    @Model.MiddleName
+    @Model.FirstName
+</h3>
 <hr />
 <div class="row">
     <div class="col-md-4">

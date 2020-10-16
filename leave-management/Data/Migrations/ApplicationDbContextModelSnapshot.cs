@@ -610,11 +610,17 @@ namespace leave_management.Data.Migrations
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<float>("HeSoLuongCoBan")
+                        .HasColumnType("real");
+
                     b.Property<string>("MaLoaiLichBieu")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("MaNhanVienThemVaoHeThong")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("MucLuongCoBan")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("NgayThemVaoHeThong")
                         .HasColumnType("datetime2");
@@ -674,22 +680,19 @@ namespace leave_management.Data.Migrations
 
             modelBuilder.Entity("leave_management.Data.PhieuChi_NKLV", b =>
                 {
-                    b.Property<string>("MaPhieuChi")
+                    b.Property<string>("MaNhanVien_NKLV")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("MaNhanVien_NKLV")
-                        .HasColumnType("nvarchar(450)")
-                        .HasMaxLength(450);
-
-                    b.Property<string>("NhanVien_NKLVId")
+                    b.Property<string>("MaPhieuChi")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("ThoiGianBatDau_NKLV")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("MaPhieuChi");
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("NhanVien_NKLVId");
+                    b.HasKey("MaNhanVien_NKLV", "MaPhieuChi", "ThoiGianBatDau_NKLV");
 
                     b.ToTable("PhieuChi_NKLVs");
                 });
@@ -1079,13 +1082,6 @@ namespace leave_management.Data.Migrations
                     b.HasOne("leave_management.Data.Employee", "NhanVienXuatLuong")
                         .WithMany()
                         .HasForeignKey("MaNhanVienXuatLuong");
-                });
-
-            modelBuilder.Entity("leave_management.Data.PhieuChi_NKLV", b =>
-                {
-                    b.HasOne("leave_management.Data.Employee", "NhanVien_NKLV")
-                        .WithMany()
-                        .HasForeignKey("NhanVien_NKLVId");
                 });
 
             modelBuilder.Entity("leave_management.Data.PhieuChi_TamUngLuong", b =>

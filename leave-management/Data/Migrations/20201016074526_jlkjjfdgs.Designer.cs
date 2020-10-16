@@ -10,8 +10,8 @@ using leave_management.Data;
 namespace leave_management.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201015074008_AddOneTable")]
-    partial class AddOneTable
+    [Migration("20201016074526_jlkjjfdgs")]
+    partial class jlkjjfdgs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -612,11 +612,17 @@ namespace leave_management.Data.Migrations
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<float>("HeSoLuongCoBan")
+                        .HasColumnType("real");
+
                     b.Property<string>("MaLoaiLichBieu")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("MaNhanVienThemVaoHeThong")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("MucLuongCoBan")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("NgayThemVaoHeThong")
                         .HasColumnType("datetime2");
@@ -636,72 +642,96 @@ namespace leave_management.Data.Migrations
                     b.ToTable("NhatKyLamViecs");
                 });
 
-            modelBuilder.Entity("leave_management.Data.PhieuChi", b =>
+            modelBuilder.Entity("leave_management.Data.PhieuChi_LuongCuoiThang", b =>
                 {
-                    b.Property<string>("MaNhanVien")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("ThoiGianXuatPhieuChi")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("MaPhieuChi")
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
 
                     b.Property<string>("GhiChu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LyDoChi")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MaNhanVienChiTien")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("MaNhanVienXuatPhieu")
+                    b.Property<string>("MaNhanVienThuHoi")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("NamTinhLuong")
-                        .HasColumnType("int");
+                    b.Property<string>("MaNhanVienXuatLuong")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("SoTienChi")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("ThoiGianChiTien")
+                        .HasColumnType("datetime2");
 
-                    b.Property<byte>("ThangTinhLuong")
-                        .HasColumnType("tinyint");
+                    b.Property<DateTime>("ThoiGianThuHoi")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("TrangThaiPhieuChi")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("ThoiGianXuatPhieuChi")
+                        .HasColumnType("datetime2");
 
-                    b.HasKey("MaNhanVien", "ThoiGianXuatPhieuChi");
+                    b.HasKey("MaPhieuChi");
 
                     b.HasIndex("MaNhanVienChiTien");
 
-                    b.HasIndex("MaNhanVienXuatPhieu");
+                    b.HasIndex("MaNhanVienThuHoi");
 
-                    b.ToTable("PhieuChis");
+                    b.HasIndex("MaNhanVienXuatLuong");
+
+                    b.ToTable("PhieuChi_LuongCuoiThangs");
                 });
 
             modelBuilder.Entity("leave_management.Data.PhieuChi_NKLV", b =>
                 {
-      
+                    b.Property<string>("MaPhieuChi")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("MaNhanVien_NKLV")
                         .HasColumnType("nvarchar(max)");
 
-
-
-
-
-    
-
-   
-
-
                     b.Property<DateTime>("ThoiGianBatDau_NKLV")
                         .HasColumnType("datetime2");
 
-
-         
+                    b.HasKey("MaPhieuChi");
 
                     b.ToTable("PhieuChi_NKLVs");
+                });
+
+            modelBuilder.Entity("leave_management.Data.PhieuChi_TamUngLuong", b =>
+                {
+                    b.Property<string>("MaPhieuChi")
+                        .HasColumnType("nvarchar(450)")
+                        .HasMaxLength(450);
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MaNhanVienChiTien")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("MaNhanVienThuHoi")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("MaYeuCauTamUngLuong")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("ThoiGianChiTien")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ThoiGianThuHoi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ThoiGianXuatPhieuChi")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("MaPhieuChi");
+
+                    b.HasIndex("MaNhanVienChiTien");
+
+                    b.HasIndex("MaNhanVienThuHoi");
+
+                    b.HasIndex("MaYeuCauTamUngLuong");
+
+                    b.ToTable("PhieuChi_TamUngLuongs");
                 });
 
             modelBuilder.Entity("leave_management.Data.YeuCauDatLuongCoBan", b =>
@@ -1038,26 +1068,34 @@ namespace leave_management.Data.Migrations
                         .HasForeignKey("MaNhanVienThemVaoHeThong");
                 });
 
-            modelBuilder.Entity("leave_management.Data.PhieuChi", b =>
+            modelBuilder.Entity("leave_management.Data.PhieuChi_LuongCuoiThang", b =>
                 {
-                    b.HasOne("leave_management.Data.Employee", "NhanVien")
-                        .WithMany()
-                        .HasForeignKey("MaNhanVien")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("leave_management.Data.Employee", "NhanVienChiTien")
                         .WithMany()
                         .HasForeignKey("MaNhanVienChiTien");
 
-                    b.HasOne("leave_management.Data.Employee", "NhanVienXuatPhieu")
+                    b.HasOne("leave_management.Data.Employee", "NhanVienThuHoi")
                         .WithMany()
-                        .HasForeignKey("MaNhanVienXuatPhieu");
+                        .HasForeignKey("MaNhanVienThuHoi");
+
+                    b.HasOne("leave_management.Data.Employee", "NhanVienXuatLuong")
+                        .WithMany()
+                        .HasForeignKey("MaNhanVienXuatLuong");
                 });
 
-            modelBuilder.Entity("leave_management.Data.PhieuChi_NKLV", b =>
+            modelBuilder.Entity("leave_management.Data.PhieuChi_TamUngLuong", b =>
                 {
+                    b.HasOne("leave_management.Data.Employee", "NhanVienChiTien")
+                        .WithMany()
+                        .HasForeignKey("MaNhanVienChiTien");
 
+                    b.HasOne("leave_management.Data.Employee", "NhanVienThuHoi")
+                        .WithMany()
+                        .HasForeignKey("MaNhanVienThuHoi");
+
+                    b.HasOne("leave_management.Data.YeuCauTamUngLuong", "YeuCauTamUngLuong")
+                        .WithMany()
+                        .HasForeignKey("MaYeuCauTamUngLuong");
                 });
 
             modelBuilder.Entity("leave_management.Data.YeuCauDatLuongCoBan", b =>

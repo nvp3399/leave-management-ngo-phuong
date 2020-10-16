@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Trang này dành cho trưởng phòng</h1>
+<h1>Trang này dành cho trưởng phòng nhân sự</h1>
 <hr />
 <div class="row">
     <div class="col-md-8">
@@ -51,7 +51,7 @@
             </th>
 
             <th>
-                Tổng số giờ làm đã tích lũy
+                Tổng thời gian làm đã tích lũy
             </th>
             <th>
                 Tổng tiền lương cơ bản (basic) đã tích lũy
@@ -82,7 +82,7 @@
                 <td>
 
                     
-
+                    
 
                     @Html.DisplayFor(modelItem => item.LastName)
                     @Html.DisplayFor(modelItem => item.MiddleName)
@@ -90,8 +90,7 @@
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.TongSoGio.SoGio) giờ 
-
+                    @Html.DisplayFor(modelItem => item.TongSoGio.SoGio) giờ
                     @Html.DisplayFor(modelItem => item.TongSoGio.SoPhut) phút
                 </td>
                 <td>
@@ -104,14 +103,29 @@
                     @item.TongTienLuong
                 </td>
                 <td>
-                    <a asp-action="LichSuChamCongList" class="btn btn-outline-info" asp-route-employeeId="@item.Id">
+                    <a asp-controller="ChamCong" asp-action="LichSuChamCongList" class="btn btn-outline-info" asp-route-employeeId="@item.Id">
                         <i class="fa fa-info" aria-hidden="true"></i>
-                        &nbsp; Lịch sử chấm công
+                        &nbsp;Lịch sử chấm công
                     </a>
-                    <a asp-action="Create" asp-route-employeeId="@item.Id" class="btn btn-toolbar">
-                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-                        &nbsp; Chấm công
-                    </a>
+                    @if (item.TongTienLuong ==0)
+                    {
+                        <span></span>
+                    }
+
+                    else if (item.TrangThaiXuatLuong == true)
+                    {
+                        <a asp-action="XuatLuong" asp-route-maNhanVienDuocXuatLuong="@item.Id" asp-route-selectedMonth="@Model.ViewForm.CurrentMonth" asp-route-selectedYear="@Model.ViewForm.CurrentYear" class="btn btn-outline-primary">
+                            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                            &nbsp; Đã xuất lương
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-action="XuatLuong" asp-route-maNhanVienDuocXuatLuong="@item.Id" asp-route-selectedMonth="@Model.ViewForm.CurrentMonth" asp-route-selectedYear="@Model.ViewForm.CurrentYear" class="btn btn-outline-primary">
+                            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                            &nbsp; Xuất lương
+                        </a>
+                    }
                 </td>
             </tr>
         }

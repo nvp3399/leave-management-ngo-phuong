@@ -3,17 +3,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace leave_management.Data.Migrations
 {
-    public partial class AddOneTable : Migration
+    public partial class jlkjjfdgs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-           
            
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-           
+            
         }
     }
 }

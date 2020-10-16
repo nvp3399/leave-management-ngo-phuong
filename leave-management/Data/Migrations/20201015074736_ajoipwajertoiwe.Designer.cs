@@ -681,53 +681,7 @@ namespace leave_management.Data.Migrations
 
             modelBuilder.Entity("leave_management.Data.PhieuChi_NKLV", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)")
-                        .HasMaxLength(450);
-
-                    b.Property<string>("MaNhanVien_NKLV")
-                        .HasColumnType("nvarchar(450)")
-                        .HasMaxLength(450);
-
-                    b.Property<string>("MaNhanVien_PhieuChi")
-                        .HasColumnType("nvarchar(450)")
-                        .HasMaxLength(450);
-
-                    b.Property<string>("NhanVien_NKLVId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("NhanVien_PhieuChiId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("NhatKyLamViecMaNhanVien")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("NhatKyLamViecThoiGianBatDau")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PhieuChiMaNhanVien")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime?>("PhieuChiThoiGianXuatPhieuChi")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ThoiGianBatDau_NKLV")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ThoiGianXuatPhieuChi_PhieuChi")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NhanVien_NKLVId");
-
-                    b.HasIndex("NhanVien_PhieuChiId");
-
-                    b.HasIndex("NhatKyLamViecMaNhanVien", "NhatKyLamViecThoiGianBatDau");
-
-                    b.HasIndex("PhieuChiMaNhanVien", "PhieuChiThoiGianXuatPhieuChi");
-
-                    b.ToTable("PhieuChi_NKLVs");
+                    
                 });
 
             modelBuilder.Entity("leave_management.Data.YeuCauDatLuongCoBan", b =>
@@ -1083,21 +1037,7 @@ namespace leave_management.Data.Migrations
 
             modelBuilder.Entity("leave_management.Data.PhieuChi_NKLV", b =>
                 {
-                    b.HasOne("leave_management.Data.Employee", "NhanVien_NKLV")
-                        .WithMany()
-                        .HasForeignKey("NhanVien_NKLVId");
-
-                    b.HasOne("leave_management.Data.Employee", "NhanVien_PhieuChi")
-                        .WithMany()
-                        .HasForeignKey("NhanVien_PhieuChiId");
-
-                    b.HasOne("leave_management.Data.NhatKyLamViec", "NhatKyLamViec")
-                        .WithMany()
-                        .HasForeignKey("NhatKyLamViecMaNhanVien", "NhatKyLamViecThoiGianBatDau");
-
-                    b.HasOne("leave_management.Data.PhieuChi", "PhieuChi")
-                        .WithMany()
-                        .HasForeignKey("PhieuChiMaNhanVien", "PhieuChiThoiGianXuatPhieuChi");
+                  
                 });
 
             modelBuilder.Entity("leave_management.Data.YeuCauDatLuongCoBan", b =>
