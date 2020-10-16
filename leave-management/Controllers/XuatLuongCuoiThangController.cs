@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using static leave_management.Functions.Functions;
 
 namespace leave_management.Controllers
 {
@@ -101,10 +102,10 @@ namespace leave_management.Controllers
                 var MaVaiTroTrenHeThong = await userRoleRepository.FindRoleIdByUserID(employee.Id);
                 employee.VaiTroTrenHeThong = await roleRepository.FindById(MaVaiTroTrenHeThong);
                 //Tiền lương đã tích lũy = lương cơ bản /(6 ngày * 4 tuần *24 giờ* 60 phút)*hệ số lương * số phút của lịch biểu
-                employee.TongTienLuongCoBanDaTichLuyTrongThang = TinhTongLuongCoBanTichLuyTrongThang(employee.Id, year, month);
-                employee.TongTienThuongDaTichLuyTrongThang = TinhTongTienThuongDaTichLuyTrongThang(employee.Id, year, month);
+                employee.TongTienLuongCoBanDaTichLuyTrongThang = TinhTongLuongCoBanTichLuyTrongThang(nhatKylamViecRepository,employee.Id, year, month);
+                employee.TongTienThuongDaTichLuyTrongThang = TinhTongTienThuongDaTichLuyTrongThang(nhatKylamViecRepository, employee.Id, year, month);
 
-                int tongSoPhut = TinhTongSoPhutLamDaTichLuyTrongThang(employee.Id, year, month);
+                int tongSoPhut = TinhTongSoPhutLamDaTichLuyTrongThang(nhatKylamViecRepository, employee.Id, year, month);
                 employee.TongSoGio.SoGio = tongSoPhut / 60;
                 employee.TongSoGio.SoPhut = tongSoPhut % 60;
 
@@ -158,49 +159,7 @@ namespace leave_management.Controllers
         }
 
 
-        private int TinhTongSoPhutLamDaTichLuyTrongThang(string employeeId, int year, int month)
-        {
-            var nhatKyLamViecs = nhatKylamViecRepository.FindByMaNhanVien(employeeId)
-                .Result
-                .Where(q => q.ThoiGianBatDau.Year == year && q.ThoiGianBatDau.Month == month);
 
-            int tongSoPhut = 0;
-            foreach (var nhatKy in nhatKyLamViecs)
-            {
-                tongSoPhut += (int)(nhatKy.ThoiGianKetThuc - nhatKy.ThoiGianBatDau).TotalMinutes;
-            }
-
-            return tongSoPhut;
-        }
-
-
-        private int TinhTongLuongCoBanTichLuyTrongThang(string employeeId, int year, int month)
-        {
-            //Tiền lương đã tích lũy = lương cơ bản /(6 ngày * 4 tuần *8 giờ* 60 phút)*hệ số lương * số phút của lịch biểu
-            var nhatKyLamViecs =  nhatKylamViecRepository.FindByMaNhanVienAndThangTinhLuong(employeeId, month, year).Result;
-
-            int tongSoTien = 0;
-            foreach (var nhatKy in nhatKyLamViecs)
-            {
-                int soPhut = (int)(nhatKy.ThoiGianKetThuc - nhatKy.ThoiGianBatDau).TotalMinutes;
-                tongSoTien += (int)(nhatKy.MucLuongCoBan / (6 * 4 * 8 * 60) * nhatKy.HeSoLuongCoBan * soPhut);
-            }
-
-            return tongSoTien;
-        }
-
-        private int TinhTongTienThuongDaTichLuyTrongThang(string employeeId, int year, int month)
-        {
-            var nhatKyLamViecs = nhatKylamViecRepository.FindByMaNhanVienAndThangTinhLuong(employeeId, month, year).Result;
-
-            int tongSoTien = 0;
-            foreach (var nhatKy in nhatKyLamViecs)
-            {
-                tongSoTien += nhatKy.SoTienThuongThem;
-            }
-
-            return tongSoTien;
-        }
 
         public async Task<ActionResult> XuatLuong(string maNhanVienDuocXuatLuong, string selectedMonth, string selectedYear)
         {
@@ -208,8 +167,8 @@ namespace leave_management.Controllers
             int month = int.Parse(selectedMonth);
             var model = new XuatLuongCuoiThangVM
             {
-                TongTienLuongCoBan = TinhTongLuongCoBanTichLuyTrongThang(maNhanVienDuocXuatLuong, year, month),
-                TongTienThuong = TinhTongTienThuongDaTichLuyTrongThang(maNhanVienDuocXuatLuong, year, month),
+                TongTienLuongCoBan = TinhTongLuongCoBanTichLuyTrongThang(nhatKylamViecRepository, maNhanVienDuocXuatLuong, year, month),
+                TongTienThuong = TinhTongTienThuongDaTichLuyTrongThang(nhatKylamViecRepository, maNhanVienDuocXuatLuong, year, month),
                 
 
                 NhanVienDuocXuatLuong = mapper.Map<EmployeeVM>(await userManager.FindByIdAsync(maNhanVienDuocXuatLuong)),
@@ -217,7 +176,7 @@ namespace leave_management.Controllers
                 NamTinhLuong = year,
                 ThangTinhLuong = month
             };
-            int tongSoPhut = TinhTongSoPhutLamDaTichLuyTrongThang(maNhanVienDuocXuatLuong, year, month);
+            int tongSoPhut = TinhTongSoPhutLamDaTichLuyTrongThang(nhatKylamViecRepository, maNhanVienDuocXuatLuong, year, month);
             model.TongSoGio = new TongSoGioLam();
 
             model.TongSoGio.SoGio = tongSoPhut / 60;

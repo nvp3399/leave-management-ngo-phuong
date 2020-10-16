@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -15,14 +16,14 @@ namespace leave_management.Models
 
         public DateTime ThoiGianXuatPhieuChi { get; set; }
 
-        [ForeignKey("MaNhanVienChiTien")]
+        [DisplayName("Nhân viên chi tiền (Kế toán)")]
         public EmployeeVM NhanVienChiTien { get; set; }
         public string MaNhanVienChiTien { get; set; }
 
         public DateTime ThoiGianChiTien { get; set; }
 
 
-        [ForeignKey("MaNhanVienThuHoi")]
+        [DisplayName("Nhân viên thu hồi (trưởng phòng nhân sự)")]
         public EmployeeVM NhanVienThuHoi { get; set; }
         public string MaNhanVienThuHoi { get; set; }
 

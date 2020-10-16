@@ -1,0 +1,96 @@
+﻿@model leave_management.Models.PhieuChi_TamUngLuongVM
+
+@{
+    ViewData["Title"] = "ChiTienTamUngLuong";
+}
+
+<h1>Chi tiết phiếu chi</h1>
+<h3>Loại phiếu chi: Chi tạm ứng lương</h3>
+<hr />
+<div>
+    <h4>PhieuChi_TamUngLuongVM</h4>
+    <hr />
+    <dl class="row">
+
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ThoiGianXuatPhieuChi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ThoiGianXuatPhieuChi)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NhanVienChiTien)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="~/images/@Model.NhanVienDuocChiTien.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Html.DisplayFor(model => model.NhanVienChiTien.LastName)
+            @Html.DisplayFor(model => model.NhanVienChiTien.MiddleName)
+            @Html.DisplayFor(model => model.NhanVienChiTien.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NhanVienDuocChiTien)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="~/images/@Model.NhanVienDuocChiTien.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Html.DisplayFor(model => model.NhanVienDuocChiTien.LastName)
+            @Html.DisplayFor(model => model.NhanVienDuocChiTien.MiddleName)
+            @Html.DisplayFor(model => model.NhanVienDuocChiTien.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NhanVienDuocChiTien)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="~/images/@Model.NhanVienDuocChiTien.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Html.DisplayFor(model => model.NhanVienDuocChiTien.LastName)
+            @Html.DisplayFor(model => model.NhanVienDuocChiTien.MiddleName)
+            @Html.DisplayFor(model => model.NhanVienDuocChiTien.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ThoiGianChiTien)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ThoiGianChiTien)
+        </dd>
+        @*<dt class = "col-sm-2">
+            @html.displaynamefor(model => model.manhanvienthuhoi)
+        </dt>
+        <dd class = "col-sm-10">
+             <img src="~/images/@Model.NhanVienDuocChiTien.ProfilePicture"
+                         class="rounded-circle"
+                         height="40" width="40"
+                         asp-append-version="true" />
+            @html.displayfor(model => model.nhanvienthuhoi.lastname)
+            @html.displayfor(model => model.nhanvienthuhoi.middlename)
+            @html.displayfor(model => model.nhanvienthuhoi.firstname)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ThoiGianThuHoi)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ThoiGianThuHoi)*@
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GhiChu)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GhiChu)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="XacNhanChiTien" title="Chi Tiền" class="btn btn-outline-success" asp-route-id="@Model.MaPhieuChi" onclick="return confirm('Bạn chắc chắn muốn chi tiền?')">
+        <i class="fa fa-dollar-sign" aria-hidden="true"></i>
+        Xác nhận chi tiền
+    </a>
+    <a asp-action="Index">Quay lại danh sách</a>
+</div>

@@ -1,0 +1,121 @@
+﻿@model leave_management.Models.PhieuChi_LuongCuoiThangVM
+
+@{
+    ViewData["Title"] = "ChiTienLuongCuoiThang";
+}
+
+<h1>Chi tiết phiếu chi</h1>
+<h3>Loại phiếu chi: Lương cuối tháng</h3>
+<hr />
+<div>
+    <hr />
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NhanVienXuatLuong)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="~/images/@Model.NhanVienDuocChiTien.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Html.DisplayFor(model => model.NhanVienXuatLuong.LastName)
+            @Html.DisplayFor(model => model.NhanVienXuatLuong.MiddleName)
+            @Html.DisplayFor(model => model.NhanVienXuatLuong.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NhanVienChiTien)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="~/images/@Model.NhanVienDuocChiTien.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Html.DisplayFor(model => model.NhanVienChiTien.FirstName)
+            @Html.DisplayFor(model => model.NhanVienChiTien.MiddleName)
+            @Html.DisplayFor(model => model.NhanVienChiTien.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NhanVienDuocChiTien)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="~/images/@Model.NhanVienDuocChiTien.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Html.DisplayFor(model => model.NhanVienDuocChiTien.FirstName)
+            @Html.DisplayFor(model => model.NhanVienDuocChiTien.MiddleName)
+            @Html.DisplayFor(model => model.NhanVienDuocChiTien.LastName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TongSoGioLam)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TongSoGioLam.SoGio) giờ
+            @Html.DisplayFor(model => model.TongSoGioLam.SoPhut) phút
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TongTienLuongCoBanDaTichLuyTrongThang)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TongTienLuongCoBanDaTichLuyTrongThang)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TongTienThuongDaTichLuyTrongThang)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TongTienThuongDaTichLuyTrongThang)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TongTienLuong)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TongTienLuong)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ThoiGianXuatPhieuChi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ThoiGianXuatPhieuChi)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ThoiGianChiTien)
+        </dt>
+        <dd class="col-sm-10">
+            @DateTime.Now
+        </dd>
+        @*<dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.NhanVienThuHoi)
+        </dt>
+        <dd class="col-sm-10">
+             <img src="~/images/@Model.NhanVienDuocChiTien.ProfilePicture"
+                         class="rounded-circle"
+                         height="40" width="40"
+                         asp-append-version="true" />
+            @Html.DisplayFor(model => model.NhanVienThuHoi.LastName)
+            @Html.DisplayFor(model => model.NhanVienThuHoi.MiddleName)
+            @Html.DisplayFor(model => model.NhanVienThuHoi.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ThoiGianThuHoi)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ThoiGianThuHoi)
+        </dd>*@
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GhiChu)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GhiChu)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="XacNhanChiTien" title="Chi Tiền" class="btn btn-outline-success" asp-route-id="@Model.MaPhieuChi" onclick="return confirm('Bạn chắc chắn muốn chi tiền?')">
+        <i class="fa fa-dollar-sign" aria-hidden="true"></i>
+        Xác nhận chi tiền
+    </a>
+    <a asp-action="Index">Quay lại danh sách</a>
+</div>

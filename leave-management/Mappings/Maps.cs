@@ -55,6 +55,9 @@ namespace leave_management.Mappings
             CreateMap<PhieuChi_TamUngLuong, PhieuChi_TamUngLuongVM>().ReverseMap();
             CreateMap<PhieuChi_NKLV, PhieuChi_NKLVVM>().ReverseMap();
 
+            CreateMap<PhieuChi_LuongCuoiThang, PhieuChi_LuongCuoiThangVM_XuatLuong>().ReverseMap();
+            CreateMap<PhieuChi_TamUngLuong, PhieuChi_TamUngLuongVM_XuatLuong>().ReverseMap();
+
 
 
 

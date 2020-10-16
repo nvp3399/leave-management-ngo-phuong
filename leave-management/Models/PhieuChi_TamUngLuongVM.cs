@@ -19,5 +19,7 @@ namespace leave_management.Models
 
         public EmployeeVM NhanVienXuatPhieuChi { get; set; }
 
+        
     }
+
 }

@@ -26,18 +26,24 @@ namespace leave_management.Repository
         public async Task<bool> DaXuatPhieuChiHayChua(string employeeId, int month, int year)
         {
             //Kiểm tra xem đã xuất phiếu chi hay chưa và có bất kỳ phiếu chi đã xuất nào có trạng thái là chưa thu hồi hay không.
+            //Kiểm tra xem là đã chi tiền hay chưa.
+            //Tên hàm nào cho hợp lý?
             var phieuchi_nklvs = await FindByMaNhanVienAndNamTinhLuongAndThangTinhLuong(employeeId, month, year);
             if (phieuchi_nklvs.Count ==0)
             {
                 return false;
             }
 
-            var maPhieuChi_LuongCuoiThangs = phieuchi_nklvs.Select(q => q.MaPhieuChi).Distinct();
+            var maPhieuChi_LuongCuoiThangs = phieuchi_nklvs
+                .Select(q => new { q.MaPhieuChi })
+                .Distinct()
+                ;
 
 
 
             var phieuchi_luongcuoithangs = (await db.PhieuChi_LuongCuoiThangs.ToListAsync())
-                .Select(q => new { q.MaPhieuChi, q.MaNhanVienThuHoi });
+                .Select(q => new { q.MaPhieuChi, q.MaNhanVienThuHoi, q.MaNhanVienChiTien })
+                ;
 
 
 
@@ -46,8 +52,9 @@ namespace leave_management.Repository
             {
                 foreach (var phieuchi_luongcuoiThang in phieuchi_luongcuoithangs)
                 {
-                    if (phieuchi_luongcuoiThang.MaPhieuChi == maphieuchi_luongCuoiThang
-                        && phieuchi_luongcuoiThang.MaNhanVienThuHoi == null)
+                    if (phieuchi_luongcuoiThang.MaPhieuChi == maphieuchi_luongCuoiThang.MaPhieuChi
+                        && phieuchi_luongcuoiThang.MaNhanVienThuHoi == null
+                        /*&& phieuchi_luongcuoiThang.MaNhanVienChiTien == null*/)
                     {
                         return true;
                     }
