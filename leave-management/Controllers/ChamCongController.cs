@@ -13,9 +13,14 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using static leave_management.Functions.Functions;
+using Microsoft.AspNetCore.Authorization;
+using static leave_management.GeneralData.Data;
 
 namespace leave_management.Controllers
 {
+
+    [Authorize(Roles ="Quản trị viên,Trưởng phòng,Trưởng phòng nhân sự")]
+
     public class ChamCongController : Controller
     {
         private readonly ILeaveTypeRepository leaverepo;
@@ -63,7 +68,7 @@ namespace leave_management.Controllers
             this.hopDongLaoDongRepository = hopDongLaoDongRepository;
             this.nhatKylamViecRepository = nhatKylamViecRepository;
             this.loaiLichBieuRepository = loaiLichBieuRepository;
-
+  
 
         }
 

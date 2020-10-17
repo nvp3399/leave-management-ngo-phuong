@@ -7,6 +7,7 @@ using AutoMapper;
 using leave_management.Contracts;
 using leave_management.Data;
 using leave_management.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -17,6 +18,7 @@ using static leave_management.Functions.Functions;
 
 namespace leave_management.Controllers
 {
+    [Authorize(Roles = "Quản trị viên,Kế toán")]
     public class ChiTienController : Controller
     {
         private readonly ILeaveTypeRepository leaverepo;
@@ -183,6 +185,35 @@ namespace leave_management.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<ActionResult> ChiTienLuongCuoiThang(string id)
+        {// id = ma phieu chi luong cuoi thang
+            var model = FeedSomeDataToPhieuChi_LuongCuoiThangModel(
+                mapper,
+                phieuChi_LuongCuoiThangRepository,
+                nhatKylamViecRepository,
+                phieuChi_NKLVRepository,
+                userManager,
+                User,
+                id);
+            return View(model);
+
+        }
+
+        public async Task<ActionResult> ChiTienTamUngLuong(string id)
+        {//id = ma phieu chi luong tam ung
+
+            var model = FeedSomeDataToPhieuChi_TamUngLuongVM(
+                phieuChi_TamUngLuongRepository,
+                mapper,
+                yeuCauTamUngLuongRepository,
+                userManager,
+                User,
+                id
+                );
+
+            return View(model);
+        }
+
         //public async Task<ActionResult> ChiTienView(string id)
         //{
         //    var phieuchi_luongCuoiThang = await phieuChi_LuongCuoiThangRepository.FindById(id);
@@ -205,62 +236,64 @@ namespace leave_management.Controllers
 
         //}
 
-        public async Task<ActionResult> ChiTienLuongCuoiThang(string id)
-        {// id = ma phieu chi luong cuoi thang
-            var phieuChiLuongCuoiThang = await phieuChi_LuongCuoiThangRepository.FindById(id);
-            var model = mapper.Map<PhieuChi_LuongCuoiThangVM>(phieuChiLuongCuoiThang);
-            //var maNhanVienDuocXuatLuong = await phieuChi_NKLVRepository.FindMaNhanVienByMaPhieuChi(model.MaPhieuChi);
-            var phieuchi_nklv = (await phieuChi_NKLVRepository.FindAll())
-                .FirstOrDefault(q => q.MaPhieuChi == model.MaPhieuChi);
-            var thoiGianTinhLuong = phieuchi_nklv.ThoiGianBatDau_NKLV;
-            var maNhanVienDuocChiTien = phieuchi_nklv.MaNhanVien_NKLV;
 
-            int tongSoPhutLamViec = TinhTongSoPhutLamDaTichLuyTrongThang(
-                nhatKylamViecRepository, 
-                maNhanVienDuocChiTien, 
-                thoiGianTinhLuong.Year, 
-                thoiGianTinhLuong.Month);
 
-            model.TongSoGioLam = new TongSoGioLam();
-            model.TongSoGioLam.SoGio = tongSoPhutLamViec / 60;
-            model.TongSoGioLam.SoPhut = tongSoPhutLamViec % 60;
+        //private async  Task<PhieuChi_LuongCuoiThangVM> FeedSomeDataToPhieuChi_LuongCuoiThangModel(string maPhieuChi)
+        //{
+        //    var phieuChiLuongCuoiThang = await phieuChi_LuongCuoiThangRepository.FindById(maPhieuChi);
+        //    var model = mapper.Map<PhieuChi_LuongCuoiThangVM>(phieuChiLuongCuoiThang);
+        //    //var maNhanVienDuocXuatLuong = await phieuChi_NKLVRepository.FindMaNhanVienByMaPhieuChi(model.MaPhieuChi);
+        //    var phieuchi_nklv = (await phieuChi_NKLVRepository.FindAll())
+        //        .FirstOrDefault(q => q.MaPhieuChi == model.MaPhieuChi);
+        //    var thoiGianTinhLuong = phieuchi_nklv.ThoiGianBatDau_NKLV;
+        //    var maNhanVienDuocChiTien = phieuchi_nklv.MaNhanVien_NKLV;
 
-            model.TongTienLuongCoBanDaTichLuyTrongThang =
-                TinhTongLuongCoBanTichLuyTrongThang(
-                    nhatKylamViecRepository,
-                maNhanVienDuocChiTien,
-                thoiGianTinhLuong.Year,
-                thoiGianTinhLuong.Month);
+        //    int tongSoPhutLamViec = TinhTongSoPhutLamDaTichLuyTrongThang(
+        //        nhatKylamViecRepository,
+        //        maNhanVienDuocChiTien,
+        //        thoiGianTinhLuong.Year,
+        //        thoiGianTinhLuong.Month);
 
-            model.TongTienThuongDaTichLuyTrongThang =
-                TinhTongTienThuongDaTichLuyTrongThang(
-                    nhatKylamViecRepository,
-                maNhanVienDuocChiTien,
-                thoiGianTinhLuong.Year,
-                thoiGianTinhLuong.Month);
+        //    model.TongSoGioLam = new TongSoGioLam();
+        //    model.TongSoGioLam.SoGio = tongSoPhutLamViec / 60;
+        //    model.TongSoGioLam.SoPhut = tongSoPhutLamViec % 60;
 
-            model.TongTienLuong = model.TongTienLuongCoBanDaTichLuyTrongThang + model.TongTienThuongDaTichLuyTrongThang;
+        //    model.TongTienLuongCoBanDaTichLuyTrongThang =
+        //        TinhTongLuongCoBanTichLuyTrongThang(
+        //            nhatKylamViecRepository,
+        //        maNhanVienDuocChiTien,
+        //        thoiGianTinhLuong.Year,
+        //        thoiGianTinhLuong.Month);
 
-            model.NhanVienDuocChiTien = mapper.Map<EmployeeVM>(await userManager.FindByIdAsync(maNhanVienDuocChiTien));
-            model.NhanVienXuatLuong = mapper.Map<EmployeeVM>(await userManager.FindByIdAsync(model.MaNhanVienXuatLuong));
-            model.NhanVienChiTien = mapper.Map<EmployeeVM>(await userManager.GetUserAsync(User));
-            return View(model);
+        //    model.TongTienThuongDaTichLuyTrongThang =
+        //        TinhTongTienThuongDaTichLuyTrongThang(
+        //            nhatKylamViecRepository,
+        //        maNhanVienDuocChiTien,
+        //        thoiGianTinhLuong.Year,
+        //        thoiGianTinhLuong.Month);
 
-        }
+        //    model.TongTienLuong = model.TongTienLuongCoBanDaTichLuyTrongThang + model.TongTienThuongDaTichLuyTrongThang;
 
-        public async Task<ActionResult> ChiTienTamUngLuong(string id)
-        {//id = ma phieu chi luong tam ung
-            var phieuChiTamUngLuong = await phieuChi_TamUngLuongRepository.FindById(id);
-            var yeuCauTamUngLuong = await yeuCauTamUngLuongRepository.FindById(phieuChiTamUngLuong.MaYeuCauTamUngLuong);
-            phieuChiTamUngLuong.YeuCauTamUngLuong = yeuCauTamUngLuong;
+        //    model.NhanVienDuocChiTien = mapper.Map<EmployeeVM>(await userManager.FindByIdAsync(maNhanVienDuocChiTien));
+        //    model.NhanVienXuatLuong = mapper.Map<EmployeeVM>(await userManager.FindByIdAsync(model.MaNhanVienXuatLuong));
+        //    model.NhanVienChiTien = mapper.Map<EmployeeVM>(await userManager.GetUserAsync(User));
+        //    return model;
+        //}
+        //public async Task<PhieuChi_TamUngLuongVM> FeedSomeDataToPhieuChi_TamUngLuongVM(string maPhieuChi)
+        //{
+        //    var phieuChiTamUngLuong = await phieuChi_TamUngLuongRepository.FindById(maPhieuChi);
+        //    var yeuCauTamUngLuong = await yeuCauTamUngLuongRepository.FindById(phieuChiTamUngLuong.MaYeuCauTamUngLuong);
+        //    phieuChiTamUngLuong.YeuCauTamUngLuong = yeuCauTamUngLuong;
 
-            var model = mapper.Map<PhieuChi_TamUngLuongVM>(phieuChiTamUngLuong);
-            model.NhanVienDuocChiTien = mapper.Map<EmployeeVM>(await userManager.FindByIdAsync(yeuCauTamUngLuong.MaNhanVienGuiYeuCau));
-            model.NhanVienXuatPhieuChi = mapper.Map<EmployeeVM>(await userManager.FindByIdAsync(yeuCauTamUngLuong.MaNhanVienPheDuyet));
-            model.NhanVienChiTien = mapper.Map<EmployeeVM>(await userManager.GetUserAsync(User));
+        //    var model = mapper.Map<PhieuChi_TamUngLuongVM>(phieuChiTamUngLuong);
+        //    model.NhanVienDuocChiTien = mapper.Map<EmployeeVM>(await userManager.FindByIdAsync(yeuCauTamUngLuong.MaNhanVienGuiYeuCau));
+        //    model.NhanVienXuatPhieuChi = mapper.Map<EmployeeVM>(await userManager.FindByIdAsync(yeuCauTamUngLuong.MaNhanVienPheDuyet));
+        //    model.NhanVienChiTien = mapper.Map<EmployeeVM>(await userManager.GetUserAsync(User));
+        //    return model;
+        //}
 
-            return View(model);
-        }
+
+
 
 
 

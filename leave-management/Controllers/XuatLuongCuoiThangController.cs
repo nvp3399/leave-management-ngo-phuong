@@ -6,6 +6,7 @@ using AutoMapper;
 using leave_management.Contracts;
 using leave_management.Data;
 using leave_management.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -16,6 +17,7 @@ using static leave_management.Functions.Functions;
 
 namespace leave_management.Controllers
 {
+    [Authorize(Roles = "Quản trị viên,Trưởng phòng nhân sự")]
     public class XuatLuongCuoiThangController : Controller
     {
         private readonly ILeaveTypeRepository leaverepo;

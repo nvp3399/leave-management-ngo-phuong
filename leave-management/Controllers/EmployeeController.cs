@@ -18,7 +18,7 @@ using Microsoft.EntityFrameworkCore;
 namespace leave_management.Controllers
 {
 
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Quản trị viên,Trưởng phòng,Trưởng phòng nhân sự")]
     public class EmployeeController : Controller
     {
         private readonly ILeaveTypeRepository _leaverepo;
@@ -81,7 +81,7 @@ namespace leave_management.Controllers
         public async Task<ActionResult> SetLeave(int id)
         {
             var leavetype = await _leaverepo.FindById(id);
-            var employees = await _userManager.GetUsersInRoleAsync("Employee");
+            var employees = await _userManager.Users.ToListAsync();
             foreach (var emp in employees)
             {
                 if (await _leaveallocationrepo.CheckAllocation(id, emp.Id))

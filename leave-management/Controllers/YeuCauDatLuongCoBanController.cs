@@ -16,7 +16,7 @@ using static leave_management.GeneralData.Data;
 
 namespace leave_management.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Quản trị viên,Nhân viên phòng nhân sự,Trưởng phòng nhân sự")]
     public class YeuCauDatLuongCoBanController : Controller
     {
         private readonly IYeuCauDatLuongCoBanRepository _YeuCauDatLuongCoBanRepo;
@@ -45,7 +45,7 @@ namespace leave_management.Controllers
             _userManager = userManager;
         }
 
-        [Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Quản trị viên,Trưởng phòng nhân sự")]
         // GET: YeuCauDatLuongCoBanController
         public async Task<ActionResult> Index()
         {
@@ -132,7 +132,6 @@ namespace leave_management.Controllers
 
         }
 
-        [Authorize(Roles = "Employee")]
         public async Task<ActionResult> MyRequest()
         {
 
@@ -158,7 +157,6 @@ namespace leave_management.Controllers
         }
 
         // GET: YeuCauDatLuongCoBanController/Create
-        [Authorize(Roles = "Employee")]
         public async Task<ActionResult> Create(string employeeChuTheId)
         {
 

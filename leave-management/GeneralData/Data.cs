@@ -31,7 +31,7 @@ namespace leave_management.GeneralData
             KeToan,
             TruongPhong,
             TruongPhongNhanSu,
-            Administrator
+            QuanTriVien
         }
 
         public static Dictionary<VaiTroTrenHeThong, string> VaiTroTrenHeThongString = new Dictionary<VaiTroTrenHeThong, string>
@@ -41,7 +41,7 @@ namespace leave_management.GeneralData
             {VaiTroTrenHeThong.KeToan,"Kế toán" },
             {VaiTroTrenHeThong.TruongPhong,"Trưởng phòng" },
             {VaiTroTrenHeThong.TruongPhongNhanSu,"Trưởng phòng nhân sự" },
-            {VaiTroTrenHeThong.Administrator,"Administrator" }
+            {VaiTroTrenHeThong.QuanTriVien,"Quản trị viên" }
         };
 
         public enum PhieuChiStatus

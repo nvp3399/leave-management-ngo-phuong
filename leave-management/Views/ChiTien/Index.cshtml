@@ -1,4 +1,10 @@
 ﻿@model leave_management.Models.PhieuChiListVM
+@using Microsoft.AspNetCore.Identity
+@using leave_management.Data
+
+
+@inject SignInManager<Employee> SignInManager
+@inject UserManager<Employee> UserManager
 
 @{
     ViewData["Title"] = "Index";
@@ -8,8 +14,8 @@
 <h3>Trang này dành cho trưởng phòng nhân sự</h3>
 
 @*<p>
-    <a asp-action="Create">Create New</a>
-</p>*@
+        <a asp-action="Create">Create New</a>
+    </p>*@
 <table id="tblData" class="table">
     <thead>
         <tr>
@@ -77,13 +83,27 @@
                     }
                 </td>
                 <td>
-                    @if (item.MaNhanVienChiTien == null &&item.MaNhanVienThuHoi ==null)
+                    @if ((User.IsInRole("Kế toán") || User.IsInRole("Quản trị viên"))
+                     && item.MaNhanVienChiTien == null && item.MaNhanVienThuHoi == null)
                     {
-                        <a asp-action="ChiTienTamUngLuong" title="Chi Tiền" class="btn btn-outline-success" asp-route-id="@item.MaPhieuChi">
+                        <a asp-action="ChiTienLuongCuoiThang" title="Chi Tiền" class="btn btn-outline-success" asp-route-id="@item.MaPhieuChi">
                             <i class="fa fa-dollar-sign" aria-hidden="true"></i>
                             Chi Tiền
                         </a>
                     }
+                    @if ((User.IsInRole("Trưởng phòng nhân sự") || User.IsInRole("Quản trị viên"))
+                      &&
+                      item.MaNhanVienThuHoi == null && item.MaNhanVienChiTien == null)
+                    {
+                        <a asp-action="ThuHoi" title="Thu Hồi" class="btn btn-danger" asp-route-id="@item.MaPhieuChi" onclick="return confirm('Bạn có chắc bạn muốn thu hồi yêu cầu này?')">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            Thu hồi
+                        </a>
+                    }
+                    <a class="btn btn-outline-primary" asp-action="ChiTienLuongCuoiThang" title="Chi tiết" asp-route-id="@item.MaPhieuChi">
+                        <i class="fa fa-file"></i>
+                        Chi tiết
+                    </a>
 
                 </td>
             </tr>
@@ -131,14 +151,27 @@
                 </td>
                 <td>
 
-                    @if (item.MaNhanVienChiTien == null && item.MaNhanVienThuHoi == null)
+                    @if ((User.IsInRole("Kế toán") || User.IsInRole("Quản trị viên"))
+                       && item.MaNhanVienChiTien == null && item.MaNhanVienThuHoi == null)
                     {
-                        <a asp-action="ChiTienLuongCuoiThang" title="Chi Tiền" class="btn btn-outline-success" asp-route-id="@item.MaPhieuChi" >
+                        <a asp-action="ChiTienLuongCuoiThang" title="Chi Tiền" class="btn btn-outline-success" asp-route-id="@item.MaPhieuChi">
                             <i class="fa fa-dollar-sign" aria-hidden="true"></i>
                             Chi Tiền
                         </a>
                     }
-
+                    @if ((User.IsInRole("Trưởng phòng nhân sự") || User.IsInRole("Quản trị viên"))
+                       &&
+                       item.MaNhanVienThuHoi == null && item.MaNhanVienChiTien == null)
+                    {
+                        <a asp-action="ThuHoi" title="Thu Hồi" class="btn btn-danger" asp-route-id="@item.MaPhieuChi" onclick="return confirm('Bạn có chắc bạn muốn thu hồi yêu cầu này?')">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            Thu hồi
+                        </a>
+                    }
+                    <a class="btn btn-outline-primary" asp-action="ChiTienLuongCuoiThang" title="Chi tiết" asp-route-id="@item.MaPhieuChi">
+                        <i class="fa fa-file"></i>
+                        Chi tiết
+                    </a>
                 </td>
             </tr>
         }

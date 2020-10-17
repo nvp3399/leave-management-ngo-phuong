@@ -6,13 +6,16 @@ using AutoMapper;
 using leave_management.Contracts;
 using leave_management.Data;
 using leave_management.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using static leave_management.Functions.Functions;
 
 namespace leave_management.Controllers
 {
+    [Authorize(Roles ="Quản trị viên,Trưởng phòng nhân sự")]
     public class PhieuChiController : Controller
     {
         private readonly ILeaveTypeRepository leaverepo;
@@ -178,6 +181,58 @@ namespace leave_management.Controllers
                 throw new Exception("Không tìm thấy phiếu chi");
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<ActionResult> XacNhanChiTien(string id)
+        {
+            var phieuchi_luongCuoiThang = await phieuChi_LuongCuoiThangRepository.FindById(id);
+            var phieuchi_tamUngLuong = await phieuChi_TamUngLuongRepository.FindById(id);
+            if (phieuchi_luongCuoiThang != null)
+            {
+                phieuchi_luongCuoiThang.MaNhanVienChiTien = userManager.GetUserAsync(User).Result.Id;
+                phieuchi_luongCuoiThang.ThoiGianChiTien = DateTime.Now;
+                var isSuccess = await phieuChi_LuongCuoiThangRepository.Update(phieuchi_luongCuoiThang);
+            }
+            else if (phieuchi_tamUngLuong != null)
+            {
+                phieuchi_tamUngLuong.MaNhanVienChiTien = userManager.GetUserAsync(User).Result.Id;
+                phieuchi_tamUngLuong.ThoiGianChiTien = DateTime.Now;
+                var isSuccess = await phieuChi_TamUngLuongRepository.Update(phieuchi_tamUngLuong);
+            }
+            else
+            {
+                throw new Exception("Không tìm thấy phiếu chi");
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<ActionResult> ChiTienLuongCuoiThang(string id)
+        {// id = ma phieu chi luong cuoi thang
+            var model = FeedSomeDataToPhieuChi_LuongCuoiThangModel(
+                mapper,
+                phieuChi_LuongCuoiThangRepository,
+                nhatKylamViecRepository,
+                phieuChi_NKLVRepository,
+                userManager,
+                User,
+                id);
+            return View(model);
+
+        }
+
+        public async Task<ActionResult> ChiTienTamUngLuong(string id)
+        {//id = ma phieu chi luong tam ung
+
+            var model = FeedSomeDataToPhieuChi_TamUngLuongVM(
+                phieuChi_TamUngLuongRepository,
+                mapper,
+                yeuCauTamUngLuongRepository,
+                userManager,
+                User,
+                id
+                );
+
+            return View(model);
         }
 
         // POST: PhieuChiController/Delete/5

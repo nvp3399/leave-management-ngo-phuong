@@ -10,10 +10,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace leave_management.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Quản trị viên,Trưởng phòng nhân sự")]
     public class LeaveTypesController : Controller
     {
         private readonly ILeaveTypeRepository _leaveTypeRepository;
@@ -169,7 +170,7 @@ namespace leave_management.Controllers
         public async Task<ActionResult> SetLeave(int id)
         {
             var leavetype = await _leaveTypeRepository.FindById(id);
-            var employees = await _userManager.GetUsersInRoleAsync("Employee");
+            var employees = await _userManager.Users.ToListAsync();
             foreach (var emp in employees)
             {
                 if (await _leaveAllocationRepository.CheckAllocation(id, emp.Id))

@@ -37,7 +37,7 @@ namespace leave_management.Controllers
             _userManager = userManager;
         }
 
-        [Authorize(Roles ="Administrator")]
+        [Authorize(Roles ="Quản trị viên,Trưởng phòng,Trưởng phòng nhân sự")]
         // GET: LeaveRequestController
         public async Task<ActionResult> Index()
         {
@@ -121,7 +121,6 @@ namespace leave_management.Controllers
 
         }
 
-        [Authorize(Roles ="Employee")]
         public async Task<ActionResult> MyLeave()
         {
 
@@ -159,7 +158,6 @@ namespace leave_management.Controllers
         }
 
         // GET: LeaveRequestController/Create
-        [Authorize(Roles = "Employee")]
         public async Task<ActionResult> Create()
         {
             var employee = await _userManager.GetUserAsync(User);

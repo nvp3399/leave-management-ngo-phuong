@@ -18,42 +18,42 @@ namespace leave_management
         
         private static void SeedUsers(UserManager<Employee> userManager)
         {
-            if(userManager.FindByNameAsync("admin").Result == null)
-            {
-                var user = new Employee
-                {
-                    UserName = "admin@localhost.com",
-                    Email = "admin@localhost.com"
-                };
-                var result = userManager.CreateAsync(user, "Phuong0303.").Result;
-                if(result.Succeeded)
-                {
-                    userManager.AddToRoleAsync(user, "Administrator").Wait();
-                }
-            }
+            //if(userManager.FindByNameAsync("admin").Result == null)
+            //{
+            //    var user = new Employee
+            //    {
+            //        UserName = "admin@localhost.com",
+            //        Email = "admin@localhost.com"
+            //    };
+            //    var result = userManager.CreateAsync(user, "Phuong0303.").Result;
+            //    if (result.Succeeded)
+            //    {
+            //        userManager.AddToRoleAsync(user, "Administrator").Wait();
+            //    }
+            //}
         }
 
         private static void SeedRoles(RoleManager<IdentityRole> roleManager)
         {
-            if(!roleManager.RoleExistsAsync("Administrator").Result)
-            {
-                var role = new IdentityRole
-                {
-                    Name = "Administrator"
-                };
+            //if(!roleManager.RoleExistsAsync("Administrator").Result)
+            //{
+            //    var role = new IdentityRole
+            //    {
+            //        Name = "Administrator"
+            //    };
 
-                 var result = roleManager.CreateAsync(role).Result;
-            }
+            //     var result = roleManager.CreateAsync(role).Result;
+            //}
 
-            if (!roleManager.RoleExistsAsync("Employee").Result)
-            {
-                var role = new IdentityRole
-                {
-                    Name = "Employee"
-                };
+            //if (!roleManager.RoleExistsAsync("Employee").Result)
+            //{
+            //    var role = new IdentityRole
+            //    {
+            //        Name = "Employee"
+            //    };
 
-                var result = roleManager.CreateAsync(role).Result;
-            }
+            //    var result = roleManager.CreateAsync(role).Result;
+            //}
         }
     }
 }

@@ -7,6 +7,7 @@ using AutoMapper;
 using leave_management.Contracts;
 using leave_management.Data;
 using leave_management.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace leave_management.Controllers
 {
+    [Authorize(Roles ="Nhân viên phòng nhân sự,Trưởng phòng nhân sự,Quản trị viên")]
     public class HopDongLaoDongController : Controller
     {
         private readonly ILeaveTypeRepository leaverepo;

@@ -11,11 +11,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace leave_management.Controllers
 {
 
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Quản trị viên,Trưởng phòng nhân sự")]
     public class LeaveAllocationController : Controller
     {
         private readonly ILeaveTypeRepository _leaverepo;
@@ -60,7 +61,7 @@ namespace leave_management.Controllers
         public async Task<ActionResult> SetLeave(int id)
         {
             var leavetype = await _leaverepo.FindById(id);
-            var employees = await _userManager.GetUsersInRoleAsync("Employee");
+            var employees = await _userManager.Users.ToListAsync();
             foreach (var emp in employees)
             {
                 if (await _leaveallocationrepo.CheckAllocation(id, emp.Id))
@@ -83,7 +84,7 @@ namespace leave_management.Controllers
 
         public async Task<ActionResult> ListEmployees()
         {
-            var employees = await _userManager.GetUsersInRoleAsync("Employee");
+            var employees = await _userManager.Users.ToListAsync();
             var model = _mapper.Map<List<EmployeeVM>>(employees);
 
             return View(model);

@@ -7,6 +7,7 @@ using AutoMapper;
 using leave_management.Contracts;
 using leave_management.Data;
 using leave_management.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace leave_management.Controllers
 {
+    [Authorize(Roles ="Quản trị viên,Trưởng phòng nhân sự,Nhân viên phòng nhân sự")]
     public class MauHopDongLaoDongController : Controller
     {
         private readonly IMauHopDongRepository _mauHopDongRepository;
