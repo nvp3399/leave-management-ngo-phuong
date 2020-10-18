@@ -90,6 +90,13 @@
                             Đã hủy
                         </span>
                     }
+                    else if (item.Approved == true && item.StartDate.CompareTo(DateTime.Now)<=0)
+                    {
+                        <span class="badge badge-primary">
+                            <i class="fa fa-check"></i>
+                            Đã được thực thi
+                        </span>
+                    }
                     else if (item.Approved == true)
                     {
                         <span class="badge badge-success">

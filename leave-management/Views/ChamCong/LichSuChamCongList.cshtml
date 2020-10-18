@@ -1,19 +1,35 @@
-﻿@model IEnumerable<leave_management.Models.LichSuChamCongVM>
-
+﻿@model leave_management.Models.NhatKyLamViecVM
 @{
     ViewData["Title"] = "LichSuChamCongList";
 }
 
 <h1>Quản lý chấm công</h1>
 <hr />
-<h3>Nhân viên:
-    <img src="~/images/@ViewBag.ProfilePicture"
-     class="rounded-circle"
-     height="60" width="60"
-     asp-append-version="true" /> @ViewBag.EmployeeName</h3>
+<h3>
+    Nhân viên:
+
+    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVien.Id" target="_blank">
+
+
+        <img src="~/images/@Model.NhanVien.ProfilePicture"
+             class="rounded-circle"
+             height="60" width="60"
+             asp-append-version="true" />
+        @Model.NhanVien.LastName
+        @Model.NhanVien.MiddleName
+        @Model.NhanVien.FirstName
+
+        &nbsp;
+        <span style="font-size: 0.5rem;">
+            <i class="fas fa-external-link-alt fa-sm"></i>
+        </span>
+    </a>
+
+   
+</h3>
 
 <p>
-    <a asp-action="Create" asp-route-employeeId="@ViewBag.EmployeeId">Thêm chấm công</a>
+    <a asp-action="Create" asp-route-employeeId="@Model.NhanVien.Id">Thêm chấm công</a>
 </p>
 
 <h3>Lịch sử chấm công</h3>
@@ -40,7 +56,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.LichSuChamCongVMs)
         {
             <tr>
                 <td>
@@ -86,6 +102,128 @@
             Hủy
         </a>*@
                 </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr />
+<br />
+    <h3>Nhật ký nghỉ phép</h3>
+<br />
+
+
+<table id="tblData" class="table">
+    <thead>
+        <tr>
+            <th>
+                Loại nghỉ phép
+            </th>
+            <th>
+                Ngày bắt đầu
+            </th>
+            <th>
+                Ngày kết thúc
+            </th>
+
+            <th>
+                Ngày yêu cầu
+            </th>
+            <th>
+                Ngày duyệt
+            </th>
+            <th>
+                Trạng thái
+            </th>
+
+            <th>
+                Được đồng ý bởi
+            </th>
+           
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.LeaveRequestVMs)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LeaveType.Name)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateRequested)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateActioned)
+                </td>
+                <td>
+                    @if (item.Cancelled == true)
+                    {
+                        <span class="badge badge-secondary">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            Đã hủy
+                        </span>
+                    }
+                    else if (item.Approved == true )
+                    {
+                        <span class="badge badge-primary">
+                            <i class="fa fa-check"></i>
+                            Đã được thực thi
+                        </span>
+                    }
+
+                    // Nếu một trong các trường hợp dưới đây xảy ra, thì bị lỗi.
+                    else if (item.Approved == true)
+                    {
+                        <span class="badge badge-success">
+                            <i class="fa fa-check"></i>
+                            Đã được chấp thuận
+                        </span>
+                    }
+                    else if (item.Approved == false)
+                    {
+                        <span class="badge badge-danger">
+                            <i class="fa fa-times"></i>
+                            Đã bị từ chối
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-warning">
+                            <i class="fa fa-clock-o"></i>
+                            Đang chờ
+                        </span>
+                    }
+                </td>
+
+                <td>
+
+                    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@item.ApproveBy.Id" target="_blank">
+
+
+                        <img src="~/images/@item.ApproveBy.ProfilePicture"
+                             class="rounded-circle"
+                             height="40" width="40"
+                             asp-append-version="true" />
+                        @item.ApproveBy.LastName
+                        @item.ApproveBy.MiddleName
+                        @item.ApproveBy.FirstName
+
+                        &nbsp;
+                        <span style="font-size: 0.5rem;">
+                            <i class="fas fa-external-link-alt fa-sm"></i>
+                        </span>
+                    </a>
+
+                   
+                </td>
+                
             </tr>
         }
     </tbody>

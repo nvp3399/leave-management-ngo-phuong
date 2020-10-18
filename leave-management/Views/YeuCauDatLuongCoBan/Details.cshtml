@@ -10,22 +10,50 @@
     <h4 class="alert-heading">Đã bị hủy</h4>
     <p>
         <strong>@Html.DisplayNameFor(model => model.NhanVienGuiYeuCau):</strong>
-        <img src="~/images/@Model.NhanVienGuiYeuCau.ProfilePicture"
-             class="rounded-circle"
-             height="40" width="40"
-             asp-append-version="true" />
 
-        @Model.NhanVienGuiYeuCau.LastName @Model.NhanVienGuiYeuCau.MiddleName @Model.NhanVienGuiYeuCau.FirstName
+        <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienGuiYeuCau.Id" target="_blank">
+
+
+            <img src="~/images/@Model.NhanVienGuiYeuCau.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+
+            @Model.NhanVienGuiYeuCau.LastName
+            @Model.NhanVienGuiYeuCau.MiddleName
+            @Model.NhanVienGuiYeuCau.FirstName
+
+            &nbsp;
+            <span style="font-size: 0.5rem;">
+                <i class="fas fa-external-link-alt fa-sm"></i>
+            </span>
+        </a>
+
+        
     </p>
     <hr />
     <p>
         <strong>@Html.DisplayNameFor(model => model.NhanVienDuocDatLuong):</strong>
-        <img src="~/images/@Model.NhanVienDuocDatLuong.ProfilePicture"
-             class="rounded-circle"
-             height="40" width="40"
-             asp-append-version="true" />
 
-        @Model.NhanVienDuocDatLuong.LastName @Model.NhanVienDuocDatLuong.MiddleName @Model.NhanVienDuocDatLuong.FirstName
+        <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienDuocDatLuong.Id" target="_blank">
+
+
+            <img src="~/images/@Model.NhanVienDuocDatLuong.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+
+            @Model.NhanVienDuocDatLuong.LastName
+            @Model.NhanVienDuocDatLuong.MiddleName
+            @Model.NhanVienDuocDatLuong.FirstName
+
+            &nbsp;
+            <span style="font-size: 0.5rem;">
+                <i class="fas fa-external-link-alt fa-sm"></i>
+            </span>
+        </a>
+
+       
     </p>
     <hr />
     <p>
@@ -41,20 +69,48 @@ else if (Model.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.Ye
     <h4 class="alert-heading">Chờ phê duyệt</h4>
     <p>
         <strong>@Html.DisplayNameFor(model => model.NhanVienGuiYeuCau):</strong>
-        <img src="~/images/@Model.NhanVienGuiYeuCau.ProfilePicture"
-             class="rounded-circle"
-             height="40" width="40"
-             asp-append-version="true" />
-        @Model.NhanVienGuiYeuCau.LastName @Model.NhanVienGuiYeuCau.MiddleName @Model.NhanVienGuiYeuCau.FirstName
+
+        <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienGuiYeuCau.Id" target="_blank">
+
+
+            <img src="~/images/@Model.NhanVienGuiYeuCau.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Model.NhanVienGuiYeuCau.LastName
+            @Model.NhanVienGuiYeuCau.MiddleName
+            @Model.NhanVienGuiYeuCau.FirstName
+
+            &nbsp;
+            <span style="font-size: 0.5rem;">
+                <i class="fas fa-external-link-alt fa-sm"></i>
+            </span>
+        </a>
+
+       
     </p>
     <hr />
     <p>
         <strong>@Html.DisplayNameFor(model => model.NhanVienDuocDatLuong):</strong>
-        <img src="~/images/@Model.NhanVienDuocDatLuong.ProfilePicture"
-             class="rounded-circle"
-             height="40" width="40"
-             asp-append-version="true" />
-        @Model.NhanVienDuocDatLuong.LastName @Model.NhanVienDuocDatLuong.MiddleName @Model.NhanVienDuocDatLuong.FirstName
+
+        <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienDuocDatLuong.Id" target="_blank">
+
+
+            <img src="~/images/@Model.NhanVienDuocDatLuong.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Model.NhanVienDuocDatLuong.LastName
+            @Model.NhanVienDuocDatLuong.MiddleName
+            @Model.NhanVienDuocDatLuong.FirstName
+
+            &nbsp;
+            <span style="font-size: 0.5rem;">
+                <i class="fas fa-external-link-alt fa-sm"></i>
+            </span>
+        </a>
+
+       
     </p>
     <hr />
     <p>
@@ -69,30 +125,75 @@ else if (Model.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.Ye
     <h4 class="alert-heading">
         Được chấp thuận bởi:
 
-        <img src="~/images/@Model.NhanVienPheDuyet.ProfilePicture"
-             class="rounded-circle"
-             height="40" width="40"
-             asp-append-version="true" />
+        <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienPheDuyet.Id" target="_blank">
 
-        @Model.NhanVienPheDuyet.LastName @Model.NhanVienPheDuyet.MiddleName @Model.NhanVienPheDuyet.FirstName
+
+
+            <img src="~/images/@Model.NhanVienPheDuyet.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+
+            @Model.NhanVienPheDuyet.LastName
+            @Model.NhanVienPheDuyet.MiddleName
+            @Model.NhanVienPheDuyet.FirstName
+
+            &nbsp;
+            <span style="font-size: 0.5rem;">
+                <i class="fas fa-external-link-alt fa-sm"></i>
+            </span>
+        </a>
+
+
 
     </h4>
     <p>
         <strong>@Html.DisplayNameFor(model => model.NhanVienGuiYeuCau):</strong>
-        <img src="~/images/@Model.NhanVienGuiYeuCau.ProfilePicture"
-             class="rounded-circle"
-             height="40" width="40"
-             asp-append-version="true" />
-        @Model.NhanVienGuiYeuCau.LastName @Model.NhanVienGuiYeuCau.MiddleName @Model.NhanVienGuiYeuCau.FirstName
+
+        <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienGuiYeuCau.Id" target="_blank">
+
+
+
+            <img src="~/images/@Model.NhanVienGuiYeuCau.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Model.NhanVienGuiYeuCau.LastName
+            @Model.NhanVienGuiYeuCau.MiddleName
+            @Model.NhanVienGuiYeuCau.FirstName
+
+            &nbsp;
+            <span style="font-size: 0.5rem;">
+                <i class="fas fa-external-link-alt fa-sm"></i>
+            </span>
+        </a>
+
+       
     </p>
     <hr />
     <p>
         <strong>@Html.DisplayNameFor(model => model.NhanVienDuocDatLuong):</strong>
-        <img src="~/images/@Model.NhanVienDuocDatLuong.ProfilePicture"
-             class="rounded-circle"
-             height="40" width="40"
-             asp-append-version="true" />
-        @Model.NhanVienDuocDatLuong.LastName @Model.NhanVienDuocDatLuong.MiddleName @Model.NhanVienDuocDatLuong.FirstName
+
+        <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienDuocDatLuong.Id" target="_blank">
+
+
+
+            <img src="~/images/@Model.NhanVienDuocDatLuong.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Model.NhanVienDuocDatLuong.LastName
+            @Model.NhanVienDuocDatLuong.MiddleName
+            @Model.NhanVienDuocDatLuong.FirstName
+
+            &nbsp;
+            <span style="font-size: 0.5rem;">
+                <i class="fas fa-external-link-alt fa-sm"></i>
+            </span>
+        </a>
+
+
+      
     </p>
     <hr />
     <p>
@@ -106,29 +207,74 @@ else if (Model.TinhTrangPheDuyet == Data.YeuCauDatLuongCoBanStatusString[Data.Ye
 <div class="alert alert-danger" role="alert">
     <h4 class="alert-heading">
         Bị từ chối bởi:
-        <img src="~/images/@Model.NhanVienPheDuyet.ProfilePicture"
-             class="rounded-circle"
-             height="40" width="40"
-             asp-append-version="true" />
-        @Model.NhanVienPheDuyet.LastName @Model.NhanVienPheDuyet.MiddleName @Model.NhanVienPheDuyet.FirstName
+
+        <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienPheDuyet.Id" target="_blank">
+
+
+
+            <img src="~/images/@Model.NhanVienPheDuyet.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Model.NhanVienPheDuyet.LastName
+            @Model.NhanVienPheDuyet.MiddleName
+            @Model.NhanVienPheDuyet.FirstName
+
+            &nbsp;
+            <span style="font-size: 0.5rem;">
+                <i class="fas fa-external-link-alt fa-sm"></i>
+            </span>
+        </a>
+
+        
 
     </h4>
     <p>
         <strong>@Html.DisplayNameFor(model => model.NhanVienGuiYeuCau):</strong>
-        <img src="~/images/@Model.NhanVienGuiYeuCau.ProfilePicture"
-             class="rounded-circle"
-             height="40" width="40"
-             asp-append-version="true" />
-        @Model.NhanVienGuiYeuCau.LastName @Model.NhanVienGuiYeuCau.MiddleName @Model.NhanVienGuiYeuCau.FirstName
+
+        <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienGuiYeuCau.Id" target="_blank">
+
+
+
+            <img src="~/images/@Model.NhanVienGuiYeuCau.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Model.NhanVienGuiYeuCau.LastName
+            @Model.NhanVienGuiYeuCau.MiddleName
+            @Model.NhanVienGuiYeuCau.FirstName
+
+            &nbsp;
+            <span style="font-size: 0.5rem;">
+                <i class="fas fa-external-link-alt fa-sm"></i>
+            </span>
+        </a>
+
+       
     </p>
     <hr />
     <p>
         <strong>@Html.DisplayNameFor(model => model.NhanVienDuocDatLuong):</strong>
-        <img src="~/images/@Model.NhanVienDuocDatLuong.ProfilePicture"
-             class="rounded-circle"
-             height="40" width="40"
-             asp-append-version="true" />
-        @Model.NhanVienDuocDatLuong.LastName @Model.NhanVienDuocDatLuong.MiddleName @Model.NhanVienDuocDatLuong.FirstName
+
+        <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienDuocDatLuong.Id" target="_blank">
+
+
+
+            <img src="~/images/@Model.NhanVienDuocDatLuong.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Model.NhanVienDuocDatLuong.LastName
+            @Model.NhanVienDuocDatLuong.MiddleName
+            @Model.NhanVienDuocDatLuong.FirstName
+
+            &nbsp;
+            <span style="font-size: 0.5rem;">
+                <i class="fas fa-external-link-alt fa-sm"></i>
+            </span>
+        </a>
+
+       
     </p>
     <hr />
     <p>

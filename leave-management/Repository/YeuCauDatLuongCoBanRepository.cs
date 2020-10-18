@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static leave_management.GeneralData.Data;
 
 namespace leave_management.Repository
 {
@@ -67,6 +68,8 @@ namespace leave_management.Repository
             bool isSuccess = await _db.SaveChangesAsync() > 0;
             return isSuccess;
         }
+
+        
 
         public async Task<bool> Update(YeuCauDatLuongCoBan entity)
         {

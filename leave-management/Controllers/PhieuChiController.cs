@@ -15,7 +15,8 @@ using static leave_management.Functions.Functions;
 
 namespace leave_management.Controllers
 {
-    [Authorize(Roles ="Quản trị viên,Trưởng phòng nhân sự")]
+    
+    [Authorize(Roles ="Quản trị viên,Trưởng phòng nhân sự,Kế toán")]
     public class PhieuChiController : Controller
     {
         private readonly ILeaveTypeRepository leaverepo;
@@ -111,55 +112,10 @@ namespace leave_management.Controllers
             return View(model);
         }
 
-        // GET: PhieuChiController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
-        // GET: PhieuChiController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: PhieuChiController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: PhieuChiController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: PhieuChiController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         // GET: PhieuChiController/Delete/5
+        [Authorize(Roles = "Quản trị viên,Trưởng phòng nhân sự")]
         public async Task<ActionResult> ThuHoi(string id)
         {
             var phieuchi_luongCuoiThang = await phieuChi_LuongCuoiThangRepository.FindById(id);
@@ -183,6 +139,8 @@ namespace leave_management.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        [Authorize(Roles = "Quản trị viên,Kế toán")]
         public async Task<ActionResult> XacNhanChiTien(string id)
         {
             var phieuchi_luongCuoiThang = await phieuChi_LuongCuoiThangRepository.FindById(id);

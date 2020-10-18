@@ -63,6 +63,8 @@ namespace leave_management.Models
         public int CancelledRequests { get; set; }
 
         public List<LeaveRequestVM> LeaveRequests { get; set; }
+        public PhongBansVM PhongBan { get; set; }
+        public EmployeeVM TruongPhong { get; set; }
     }
 
     public class CreateLeaveRequestVM

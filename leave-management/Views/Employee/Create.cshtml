@@ -1,5 +1,12 @@
 ﻿@model leave_management.Models.CreateEmployeeVM
 
+@using Microsoft.AspNetCore.Identity
+@using leave_management.Data
+
+@inject SignInManager<Employee> SignInManager
+@inject UserManager<Employee> UserManager
+
+
 @{
     ViewData["Title"] = "Thêm nhân viên mới";
 }
@@ -98,16 +105,46 @@
                 @Html.DropDownListFor(q => q.LoaiNhanVien, new SelectList(Model.CacLoaiNhanVien), "Chọn loại nhân viên", new { @class = "form-control" })
                 <span asp-validation-for="LoaiNhanVien" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="MaVaiTroTrenHeThong" class="control-label"></label>
-                @Html.DropDownListFor(q => q.MaVaiTroTrenHeThong, new SelectList(Model.CacVaiTro, "Value", "Text"), "Chọn vai trò", new { @class = "form-control" })
-                <span asp-validation-for="MaVaiTroTrenHeThong" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MucLuongCoBan" class="control-label"></label>
-                <input asp-for="MucLuongCoBan" class="form-control" value="10000000" />
-                <span asp-validation-for="MucLuongCoBan" class="text-danger"></span>
-            </div>
+
+            @if (User.IsInRole("Quản trị viên"))
+            {
+                <div class="form-group">
+                    <label asp-for="MaVaiTroTrenHeThong" class="control-label"></label>
+                    @Html.DropDownListFor(q => q.MaVaiTroTrenHeThong, new SelectList(Model.CacVaiTro, "Value", "Text"), "Chọn vai trò", new { @class = "form-control" })
+                    <span asp-validation-for="MaVaiTroTrenHeThong" class="text-danger"></span>
+                </div>
+
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="MaVaiTroTrenHeThong" class="control-label"></label>
+                    @Html.DropDownListFor(q => q.MaVaiTroTrenHeThong, new SelectList(Model.CacVaiTro, "Value", "Text"), "Chọn vai trò", new { @class = "form-control", @disabled = "disabled" })
+                    <span asp-validation-for="MaVaiTroTrenHeThong" class="text-danger"></span>
+                </div>
+
+
+            }
+
+            @if (User.IsInRole("Quản trị viên") || User.IsInRole("Trưởng phòng nhân sự"))
+            {
+                <div class="form-group">
+                    <label asp-for="MucLuongCoBan" class="control-label"></label>
+                    <input asp-for="MucLuongCoBan" class="form-control" value="10000000" />
+                    <span asp-validation-for="MucLuongCoBan" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="MucLuongCoBan" class="control-label"></label>
+                    <input asp-for="MucLuongCoBan" class="form-control" readonly />
+                    <span asp-validation-for="MucLuongCoBan" class="text-danger"></span>
+                </div>
+            }
+
+
+
 
             <div class="col-md-6">
                 <div class="form-group">

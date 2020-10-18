@@ -8,5 +8,7 @@ namespace leave_management.Contracts
 {
     public interface IYeuCauDatLuongCoBanRepository : IRepositoryStringKeyBase<YeuCauDatLuongCoBan>
     {
+        
+
     }
 }

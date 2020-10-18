@@ -6,6 +6,35 @@
 
 <h1>Trang này dành cho trưởng phòng</h1>
 <hr />
+
+@if (!User.IsInRole("Quản trị viên"))
+{
+    <h3>
+        Phòng ban: @Model.PhongBan.TenPhongBan
+    </h3>
+    <h3>
+        Trưởng phòng:
+
+
+        <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.TruongPhong.Id" target="_blank">
+
+            <img src="~/images/@Model.TruongPhong.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Model.TruongPhong.FirstName
+            @Model.TruongPhong.MiddleName
+            @Model.TruongPhong.LastName
+
+            &nbsp;
+            <span style="font-size: 0.5rem;">
+                <i class="fas fa-external-link-alt fa-sm"></i>
+            </span>
+        </a>
+    </h3>
+    <hr />
+
+}
 <div class="row">
     <div class="col-md-8">
         <form asp-action="Index">
@@ -27,7 +56,7 @@
                 </div>
             </div>
 
-            
+
         </form>
     </div>
 </div>
@@ -81,16 +110,25 @@
                 </td>
                 <td>
 
-                    
+
+                    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@item.Id" target="_blank">
+                       
+                        @Html.DisplayFor(modelItem => item.LastName)
+                        @Html.DisplayFor(modelItem => item.MiddleName)
+                        @Html.DisplayFor(modelItem => item.FirstName)
+
+                        &nbsp;
+                        <span style="font-size: 0.5rem;">
+                            <i class="fas fa-external-link-alt fa-sm"></i>
+                        </span>
+                    </a>
 
 
-                    @Html.DisplayFor(modelItem => item.LastName)
-                    @Html.DisplayFor(modelItem => item.MiddleName)
-                    @Html.DisplayFor(modelItem => item.FirstName)
+                   
                 </td>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.TongSoGio.SoGio) giờ 
+                    @Html.DisplayFor(modelItem => item.TongSoGio.SoGio) giờ
 
                     @Html.DisplayFor(modelItem => item.TongSoGio.SoPhut) phút
                 </td>

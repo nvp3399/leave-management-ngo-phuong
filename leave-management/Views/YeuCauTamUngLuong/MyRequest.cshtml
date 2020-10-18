@@ -9,15 +9,26 @@
 <h1>Danh sách yêu cầu tạm ứng đã gửi</h1>
 <hr />
 
-<img src="~/images/@Model.NhanVienYeuCau.ProfilePicture"
-     class="rounded-circle"
-     height="40" width="40"
-     asp-append-version="true" />
-<h3>
-    @Model.NhanVienYeuCau.LastName
-    @Model.NhanVienYeuCau.MiddleName
-    @Model.NhanVienYeuCau.FirstName
-</h3>
+<a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienYeuCau.Id" target="_blank">
+    <img src="~/images/@Model.NhanVienYeuCau.ProfilePicture"
+         class="rounded-circle"
+         height="40" width="40"
+         asp-append-version="true" />
+    <h3>
+        @Model.NhanVienYeuCau.LastName
+        @Model.NhanVienYeuCau.MiddleName
+        @Model.NhanVienYeuCau.FirstName
+    </h3>
+
+    &nbsp;
+    <span style="font-size: 0.5rem;">
+        <i class="fas fa-external-link-alt fa-sm"></i>
+    </span>
+</a>
+
+
+
+
 
 <hr />
 <p>
@@ -51,7 +62,7 @@
         @foreach (var item in Model.YeuCauTamUngLuongs)
         {
             <tr>
-                
+
 
                 <td>
                     @Html.DisplayFor(modelItem => item.SoTienTamUng)

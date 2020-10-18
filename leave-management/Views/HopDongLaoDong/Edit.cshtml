@@ -8,13 +8,24 @@
 <hr />
 <h3>
     Nhân viên:
-    <img src="~/images/@Model.NhanVienChuTheHopDong.ProfilePicture"
-         class="rounded-circle"
-         height="60" width="60"
-         asp-append-version="true" />
-    @Model.NhanVienChuTheHopDong.LastName
-    @Model.NhanVienChuTheHopDong.MiddleName
-    @Model.NhanVienChuTheHopDong.FirstName
+
+    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienChuTheHopDong.Id" target="_blank">
+
+        <img src="~/images/@Model.NhanVienChuTheHopDong.ProfilePicture"
+             class="rounded-circle"
+             height="60" width="60"
+             asp-append-version="true" />
+        @Model.NhanVienChuTheHopDong.LastName
+        @Model.NhanVienChuTheHopDong.MiddleName
+        @Model.NhanVienChuTheHopDong.FirstName
+
+        &nbsp;
+        <span style="font-size: 0.5rem;">
+            <i class="fas fa-external-link-alt fa-sm"></i>
+        </span>
+    </a>
+
+   
 </h3>
 
 <hr />

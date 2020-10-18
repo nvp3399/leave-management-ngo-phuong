@@ -9,6 +9,6 @@ namespace leave_management.Contracts
 {
     public interface IPhongBanRepository : IRepositoryStringKeyBase<DanhMucPhongBan>
     {
-
+        Task<DanhMucPhongBan> FindByName(string tenPhongBan); 
     }
 }

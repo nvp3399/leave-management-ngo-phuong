@@ -48,14 +48,16 @@ namespace leave_management.GeneralData
         {
             DaChiTien,
             ChuaChiTien,
-            DaBiThuHoi
+            DaBiThuHoi,
+            KhongTonTai
         }
 
         public static Dictionary<PhieuChiStatus, string> PhieuChiStatusString = new Dictionary<PhieuChiStatus, string>
         {
             {PhieuChiStatus.DaChiTien, "Đã chi tiền" },
             {PhieuChiStatus.ChuaChiTien,"Chưa chi tiền" },
-            {PhieuChiStatus.DaBiThuHoi,"Đã bị thu hồi" }
+            {PhieuChiStatus.DaBiThuHoi,"Đã bị thu hồi" },
+            {PhieuChiStatus.KhongTonTai,"Không tồn tại" },
         };
 
         public enum YeuCauDatLuongCoBanStatus

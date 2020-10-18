@@ -1,8 +1,14 @@
 ﻿@model AdminLeaveRequestViewVM
 
+@using Microsoft.AspNetCore.Identity
+@using leave_management.Data 
+
+@inject SignInManager<Employee> SignInManager
+@inject UserManager<Employee> UserManager
+
 @{
-    
-    }
+
+}
 
 <!DOCTYPE html>
 
@@ -17,7 +23,30 @@
 
     <h1>Trang này dành cho trưởng phòng</h1>
     <hr />
+    @if (!User.IsInRole("Quản trị viên"))
+    {
+        <h3>
+            Phòng ban: @Model.PhongBan.TenPhongBan
+        </h3>
+        <h3>
+            Trưởng phòng:
+            <img src="~/images/@Model.TruongPhong.ProfilePicture"
+                 class="rounded-circle"
+                 height="40" width="40"
+                 asp-append-version="true" />
+            @Model.TruongPhong.FirstName
+            @Model.TruongPhong.MiddleName
+            @Model.TruongPhong.LastName
+        </h3>
+        <hr />
 
+    }
+    &nbsp;
+    <a asp-controller="LeaveTypes" asp-action="Index" class="btn btn-outline-info">
+        <i class="fa fa-list" aria-hidden="true"></i>
+        &nbsp;Quản lý các loại nghỉ phép
+    </a>
+    <hr />
     <div class="row">
         <div class="col-md-3">
             <div class="info-box">
@@ -78,11 +107,7 @@
 
     <br />
 
-    <a asp-controller="LeaveTypes" asp-action="Index" class="btn btn-outline-dark col-md-12">
-        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
-        Quay lại trang chính quản lý nghỉ phép
-    </a>
-    <br />
+
 
     <hr />
     <h1>Danh sách yêu cầu nghỉ phép</h1>
@@ -121,13 +146,24 @@
             {
                 <tr>
                     <td>
-                        <img src="~/images/@item.RequestingEmployee.ProfilePicture"
-                             class="rounded-circle"
-                             height="40" width="40"
-                             asp-append-version="true" />
-                        @Html.DisplayFor(modelItem => item.RequestingEmployee.LastName)
-                        @Html.DisplayFor(modelItem => item.RequestingEmployee.MiddleName)
-                        @Html.DisplayFor(modelItem => item.RequestingEmployee.FirstName)
+                        <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@item.RequestingEmployee.Id" target="_blank">
+
+
+                            <img src="~/images/@item.RequestingEmployee.ProfilePicture"
+                                 class="rounded-circle"
+                                 height="40" width="40"
+                                 asp-append-version="true" />
+                            @Html.DisplayFor(modelItem => item.RequestingEmployee.LastName)
+                            @Html.DisplayFor(modelItem => item.RequestingEmployee.MiddleName)
+                            @Html.DisplayFor(modelItem => item.RequestingEmployee.FirstName)
+
+                            &nbsp;
+                            <span style="font-size: 0.5rem;">
+                                <i class="fas fa-external-link-alt fa-sm"></i>
+                            </span>
+                        </a>
+
+                        
                     </td>
 
                     <td>
@@ -149,6 +185,13 @@
                             <span class="badge badge-secondary">
                                 <i class="fa fa-ban" aria-hidden="true"></i>
                                 Đã hủy
+                            </span>
+                        }
+                        else if (item.Approved == true && item.StartDate.CompareTo(DateTime.Now) <= 0)
+                        {
+                            <span class="badge badge-primary">
+                                <i class="fa fa-check"></i>
+                                Đã được thực thi
                             </span>
                         }
                         else if (item.Approved == true)
@@ -181,10 +224,15 @@
                             <i class="fa fa-file"></i>
                             Chi tiết
                         </a>
-                        <a asp-action="Delete" title="Delete" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Bạn chắc chắn muốn xóa yêu cầu nghỉ phép này?')">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                            Xóa
-                        </a>
+                        @if (User.IsInRole("Quản trị viên"))
+                        {
+                            <a asp-action="Delete" title="Delete" class="btn btn-danger" asp-route-id="@item.Id" onclick="return confirm('Bạn chắc chắn muốn xóa yêu cầu nghỉ phép này?')">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                                Xóa
+                            </a>
+                        }
+
+
                     </td>
                 </tr>
             }

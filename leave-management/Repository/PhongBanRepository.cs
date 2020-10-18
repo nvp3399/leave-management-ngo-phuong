@@ -39,7 +39,10 @@ namespace leave_management.Repository
             return await _db.DanhMucPhongBans.FirstOrDefaultAsync(q => q.MaPhongBan == id_string);
         }
 
-
+        public async Task<DanhMucPhongBan> FindByName(string tenPhongBan)
+        {
+            return await _db.DanhMucPhongBans.FirstOrDefaultAsync(q => q.TenPhongBan.ToUpper() == tenPhongBan.ToUpper());
+        }
 
         public Task<bool> isExist(string id_string)
         {

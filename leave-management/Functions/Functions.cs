@@ -111,7 +111,7 @@ namespace leave_management.Functions
 
             model.NhanVienDuocChiTien = mapper.Map<EmployeeVM>( userManager.FindByIdAsync(maNhanVienDuocChiTien).Result);
             model.NhanVienXuatLuong = mapper.Map<EmployeeVM>( userManager.FindByIdAsync(model.MaNhanVienXuatLuong).Result);
-            model.NhanVienChiTien = mapper.Map<EmployeeVM>( userManager.GetUserAsync(User).Result);
+          
             return model;
         }
         public static PhieuChi_TamUngLuongVM FeedSomeDataToPhieuChi_TamUngLuongVM(
@@ -129,8 +129,7 @@ namespace leave_management.Functions
             var model = mapper.Map<PhieuChi_TamUngLuongVM>(phieuChiTamUngLuong);
             model.NhanVienDuocChiTien = mapper.Map<EmployeeVM>( userManager.FindByIdAsync(yeuCauTamUngLuong.MaNhanVienGuiYeuCau).Result);
             model.NhanVienXuatPhieuChi = mapper.Map<EmployeeVM>( userManager.FindByIdAsync(yeuCauTamUngLuong.MaNhanVienPheDuyet).Result);
-            model.NhanVienChiTien = mapper.Map<EmployeeVM>( userManager.GetUserAsync(User).Result);
-
+            //model.YeuCauTamUngLuong = mapper.Map<YeuCauTamUngLuongVM>(yeuCauTamUngLuong);
             return model;
         }
     }

@@ -11,7 +11,11 @@
 }
 
 <h1>Quản lý phiếu chi</h1>
-<h3>Trang này dành cho trưởng phòng nhân sự</h3>
+<hr />
+<br />
+<h3>Những người có thể truy cập trang này: <strong>Quản trị viên, Trưởng phòng nhân sự, kế toán</strong></h3>
+<br />
+<hr />
 
 @*<p>
         <a asp-action="Create">Create New</a>
@@ -44,22 +48,44 @@
         {
             <tr>
                 <td>
-                    <img src="~/images/@item.NhanVienDuocChiTien.ProfilePicture"
-                         class="rounded-circle"
-                         height="40" width="40"
-                         asp-append-version="true" />
-                    @item.NhanVienDuocChiTien.LastName
-                    @item.NhanVienDuocChiTien.MiddleName
-                    @item.NhanVienDuocChiTien.FirstName
+
+                    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@item.NhanVienDuocChiTien.Id" target="_blank">
+
+                        <img src="~/images/@item.NhanVienDuocChiTien.ProfilePicture"
+                             class="rounded-circle"
+                             height="40" width="40"
+                             asp-append-version="true" />
+                        @item.NhanVienDuocChiTien.LastName
+                        @item.NhanVienDuocChiTien.MiddleName
+                        @item.NhanVienDuocChiTien.FirstName
+
+                        &nbsp;
+                        <span style="font-size: 0.5rem;">
+                            <i class="fas fa-external-link-alt fa-sm"></i>
+                        </span>
+                    </a>
+
+
+                  
                 </td>
                 <td>
-                    <img src="~/images/@item.NhanVienXuatPhieuChi.ProfilePicture"
-                         class="rounded-circle"
-                         height="40" width="40"
-                         asp-append-version="true" />
-                    @item.NhanVienXuatPhieuChi.LastName
-                    @item.NhanVienXuatPhieuChi.MiddleName
-                    @item.NhanVienXuatPhieuChi.FirstName
+
+                    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@item.NhanVienXuatPhieuChi.Id" target="_blank">
+                        <img src="~/images/@item.NhanVienXuatPhieuChi.ProfilePicture"
+                             class="rounded-circle"
+                             height="40" width="40"
+                             asp-append-version="true" />
+                        @item.NhanVienXuatPhieuChi.LastName
+                        @item.NhanVienXuatPhieuChi.MiddleName
+                        @item.NhanVienXuatPhieuChi.FirstName
+
+                        &nbsp;
+                        <span style="font-size: 0.5rem;">
+                            <i class="fas fa-external-link-alt fa-sm"></i>
+                        </span>
+                    </a>
+
+                 
                 </td>
 
                 <td>
@@ -71,31 +97,132 @@
                 <td>
                     @if (item.MaNhanVienChiTien == null && item.MaNhanVienThuHoi == null)
                     {
-                        <a title="Chi Tiền" class="btn btn-outline-success">
+                        <a asp-action="" asp-route-id="" title="Chi Tiền" class="btn btn-outline-success">
                             <i class="fa fa-dollar-sign" aria-hidden="true"></i>
                             Chưa chi tiền
                         </a>
                     }
                     else if (item.MaNhanVienThuHoi != null)
                     {
-                        <a title="Đã bị thu hồi" class="btn btn-danger">
+                        <a asp-action="" asp-route-id="" title="Đã bị thu hồi" class="btn btn-outline-danger">
                             <i class="fa fa-ban" aria-hidden="true"></i>
                             Đã bị thu hồi
                         </a>
                     }
                     else
                     {
-                        <a title="Đã Chi Tiền" class="btn btn-secondary">
+                        <a asp-action="" asp-route-id="" title="Đã Chi Tiền" class="btn btn-outline-secondary">
                             <i class="fa fa-check" aria-hidden="true"></i>
                             Đã chi tiền
                         </a>
                     }
                 </td>
                 <td>
+                    <a class="btn btn-outline-primary" asp-action="ChiTienTamUngLuong" title="Chi tiết" asp-route-id="@item.MaPhieuChi">
+                        <i class="fa fa-file"></i>
+                        Chi tiết
+                    </a>
                     @if ((User.IsInRole("Kế toán") || User.IsInRole("Quản trị viên"))
-                    && item.MaNhanVienChiTien == null && item.MaNhanVienThuHoi == null)
+                   && item.MaNhanVienChiTien == null && item.MaNhanVienThuHoi == null)
                     {
                         <a asp-action="ChiTienTamUngLuong" title="Chi Tiền" class="btn btn-outline-success" asp-route-id="@item.MaPhieuChi">
+                            <i class="fa fa-dollar-sign" aria-hidden="true"></i>
+                            Chi Tiền
+                        </a>
+                    }
+                    @if ((User.IsInRole("Trưởng phòng nhân sự") || User.IsInRole("Quản trị viên"))
+                    &&
+                    item.MaNhanVienThuHoi == null && item.MaNhanVienChiTien == null)
+                    {
+                        <a asp-action="ThuHoi" title="Thu Hồi" class="btn btn-danger" asp-route-id="@item.MaPhieuChi" onclick="return confirm('Bạn có chắc bạn muốn thu hồi yêu cầu này?')">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            Thu hồi
+                        </a>
+                    }
+
+
+                </td>
+            </tr>
+        }
+        @foreach (var item in Model.PhieuChi_LuongCuoiThangs)
+        {
+            <tr>
+                <td>
+
+                    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@item.NhanVienDuocChiTien.Id" target="_blank">
+                        <img src="~/images/@item.NhanVienDuocChiTien.ProfilePicture"
+                             class="rounded-circle"
+                             height="40" width="40"
+                             asp-append-version="true" />
+                        @item.NhanVienDuocChiTien.LastName
+                        @item.NhanVienDuocChiTien.MiddleName
+                        @item.NhanVienDuocChiTien.FirstName
+
+                        &nbsp;
+                        <span style="font-size: 0.5rem;">
+                            <i class="fas fa-external-link-alt fa-sm"></i>
+                        </span>
+                    </a>
+
+                   
+                </td>
+                <td>
+
+                    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@item.NhanVienXuatLuong.Id" target="_blank">
+                        <img src="~/images/@item.NhanVienXuatLuong.ProfilePicture"
+                             class="rounded-circle"
+                             height="40" width="40"
+                             asp-append-version="true" />
+                        @item.NhanVienXuatLuong.LastName
+                        @item.NhanVienXuatLuong.MiddleName
+                        @item.NhanVienXuatLuong.FirstName
+
+                        &nbsp;
+                        <span style="font-size: 0.5rem;">
+                            <i class="fas fa-external-link-alt fa-sm"></i>
+                        </span>
+                    </a>
+
+                  
+                </td>
+                <td>
+                    Lương cuối tháng
+                </td>
+                <td>
+                    @item.ThoiGianXuatPhieuChi
+                </td>
+                <td>
+                    @if (item.MaNhanVienChiTien == null && item.MaNhanVienThuHoi == null)
+                    {
+                        <a asp-action="" asp-route-id="" title="Chi Tiền" class="btn btn-outline-success">
+                            <i class="fa fa-dollar-sign" aria-hidden="true"></i>
+                            Chưa chi tiền
+                        </a>
+                    }
+                    else if (item.MaNhanVienThuHoi != null)
+                    {
+                        <a asp-action="" asp-route-id="" title="Đã bị thu hồi" class="btn btn-outline-danger">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                            Đã bị thu hồi
+                        </a>
+                    }
+                    else
+                    {
+                        <a asp-action="" asp-route-id="" title="Đã Chi Tiền" class="btn btn-outline-secondary">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Đã chi tiền
+                        </a>
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-outline-primary" asp-action="ChiTienLuongCuoiThang" title="Chi tiết" asp-route-id="@item.MaPhieuChi">
+                        <i class="fa fa-file"></i>
+                        Chi tiết
+                    </a>
+                    @if ((User.IsInRole("Kế toán") || User.IsInRole("Quản trị viên"))
+                     && item.MaNhanVienChiTien == null && item.MaNhanVienThuHoi == null)
+                    {
+                        <a asp-action="ChiTienLuongCuoiThang" title="Chi Tiền" class="btn btn-outline-success" asp-route-id="@item.MaPhieuChi">
                             <i class="fa fa-dollar-sign" aria-hidden="true"></i>
                             Chi Tiền
                         </a>
@@ -109,87 +236,7 @@
                             Thu hồi
                         </a>
                     }
-                    <a class="btn btn-outline-primary" asp-action="ChiTienTamUngLuong" title="Chi tiết" asp-route-id="@item.MaPhieuChi">
-                        <i class="fa fa-file"></i>
-                        Chi tiết
-                    </a>
 
-                </td>
-            </tr>
-        }
-        @foreach (var item in Model.PhieuChi_LuongCuoiThangs)
-        {
-            <tr>
-                <td>
-                    <img src="~/images/@item.NhanVienDuocChiTien.ProfilePicture"
-                         class="rounded-circle"
-                         height="40" width="40"
-                         asp-append-version="true" />
-                    @item.NhanVienDuocChiTien.LastName
-                    @item.NhanVienDuocChiTien.MiddleName
-                    @item.NhanVienDuocChiTien.FirstName
-                </td>
-                <td>
-                    <img src="~/images/@item.NhanVienXuatLuong.ProfilePicture"
-                         class="rounded-circle"
-                         height="40" width="40"
-                         asp-append-version="true" />
-                    @item.NhanVienXuatLuong.LastName
-                    @item.NhanVienXuatLuong.MiddleName
-                    @item.NhanVienXuatLuong.FirstName
-                </td>
-                <td>
-                    Lương cuối tháng
-                </td>
-                <td>
-                    @item.ThoiGianXuatPhieuChi
-                </td>
-                <td>
-                    @if (item.MaNhanVienChiTien == null && item.MaNhanVienThuHoi == null)
-                    {
-                        <a title="Chi Tiền" class="btn btn-outline-success">
-                            <i class="fa fa-dollar-sign" aria-hidden="true"></i>
-                            Chưa chi tiền
-                        </a>
-                    }
-                    else if (item.MaNhanVienThuHoi != null)
-                    {
-                        <a title="Đã bị thu hồi" class="btn btn-danger">
-                            <i class="fa fa-ban" aria-hidden="true"></i>
-                            Đã bị thu hồi
-                        </a>
-                    }
-                    else
-                    {
-                        <a title="Đã Chi Tiền" class="btn btn-secondary">
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                            Đã chi tiền
-                        </a>
-                    }
-                </td>
-                <td>
-
-                    @if ((User.IsInRole("Kế toán") || User.IsInRole("Quản trị viên"))
-                      && item.MaNhanVienChiTien == null && item.MaNhanVienThuHoi == null)
-                    {
-                        <a asp-action="ChiTienLuongCuoiThang" title="Chi Tiền" class="btn btn-outline-success" asp-route-id="@item.MaPhieuChi">
-                            <i class="fa fa-dollar-sign" aria-hidden="true"></i>
-                            Chi Tiền
-                        </a>
-                    }
-                    @if ((User.IsInRole("Trưởng phòng nhân sự") || User.IsInRole("Quản trị viên"))
-                      &&
-                      item.MaNhanVienThuHoi == null && item.MaNhanVienChiTien == null)
-                    {
-                        <a asp-action="ThuHoi" title="Thu Hồi" class="btn btn-danger" asp-route-id="@item.MaPhieuChi" onclick="return confirm('Bạn có chắc bạn muốn thu hồi yêu cầu này?')">
-                            <i class="fa fa-ban" aria-hidden="true"></i>
-                            Thu hồi
-                        </a>
-                    }
-                    <a class="btn btn-outline-primary" asp-action="ChiTienLuongCuoiThang" title="Chi tiết" asp-route-id="@item.MaPhieuChi">
-                        <i class="fa fa-file"></i>
-                        Chi tiết
-                    </a>
                 </td>
             </tr>
         }

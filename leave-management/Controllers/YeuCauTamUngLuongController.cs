@@ -27,6 +27,7 @@ namespace leave_management.Controllers
         private readonly IRoleRepository roleRepository;
         private readonly IPhieuChi_TamUngLuongRepository phieuChi_TamUngLuongRepository;
         private readonly UserManager<Employee> _userManager;
+        private readonly IPhongBanRepository phongBanRepository;
 
         public YeuCauTamUngLuongController(
             IYeuCauTamUngLuongRepository YeuCauTamUngLuongRepo,
@@ -36,7 +37,8 @@ namespace leave_management.Controllers
             IUserRoleRepository userRoleRepository,
             IRoleRepository roleRepository,
             IPhieuChi_TamUngLuongRepository phieuChi_TamUngLuongRepository,
-            UserManager<Employee> userManager)
+            UserManager<Employee> userManager,
+            IPhongBanRepository phongBanRepository)
         {
             _leaveTypeRepo = leaveTypeRepo;
             _leaveAllocationRepo = leaveAllocationRepo;
@@ -46,14 +48,50 @@ namespace leave_management.Controllers
             this.roleRepository = roleRepository;
             this.phieuChi_TamUngLuongRepository = phieuChi_TamUngLuongRepository;
             _userManager = userManager;
+            this.phongBanRepository = phongBanRepository;
         }
 
         [Authorize(Roles = "Quản trị viên,Nhân viên phòng nhân sự,Trưởng phòng nhân sự")]
         // GET: YeuCauTamUngLuongController
         public async Task<ActionResult> Index()
         {
-            var YeuCauTamUngLuongs = await _YeuCauTamUngLuongRepo.FindAll();
-            var YeuCauTamUngLuongsModel = _mapper.Map<List<YeuCauTamUngLuongVM>>(YeuCauTamUngLuongs);
+            ICollection<YeuCauTamUngLuong> yeuCauTamUngLuongs = null;
+
+            var phongNhanSu = await phongBanRepository.FindByName("Nhân sự");
+
+            if (User.IsInRole("Nhân viên phòng nhân sự"))
+            {
+                yeuCauTamUngLuongs = (await _YeuCauTamUngLuongRepo.FindAll())
+                    .Where(q => q.NhanVienGuiYeuCau.MaPhongBan != phongNhanSu.MaPhongBan)
+                    .ToList();
+            }
+            else
+            {
+                yeuCauTamUngLuongs = await _YeuCauTamUngLuongRepo.FindAll();
+
+            }
+
+
+            var YeuCauTamUngLuongsModel = _mapper.Map<List<YeuCauTamUngLuongVM>>(yeuCauTamUngLuongs);
+            foreach (var yeucau in YeuCauTamUngLuongsModel)
+            {
+                var phieuChi = await phieuChi_TamUngLuongRepository.FindByMaYeuCauTamUng(yeucau.MaYeuCau);
+
+                if (phieuChi != null)
+                {
+                    if (phieuChi.MaNhanVienThuHoi != null)
+                    {
+                        yeucau.TinhTrangPheDuyet = PhieuChiStatusString[PhieuChiStatus.DaBiThuHoi];
+                    }
+                    else if (phieuChi.MaNhanVienChiTien != null)
+                    {
+                        yeucau.TinhTrangPheDuyet = PhieuChiStatusString[PhieuChiStatus.DaChiTien];
+                    }
+                   
+                }
+
+            }
+
             var model = new AdminYeuCauTamUngLuongViewVM
             {
                 TotalRequests = YeuCauTamUngLuongsModel.Count,
@@ -65,9 +103,13 @@ namespace leave_management.Controllers
                                         .Count(q => q.TinhTrangPheDuyet == YeuCauTamUngLuongStatusString[YeuCauTamUngLuongStatus.DaBiTuChoi]),
                 CancelledRequests = YeuCauTamUngLuongsModel
                                         .Count(q => q.TinhTrangPheDuyet == YeuCauTamUngLuongStatusString[YeuCauTamUngLuongStatus.DaBiHuy]),
+                DaChiTienRequests = YeuCauTamUngLuongsModel
+                                        .Count(q => q.TrangThaiPhieuChi == PhieuChiStatusString[PhieuChiStatus.DaChiTien]),
+
                 YeuCauTamUngLuongs = YeuCauTamUngLuongsModel
 
             };
+
             return View(model);
         }
 
@@ -85,9 +127,14 @@ namespace leave_management.Controllers
             {
 
                 var yeuCauTamUngLuong = await _YeuCauTamUngLuongRepo.FindById(id);
+                var user = _userManager.GetUserAsync(User).Result;
 
+                if (user.Id == yeuCauTamUngLuong.MaNhanVienGuiYeuCau)
+                {
+                    return NotFound("Bạn không thể phê duyệt yêu cầu của chính mình.");
+                }
 
-                yeuCauTamUngLuong.MaNhanVienPheDuyet = (await _userManager.GetUserAsync(User)).Id;
+                yeuCauTamUngLuong.MaNhanVienPheDuyet = user.Id;
                 yeuCauTamUngLuong.TinhTrangPheDuyet = YeuCauTamUngLuongStatusString[YeuCauTamUngLuongStatus.DaDuocChapThuan];
                 yeuCauTamUngLuong.NgayPheDuyet = DateTime.Now;
 
@@ -124,7 +171,12 @@ namespace leave_management.Controllers
             try
             {
                 var YeuCauTamUngLuong = await _YeuCauTamUngLuongRepo.FindById(id);
+                var user = _userManager.GetUserAsync(User).Result;
 
+                if (user.Id == YeuCauTamUngLuong.MaNhanVienGuiYeuCau)
+                {
+                    return NotFound("Bạn không thể phê duyệt yêu cầu của chính mình.");
+                }
                 YeuCauTamUngLuong.MaNhanVienPheDuyet = (await _userManager.GetUserAsync(User)).Id;
                 YeuCauTamUngLuong.TinhTrangPheDuyet = YeuCauTamUngLuongStatusString[YeuCauTamUngLuongStatus.DaBiTuChoi];
                 YeuCauTamUngLuong.NgayPheDuyet = DateTime.Now;
@@ -213,7 +265,7 @@ namespace leave_management.Controllers
 
                 if (!isSuccess)
                 {
-                    ModelState.AddModelError("", "Something went wrong with submitting your record");
+                    ModelState.AddModelError("", "Something went wrong while submitting your record");
                     return View(model);
                 }
                 return RedirectToAction(nameof(MyRequest));
@@ -226,27 +278,7 @@ namespace leave_management.Controllers
             }
         }
 
-        // GET: YeuCauTamUngLuongController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: YeuCauTamUngLuongController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+       
         // GET: YeuCauTamUngLuongController/Delete/5
         public async Task<ActionResult> Delete(string id)
         {
@@ -267,20 +299,7 @@ namespace leave_management.Controllers
         }
 
         // POST: YeuCauTamUngLuongController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(MyRequest));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
+    
         public async Task<ActionResult> Cancelled(string id)
         {
             try

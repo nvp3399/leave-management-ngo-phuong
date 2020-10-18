@@ -165,6 +165,12 @@ namespace leave_management.Controllers
 
         public async Task<ActionResult> XuatLuong(string maNhanVienDuocXuatLuong, string selectedMonth, string selectedYear)
         {
+            var user = await userManager.GetUserAsync(User);
+            if (user.Id == maNhanVienDuocXuatLuong)
+            {
+                return NotFound("Bạn không thể xuất lương cho chính mình");
+            }
+
             int year = int.Parse(selectedYear);
             int month = int.Parse(selectedMonth);
             var model = new XuatLuongCuoiThangVM
@@ -174,7 +180,7 @@ namespace leave_management.Controllers
                 
 
                 NhanVienDuocXuatLuong = mapper.Map<EmployeeVM>(await userManager.FindByIdAsync(maNhanVienDuocXuatLuong)),
-                NhanVienXuatLuong = mapper.Map<EmployeeVM>(await userManager.GetUserAsync(User)),
+                NhanVienXuatLuong = mapper.Map<EmployeeVM>(user),
                 NamTinhLuong = year,
                 ThangTinhLuong = month
             };
@@ -235,74 +241,6 @@ namespace leave_management.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: XuatLuongCuoiThang/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
 
-        // GET: XuatLuongCuoiThang/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: XuatLuongCuoiThang/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: XuatLuongCuoiThang/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: XuatLuongCuoiThang/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: XuatLuongCuoiThang/Delete/5
-        public ActionResult Delete(int id)
-        {
-
-            return View();
-        }
-
-        // POST: XuatLuongCuoiThang/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }

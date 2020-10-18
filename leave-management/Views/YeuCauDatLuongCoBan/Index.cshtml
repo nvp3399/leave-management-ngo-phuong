@@ -119,23 +119,47 @@
             {
             <tr>
                 <td>
-                    <img src="~/images/@item.NhanVienGuiYeuCau.ProfilePicture"
-                         class="rounded-circle"
-                         height="40" width="40"
-                         asp-append-version="true" />
-                    @Html.DisplayFor(modelItem => item.NhanVienGuiYeuCau.LastName)
-                    @Html.DisplayFor(modelItem => item.NhanVienGuiYeuCau.MiddleName)
-                    @Html.DisplayFor(modelItem => item.NhanVienGuiYeuCau.FirstName)
+
+                    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@item.NhanVienGuiYeuCau.Id" target="_blank">
+
+
+                        <img src="~/images/@item.NhanVienGuiYeuCau.ProfilePicture"
+                             class="rounded-circle"
+                             height="40" width="40"
+                             asp-append-version="true" />
+                        @Html.DisplayFor(modelItem => item.NhanVienGuiYeuCau.LastName)
+                        @Html.DisplayFor(modelItem => item.NhanVienGuiYeuCau.MiddleName)
+                        @Html.DisplayFor(modelItem => item.NhanVienGuiYeuCau.FirstName)
+
+                        &nbsp;
+                        <span style="font-size: 0.5rem;">
+                            <i class="fas fa-external-link-alt fa-sm"></i>
+                        </span>
+                    </a>
+
+                   
                 </td>
 
                 <td>
-                    <img src="~/images/@item.NhanVienDuocDatLuong.ProfilePicture"
-                         class="rounded-circle"
-                         height="40" width="40"
-                         asp-append-version="true" />
-                    @Html.DisplayFor(modelItem => item.NhanVienDuocDatLuong.LastName)
-                    @Html.DisplayFor(modelItem => item.NhanVienDuocDatLuong.MiddleName)
-                    @Html.DisplayFor(modelItem => item.NhanVienDuocDatLuong.FirstName)
+
+                    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@item.NhanVienDuocDatLuong.Id" target="_blank">
+
+
+                        <img src="~/images/@item.NhanVienDuocDatLuong.ProfilePicture"
+                             class="rounded-circle"
+                             height="40" width="40"
+                             asp-append-version="true" />
+                        @Html.DisplayFor(modelItem => item.NhanVienDuocDatLuong.LastName)
+                        @Html.DisplayFor(modelItem => item.NhanVienDuocDatLuong.MiddleName)
+                        @Html.DisplayFor(modelItem => item.NhanVienDuocDatLuong.FirstName)
+
+                        &nbsp;
+                        <span style="font-size: 0.5rem;">
+                            <i class="fas fa-external-link-alt fa-sm"></i>
+                        </span>
+                    </a>
+
+                   
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.MucLuongCoBan)

@@ -8,5 +8,6 @@ namespace leave_management.Contracts
 {
     public interface IPhieuChi_TamUngLuongRepository : IRepositoryStringKeyBase<PhieuChi_TamUngLuong>
     {
+        public Task<PhieuChi_TamUngLuong> FindByMaYeuCauTamUng(string maYeuCauTamUng);
     }
 }

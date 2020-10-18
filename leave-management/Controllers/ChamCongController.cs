@@ -19,8 +19,7 @@ using static leave_management.GeneralData.Data;
 namespace leave_management.Controllers
 {
 
-    [Authorize(Roles ="Quản trị viên,Trưởng phòng,Trưởng phòng nhân sự")]
-
+    [Authorize]
     public class ChamCongController : Controller
     {
         private readonly ILeaveTypeRepository leaverepo;
@@ -37,6 +36,10 @@ namespace leave_management.Controllers
         private readonly IHopDongLaoDongRepository hopDongLaoDongRepository;
         private readonly INhatKylamViecRepository nhatKylamViecRepository;
         private readonly ILoaiLichBieuRepository loaiLichBieuRepository;
+        private readonly ILeaveAllocationRepository leaveAllocationRepository;
+        private readonly ILeaveRequestRepository leaveRequestRepository;
+        private readonly ILeaveTypeRepository leaveTypeRepository;
+        private readonly IPhongBanRepository phongBanRepository;
 
         public ChamCongController(ILeaveTypeRepository leaverepo,
             ILeaveAllocationRepository leaveallocationrepo,
@@ -51,7 +54,11 @@ namespace leave_management.Controllers
             IMauHopDongRepository mauHopDongRepository,
             IHopDongLaoDongRepository hopDongLaoDongRepository,
             INhatKylamViecRepository nhatKylamViecRepository,
-            ILoaiLichBieuRepository loaiLichBieuRepository)
+            ILoaiLichBieuRepository loaiLichBieuRepository,
+            ILeaveAllocationRepository leaveAllocationRepository,
+            ILeaveRequestRepository leaveRequestRepository,
+            ILeaveTypeRepository leaveTypeRepository,
+            IPhongBanRepository phongBanRepository)
         {
             this.leaverepo = leaverepo;
             this.leaveallocationrepo = leaveallocationrepo;
@@ -68,10 +75,13 @@ namespace leave_management.Controllers
             this.hopDongLaoDongRepository = hopDongLaoDongRepository;
             this.nhatKylamViecRepository = nhatKylamViecRepository;
             this.loaiLichBieuRepository = loaiLichBieuRepository;
-  
-
+            this.leaveAllocationRepository = leaveAllocationRepository;
+            this.leaveRequestRepository = leaveRequestRepository;
+            this.leaveTypeRepository = leaveTypeRepository;
+            this.phongBanRepository = phongBanRepository;
         }
 
+        [Authorize(Roles = "Quản trị viên,Trưởng phòng,Trưởng phòng nhân sự")]
         // GET: ChamCongController
         public async  Task<ActionResult> Index()
         {
@@ -84,6 +94,7 @@ namespace leave_management.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Quản trị viên,Trưởng phòng,Trưởng phòng nhân sự")]
         public async Task<ActionResult> Index(ChamCongVMListViewForm viewForm)
         {
             int year = int.Parse(viewForm.CurrentYear);
@@ -97,9 +108,28 @@ namespace leave_management.Controllers
 
         private async Task< ChamCongVMList> FeedSomeDataToIndexAction(int month, int year)
         {
-            var employees = await userManager.Users.ToListAsync();
+            List<Employee> employees = null;
 
-            var chamCongVMList = mapper.Map<List<ChamCongVM>>(employees);
+            List<ChamCongVM> chamCongVMList = null;
+
+
+            var truongPhong = mapper.Map<EmployeeVM>(userManager.GetUserAsync(User).Result);
+            var phongBan = mapper.Map<PhongBansVM>(await phongBanRepository.FindById(truongPhong.MaPhongBan));
+            
+            
+            if (User.IsInRole("Quản trị viên"))
+            {
+                 employees = await userManager.Users.ToListAsync();
+
+            }
+            else
+            {
+                 employees = (await userManager.Users.ToListAsync())
+                    .Where(q => q.MaPhongBan == phongBan.MaPhongBan)
+                    .ToList();
+
+            }
+            chamCongVMList = mapper.Map<List<ChamCongVM>>(employees);
 
 
             foreach (var employee in chamCongVMList)
@@ -128,7 +158,10 @@ namespace leave_management.Controllers
                 {
                     CurrentMonth = month.ToString(),
                     CurrentYear = year.ToString()
-                }
+                },
+                TruongPhong = truongPhong,
+                PhongBan = phongBan,
+                
             };
             model = FeedSomeDataToChamCongVMList(model);
             return model;
@@ -181,20 +214,37 @@ namespace leave_management.Controllers
             return View(model);
         }
 
+
         public async Task<ActionResult> LichSuChamCongList(string employeeId)
         {
             var nhatKyLamViec = await nhatKylamViecRepository.FindByMaNhanVien(employeeId);
-            var model = mapper.Map<IEnumerable<LichSuChamCongVM>>(nhatKyLamViec);
-            foreach (var nhatky in model)
+            var lichSuChamCongVMs = mapper.Map<IEnumerable<LichSuChamCongVM>>(nhatKyLamViec);
+
+            var leaveRequests = (await leaveRequestRepository.FindAll())
+                                    .Where(q => q.RequestingEmployeeId == employeeId 
+                                    && q.StartDate.CompareTo(DateTime.Now)<=0
+                                    && q.Approved == true
+                                    ); 
+            // nghĩa là ngày bắt đầu nhỏ hơn ngày hiện tại và đã được chấp thuận => yêu cầu nghỉ phép đã được thực thi
+
+            var leaveRequestVMs = mapper.Map<IEnumerable<LeaveRequestVM>>(leaveRequests);
+
+            foreach (var record in lichSuChamCongVMs)
             {
-                int soPhut = (int)(nhatky.ThoiGianKetThuc - nhatky.ThoiGianBatDau).TotalMinutes;
-                nhatky.TongLuongCoBan = (int)((double)nhatky.MucLuongCoBan / (6 * 4 * 8 * 60) * nhatky.HeSoLuongCoBan * soPhut);
-                nhatky.TongTienLuong = nhatky.TongLuongCoBan + nhatky.SoTienThuongThem;
+                int soPhut = (int)(record.ThoiGianKetThuc - record.ThoiGianBatDau).TotalMinutes;
+                record.TongLuongCoBan = (int)((double)record.MucLuongCoBan / (6 * 4 * 8 * 60) * record.HeSoLuongCoBan * soPhut);
+                record.TongTienLuong = record.TongLuongCoBan + record.SoTienThuongThem;
             }
-            var employee = await userManager.FindByIdAsync(employeeId);
-            ViewBag.EmployeeName = employee.LastName + " " + employee.MiddleName + " " + employee.FirstName;
-            ViewBag.EmployeeId = employeeId;
-            ViewBag.ProfilePicture = employee.ProfilePicture;
+
+            var employee = mapper.Map<EmployeeVM>( await userManager.FindByIdAsync(employeeId));
+            var model = new NhatKyLamViecVM
+            {
+                LeaveRequestVMs = leaveRequestVMs,
+                LichSuChamCongVMs = lichSuChamCongVMs,
+                NhanVien = employee
+            };
+
+
 
             return View(model);
         }
@@ -238,8 +288,15 @@ namespace leave_management.Controllers
         }
 
         // GET: ChamCongController/Create
+        [Authorize(Roles = "Quản trị viên,Trưởng phòng,Trưởng phòng nhân sự")]
         public async Task<ActionResult> Create(string EmployeeId)
         {
+            var currentUser = userManager.GetUserAsync(User).Result;
+
+            if (EmployeeId == currentUser.Id)
+            {
+                return NotFound("Bạn không thể chấm công cho chính mình.");
+            }
             
             var model = new CreateEditLichSuChamCongVM();
             model.MaNhanVien = EmployeeId;
@@ -253,8 +310,10 @@ namespace leave_management.Controllers
         // POST: ChamCongController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Quản trị viên,Trưởng phòng,Trưởng phòng nhân sự")]
         public async Task<ActionResult> Create(CreateEditLichSuChamCongVM model)
         {
+
             try
             {
 
@@ -270,9 +329,17 @@ namespace leave_management.Controllers
                     return View(model);
                 }
 
+                
+
                 if (model.ThoiGianBatDau.CompareTo(model.ThoiGianKetThuc)>=0)
                 {
                     ModelState.AddModelError("", "Thời gian kết thúc phải lớn hơn thời gian bắt đầu");
+                    return View(model);
+                }
+
+                if (model.ThoiGianKetThuc.Date.CompareTo(DateTime.Now) > 0)
+                {
+                    ModelState.AddModelError("", "Bạn  chỉ có thể chấm công trong ngày hôm nay và các ngày đã qua");
                     return View(model);
                 }
 
@@ -286,8 +353,26 @@ namespace leave_management.Controllers
                         ModelState.AddModelError("", "Khoảng thời gian được chọn bị trùng với lịch biểu trước đó" +
                             "\n Khoảng thời gian được chọn: " + model.ThoiGianBatDau + " => " + model.ThoiGianKetThuc +
                             "\n Lịch biểu bị trùng: " + item.ThoiGianBatDau + " => " + item.ThoiGianKetThuc);
+                        return View(model);
+
                     }
                 }
+                var approvedLeaveRequests = (await leaveRequestRepository.FindAll())
+                    .Where(q => q.Approved == true && q.RequestingEmployeeId == model.MaNhanVien);
+                foreach (var item in approvedLeaveRequests)
+                {
+                    if (model.ThoiGianBatDau.Date.CompareTo(item.StartDate) >= 0 
+                        && model.ThoiGianBatDau.Date.CompareTo(item.EndDate) <= 0)
+                    {
+                        ModelState.AddModelError("", "Khoảng thời gian được chọn bị trùng với yêu cầu nghỉ phép được thực thi" +
+                            "\n Khoảng thời gian được chọn: " + model.ThoiGianBatDau + " => " + model.ThoiGianKetThuc +
+                            "\n Nghỉ phép được thực thi: " + item.StartDate + " => " + item.EndDate);
+                        return View(model);
+
+                    }
+                }
+
+
                 var nhatKyLamViecRecord = mapper.Map<NhatKyLamViec>(model);
                 nhatKyLamViecRecord.NgayThemVaoHeThong = DateTime.Now;
                 nhatKyLamViecRecord.MucLuongCoBan = model.NhanVien.MucLuongCoBan;
@@ -315,29 +400,11 @@ namespace leave_management.Controllers
             }
         }
 
-        // GET: ChamCongController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
 
-        // POST: ChamCongController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         // GET: ChamCongController/Delete/5
         //[HttpGet("Delete")]
+        [Authorize(Roles = "Quản trị viên,Trưởng phòng,Trưởng phòng nhân sự")]
         public async  Task<ActionResult> Delete(string employeeId, DateTime? thoiGianBatDau)
         {
 
@@ -359,19 +426,6 @@ namespace leave_management.Controllers
             return RedirectToAction(nameof(LichSuChamCongList), new { employeeId = employeeId });
         }
 
-        // POST: ChamCongController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+      
     }
 }

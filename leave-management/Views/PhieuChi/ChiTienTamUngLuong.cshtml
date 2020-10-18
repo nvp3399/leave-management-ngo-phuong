@@ -16,8 +16,6 @@
 <h3>Loại phiếu chi: Chi tạm ứng lương</h3>
 <hr />
 <div>
-    <h4>PhieuChi_TamUngLuongVM</h4>
-    <hr />
     <dl class="row">
 
 
@@ -28,47 +26,92 @@
             @Html.DisplayFor(model => model.ThoiGianXuatPhieuChi)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NhanVienChiTien)
+            @Html.DisplayNameFor(model => model.YeuCauTamUngLuong.SoTienTamUng)
         </dt>
         <dd class="col-sm-10">
-            <img src="~/images/@Model.NhanVienChiTien.ProfilePicture"
-                 class="rounded-circle"
-                 height="40" width="40"
-                 asp-append-version="true" />
-            @Html.DisplayFor(model => model.NhanVienChiTien.LastName)
-            @Html.DisplayFor(model => model.NhanVienChiTien.MiddleName)
-            @Html.DisplayFor(model => model.NhanVienChiTien.FirstName)
+            @Html.DisplayFor(model => model.YeuCauTamUngLuong.SoTienTamUng)
         </dd>
+        @if (Model.MaNhanVienChiTien != null)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NhanVienChiTien)
+            </dt>
+            <dd class="col-sm-10">
+                <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienChiTien.Id" target="_blank">
+
+                    <img src="~/images/@Model.NhanVienChiTien.ProfilePicture"
+                         class="rounded-circle"
+                         height="40" width="40"
+                         asp-append-version="true" />
+                    @Html.DisplayFor(model => model.NhanVienChiTien.LastName)
+                    @Html.DisplayFor(model => model.NhanVienChiTien.MiddleName)
+                    @Html.DisplayFor(model => model.NhanVienChiTien.FirstName)
+
+                    &nbsp;
+                    <span style="font-size: 0.5rem;">
+                        <i class="fas fa-external-link-alt fa-sm"></i>
+                    </span>
+                </a>
+
+
+               
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.ThoiGianChiTien)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ThoiGianChiTien)
+            </dd>
+        }
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.NhanVienDuocChiTien)
         </dt>
         <dd class="col-sm-10">
-            <img src="~/images/@Model.NhanVienDuocChiTien.ProfilePicture"
-                 class="rounded-circle"
-                 height="40" width="40"
-                 asp-append-version="true" />
-            @Html.DisplayFor(model => model.NhanVienDuocChiTien.LastName)
-            @Html.DisplayFor(model => model.NhanVienDuocChiTien.MiddleName)
-            @Html.DisplayFor(model => model.NhanVienDuocChiTien.FirstName)
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienDuocChiTien.Id" target="_blank">
+
+                <img src="~/images/@Model.NhanVienDuocChiTien.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Html.DisplayFor(model => model.NhanVienDuocChiTien.LastName)
+                @Html.DisplayFor(model => model.NhanVienDuocChiTien.MiddleName)
+                @Html.DisplayFor(model => model.NhanVienDuocChiTien.FirstName)
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+
+
+           
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.NhanVienXuatPhieuChi)
         </dt>
         <dd class="col-sm-10">
-            <img src="~/images/@Model.NhanVienXuatPhieuChi.ProfilePicture"
-                 class="rounded-circle"
-                 height="40" width="40"
-                 asp-append-version="true" />
-            @Html.DisplayFor(model => model.NhanVienXuatPhieuChi.LastName)
-            @Html.DisplayFor(model => model.NhanVienXuatPhieuChi.MiddleName)
-            @Html.DisplayFor(model => model.NhanVienXuatPhieuChi.FirstName)
+           
+
+
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienXuatPhieuChi.Id" target="_blank">
+
+                <img src="~/images/@Model.NhanVienXuatPhieuChi.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Html.DisplayFor(model => model.NhanVienXuatPhieuChi.LastName)
+                @Html.DisplayFor(model => model.NhanVienXuatPhieuChi.MiddleName)
+                @Html.DisplayFor(model => model.NhanVienXuatPhieuChi.FirstName)
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ThoiGianChiTien)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ThoiGianChiTien)
-        </dd>
+
 
         @if (Model.MaNhanVienThuHoi != null)
         {
@@ -76,13 +119,25 @@
                 @Html.DisplayNameFor(model => model.NhanVienThuHoi)
             </dt>
             <dd class="col-sm-10">
-                <img src="~/images/@Model.NhanVienThuHoi.ProfilePicture"
-                     class="rounded-circle"
-                     height="40" width="40"
-                     asp-append-version="true" />
-                @Html.DisplayFor(model => model.NhanVienThuHoi.LastName)
-                @Html.DisplayFor(model => model.NhanVienThuHoi.MiddleName)
-                @Html.DisplayFor(model => model.NhanVienThuHoi.FirstName)
+               
+
+
+                <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienThuHoi.Id" target="_blank">
+
+                    <img src="~/images/@Model.NhanVienThuHoi.ProfilePicture"
+                         class="rounded-circle"
+                         height="40" width="40"
+                         asp-append-version="true" />
+                    @Html.DisplayFor(model => model.NhanVienThuHoi.LastName)
+                    @Html.DisplayFor(model => model.NhanVienThuHoi.MiddleName)
+                    @Html.DisplayFor(model => model.NhanVienThuHoi.FirstName)
+
+                    &nbsp;
+                    <span style="font-size: 0.5rem;">
+                        <i class="fas fa-external-link-alt fa-sm"></i>
+                    </span>
+                </a>
+
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.ThoiGianThuHoi)
@@ -91,6 +146,8 @@
                 @Html.DisplayFor(model => model.ThoiGianThuHoi)
             </dd>
         }
+
+
 
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.GhiChu)
@@ -104,21 +161,21 @@
         <dd class="col-sm-10">
             @if (Model.MaNhanVienChiTien == null && Model.MaNhanVienThuHoi == null)
             {
-                <a title="Chi Tiền" class="btn btn-outline-success">
+                <a asp-action="" asp-route-id="" title="Chi Tiền" class="btn btn-outline-success">
                     <i class="fa fa-dollar-sign" aria-hidden="true"></i>
                     Chưa chi tiền
                 </a>
             }
             else if (Model.MaNhanVienThuHoi != null)
             {
-                <a title="Đã bị thu hồi" class="btn btn-danger">
+                <a asp-action="" asp-route-id="" title="Đã bị thu hồi" class="btn btn-outline-danger">
                     <i class="fa fa-ban" aria-hidden="true"></i>
                     Đã bị thu hồi
                 </a>
             }
             else
             {
-                <a title="Đã Chi Tiền" class="btn btn-secondary">
+                <a asp-action="" asp-route-id="" title="Đã Chi Tiền" class="btn btn-outline-secondary">
                     <i class="fa fa-check" aria-hidden="true"></i>
                     Đã chi tiền
                 </a>
@@ -130,7 +187,7 @@
         </dt>
         <dd class="col-sm-10">
             @if ((User.IsInRole("Kế toán") || User.IsInRole("Quản trị viên"))
-                && Model.MaNhanVienChiTien == null && Model.MaNhanVienThuHoi == null)
+             && Model.MaNhanVienChiTien == null && Model.MaNhanVienThuHoi == null)
             {
                 <a asp-action="ChiTienLuongCuoiThang" title="Chi Tiền" class="btn btn-outline-success" asp-route-id="@Model.MaPhieuChi">
                     <i class="fa fa-dollar-sign" aria-hidden="true"></i>
@@ -138,18 +195,15 @@
                 </a>
             }
             @if ((User.IsInRole("Trưởng phòng nhân sự") || User.IsInRole("Quản trị viên"))
-          &&
-          Model.MaNhanVienThuHoi == null && Model.MaNhanVienChiTien == null)
+       &&
+       Model.MaNhanVienThuHoi == null && Model.MaNhanVienChiTien == null)
             {
                 <a asp-action="ThuHoi" title="Thu Hồi" class="btn btn-danger" asp-route-id="@Model.MaPhieuChi" onclick="return confirm('Bạn có chắc bạn muốn thu hồi yêu cầu này?')">
                     <i class="fa fa-ban" aria-hidden="true"></i>
                     Thu hồi
                 </a>
             }
-            <a class="btn btn-outline-primary" asp-action="ChiTienLuongCuoiThang" title="Chi tiết" asp-route-id="@Model.MaPhieuChi">
-                <i class="fa fa-file"></i>
-                Chi tiết
-            </a>
+
         </dd>
     </dl>
 </div>

@@ -9,14 +9,27 @@
 <h1>Quản lý Giấy tờ tùy thân</h1>
 <hr />
 <h3>
-    Nhân viên: 
-    <img src="~/images/@Model.NhanVien.ProfilePicture"
-         class="rounded-circle"
-         height="60" width="60"
-         asp-append-version="true" />
-    @Model.NhanVien.LastName
-    @Model.NhanVien.MiddleName
-    @Model.NhanVien.FirstName
+    Nhân viên:
+
+    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVien.Id" target="_blank">
+
+
+
+        <img src="~/images/@Model.NhanVien.ProfilePicture"
+             class="rounded-circle"
+             height="60" width="60"
+             asp-append-version="true" />
+        @Model.NhanVien.LastName
+        @Model.NhanVien.MiddleName
+        @Model.NhanVien.FirstName
+
+        &nbsp;
+        <span style="font-size: 0.5rem;">
+            <i class="fas fa-external-link-alt fa-sm"></i>
+        </span>
+    </a>
+
+    
 </h3>
 
 
@@ -77,13 +90,26 @@
                 </td>
 
                 <td>
-                    <img src="~/images/@item.NhanVienGui.ProfilePicture"
-                         class="rounded-circle"
-                         height="40" width="40"
-                         asp-append-version="true" />
-                    @Html.DisplayFor(modelItem => item.NhanVienGui.LastName)
-                    @Html.DisplayFor(modelItem => item.NhanVienGui.MiddleName)
-                    @Html.DisplayFor(modelItem => item.NhanVienGui.FirstName)
+
+                    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@item.NhanVienGui.Id" target="_blank">
+
+
+
+                        <img src="~/images/@item.NhanVienGui.ProfilePicture"
+                             class="rounded-circle"
+                             height="40" width="40"
+                             asp-append-version="true" />
+                        @Html.DisplayFor(modelItem => item.NhanVienGui.LastName)
+                        @Html.DisplayFor(modelItem => item.NhanVienGui.MiddleName)
+                        @Html.DisplayFor(modelItem => item.NhanVienGui.FirstName)
+
+                        &nbsp;
+                        <span style="font-size: 0.5rem;">
+                            <i class="fas fa-external-link-alt fa-sm"></i>
+                        </span>
+                    </a>
+
+                   
                 </td>
 
                 <td>

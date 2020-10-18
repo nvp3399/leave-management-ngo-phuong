@@ -20,10 +20,7 @@
                 Ảnh
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
+               Tên
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
@@ -55,11 +52,23 @@
                          asp-append-version="true" />
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
+
+                    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@item.Id" target="_blank">
+
+
+                        @Html.DisplayFor(modelItem => item.LastName)
+                        @Html.DisplayFor(modelItem => item.MiddleName)
+                        @Html.DisplayFor(modelItem => item.FirstName)
+
+                        &nbsp;
+                        <span style="font-size: 0.5rem;">
+                            <i class="fas fa-external-link-alt fa-sm"></i>
+                        </span>
+                    </a>
+
+                   
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
+                
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>

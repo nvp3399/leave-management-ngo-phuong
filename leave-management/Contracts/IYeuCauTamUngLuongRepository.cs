@@ -8,5 +8,8 @@ namespace leave_management.Contracts
 {
     public interface IYeuCauTamUngLuongRepository :IRepositoryStringKeyBase<YeuCauTamUngLuong>
     {
+        Task<string> TrangThaiPhieuChi(string maYeuCauTamUng);
+
+       
     }
 }

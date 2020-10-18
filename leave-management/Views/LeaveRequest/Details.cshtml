@@ -1,5 +1,11 @@
 ﻿@model leave_management.Models.LeaveRequestVM
 
+@using Microsoft.AspNetCore.Identity
+@using leave_management.Data
+
+@inject SignInManager<Employee> SignInManager
+@inject UserManager<Employee> UserManager
+
 @{
     ViewData["Title"] = "Details";
 }
@@ -9,13 +15,24 @@
         <h4 class="alert-heading">Đã bị hủy</h4>
         <p>
             <strong>@Html.DisplayNameFor(model => model.RequestingEmployee):</strong>
-            <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
-                 class="rounded-circle"
-                 height="40" width="40"
-                 asp-append-version="true" />
-            @Model.RequestingEmployee.LastName
-            @Model.RequestingEmployee.MiddleName
-            @Model.RequestingEmployee.FirstName
+
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.RequestingEmployee.Id" target="_blank">
+
+                <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Model.RequestingEmployee.LastName
+                @Model.RequestingEmployee.MiddleName
+                @Model.RequestingEmployee.FirstName
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+           
         </p>
         <hr />
         <p>
@@ -30,13 +47,82 @@ else if (Model.Approved == null)
         <h4 class="alert-heading">Chờ phê duyệt</h4>
         <p>
             <strong>@Html.DisplayNameFor(model => model.RequestingEmployeeId):</strong>
-            <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
-                 class="rounded-circle"
-                 height="40" width="40"
-                 asp-append-version="true" />
-            @Model.RequestingEmployee.LastName 
-            @Model.RequestingEmployee.MiddleName
-            @Model.RequestingEmployee.FirstName
+
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.RequestingEmployee.Id" target="_blank">
+
+                <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Model.RequestingEmployee.LastName
+                @Model.RequestingEmployee.MiddleName
+                @Model.RequestingEmployee.FirstName
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+
+           
+        </p>
+        <hr />
+        <p>
+            @Html.DisplayNameFor(model => model.DateRequested) - @Html.DisplayFor(model => model.DateRequested)
+        </p>
+    </div>
+}
+else if (Model.Approved == true && Model.StartDate.CompareTo(DateTime.Now) <= 0)
+{
+    <div class="alert alert-primary" role="alert">
+        <h4 class="alert-heading">
+            <strong>  Đã được thực thi </strong>
+            <hr />
+            Được chấp thuận bởi:
+
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.ApproveBy.Id" target="_blank">
+
+                <img src="~/images/@Model.ApproveBy.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Model.ApproveBy.LastName
+                @Model.ApproveBy.MiddleName
+                @Model.ApproveBy.FirstName
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+
+         
+
+        </h4>
+        <p>
+            <strong>@Html.DisplayNameFor(model => model.RequestingEmployeeId):</strong>
+
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.RequestingEmployee.Id" target="_blank">
+
+                <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Model.RequestingEmployee.LastName
+                @Model.RequestingEmployee.MiddleName
+                @Model.RequestingEmployee.FirstName
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+
+          
+
         </p>
         <hr />
         <p>
@@ -49,22 +135,46 @@ else if (Model.Approved == true)
     <div class="alert alert-success" role="alert">
         <h4 class="alert-heading">
             <strong>  Được chấp thuận bởi: </strong>
-            <img src="~/images/@Model.ApproveBy.ProfilePicture"
-                 class="rounded-circle"
-                 height="40" width="40"
-                 asp-append-version="true" />
-            @Model.ApproveBy.LastName
-            @Model.ApproveBy.MiddleName
-            @Model.ApproveBy.FirstName
+
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.ApproveBy.Id" target="_blank">
+                <img src="~/images/@Model.ApproveBy.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Model.ApproveBy.LastName
+                @Model.ApproveBy.MiddleName
+                @Model.ApproveBy.FirstName
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+          
 
         </h4>
         <p>
             <strong>@Html.DisplayNameFor(model => model.RequestingEmployeeId):</strong>
-            <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
-                 class="rounded-circle"
-                 height="40" width="40"
-                 asp-append-version="true" />
-            @Model.RequestingEmployee.FirstName @Model.RequestingEmployee.LastName
+
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.RequestingEmployee.Id" target="_blank">
+
+                <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+
+                @Model.RequestingEmployee.LastName
+                @Model.RequestingEmployee.MiddleName
+                @Model.RequestingEmployee.FirstName
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+
         </p>
         <hr />
         <p>
@@ -77,21 +187,46 @@ else
     <div class="alert alert-danger" role="alert">
         <h4 class="alert-heading">
             <strong>Bị từ chối bởi: </strong>
-            <img src="~/images/@Model.ApproveBy.ProfilePicture"
-                 class="rounded-circle"
-                 height="40" width="40"
-                 asp-append-version="true" />
-            @Model.ApproveBy.LastName
-            @Model.ApproveBy.MiddleName
-            @Model.ApproveBy.FirstName
+
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.ApproveBy.Id" target="_blank">
+
+                <img src="~/images/@Model.ApproveBy.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Model.ApproveBy.LastName
+                @Model.ApproveBy.MiddleName
+                @Model.ApproveBy.FirstName
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+           
         </h4>
         <p>
             <strong>@Html.DisplayNameFor(model => model.RequestingEmployeeId):</strong>
-            <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
-                 class="rounded-circle"
-                 height="40" width="40"
-                 asp-append-version="true" />
-            @Model.RequestingEmployee.FirstName @Model.RequestingEmployee.LastName
+
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.ApproveBy.Id" target="_blank">
+
+
+                <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Model.RequestingEmployee.LastName
+                @Model.RequestingEmployee.MiddleName
+                @Model.RequestingEmployee.FirstName
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+
         </p>
         <hr />
         <p>
@@ -111,13 +246,26 @@ else
             Tên nhân viên
         </dt>
         <dd class="col-sm-10">
-            <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
-                 class="rounded-circle"
-                 height="40" width="40"
-                 asp-append-version="true" />
-            @Model.RequestingEmployee.LastName
-            @Model.RequestingEmployee.MiddleName
-            @Model.RequestingEmployee.FirstName
+
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.RequestingEmployee.Id" target="_blank">
+
+
+                <img src="~/images/@Model.RequestingEmployee.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Model.RequestingEmployee.LastName
+                @Model.RequestingEmployee.MiddleName
+                @Model.RequestingEmployee.FirstName
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+
+          
         </dd>
 
         <dt class="col-sm-2">
@@ -160,6 +308,13 @@ else
                 <span class="badge badge-secondary">
                     <i class="fa fa-ban" aria-hidden="true"></i>
                     Đã bị hủy
+                </span>
+            }
+            else if (Model.Approved == true && Model.StartDate.CompareTo(DateTime.Now) <= 0)
+            {
+                <span class="badge badge-primary">
+                    <i class="fa fa-check"></i>
+                    Đã được thực thi
                 </span>
             }
             else if (Model.Approved == true)
@@ -205,10 +360,14 @@ else
             Từ chối
         </a>
     }
-    <a asp-action="Delete" title="Delete" class="btn btn-danger" asp-route-id="@Model.Id" onclick="return confirm('Bạn có chắc muốn xóa yêu cầu này?')">
-        <i class="fa fa-trash" aria-hidden="true"></i>
-        Xóa
-    </a>
+    @if (User.IsInRole("Quản trị viên"))
+    {
+        <a asp-action="Delete" title="Delete" class="btn btn-danger" asp-route-id="@Model.Id" onclick="return confirm('Bạn có chắc muốn xóa yêu cầu này?')">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+            Xóa
+        </a>
+    }
+
     <a asp-action="Index" class="btn btn-outline-dark">
         <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
         Quay lại danh sách yêu cầu nghỉ phép

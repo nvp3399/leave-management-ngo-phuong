@@ -6,14 +6,28 @@
 
 <h1>Chỉnh sửa bản scan hợp đồng lao động</h1>
 <hr />
-<h3>Nhân viên:
-    <img src="~/images/@Model.NhanVien.ProfilePicture"
-         class="rounded-circle"
-         height="60" width="60"
-         asp-append-version="true" />
-    @Model.NhanVien.LastName 
-    @Model.NhanVien.MiddleName</h3>
-    @Model.NhanVien.FirstName</h3>
+<h3>
+    Nhân viên:
+
+    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVien.Id" target="_blank">
+
+        <img src="~/images/@Model.NhanVien.ProfilePicture"
+             class="rounded-circle"
+             height="60" width="60"
+             asp-append-version="true" />
+        @Model.NhanVien.LastName
+        @Model.NhanVien.MiddleName
+        @Model.NhanVien.FirstName
+
+        &nbsp;
+        <span style="font-size: 0.5rem;">
+            <i class="fas fa-external-link-alt fa-sm"></i>
+        </span>
+    </a>
+
+   
+
+</h3>
 
 <hr />
 <div class="row">

@@ -46,7 +46,21 @@ namespace leave_management.Repository
                 .FirstOrDefaultAsync(q => q.MaPhieuChi == id);
         }
 
+        public async Task<PhieuChi_TamUngLuong> FindByMaYeuCauTamUng(string maYeuCauTamUng)
+        {
+            var yeuCauTamUng = await db.YeuCauTamUngLuongs.FirstOrDefaultAsync(q => q.MaYeuCau == maYeuCauTamUng);
 
+            if (yeuCauTamUng == null )
+            {
+                throw new Exception("Error! Yeu cau tam ung luong khong ton tai");
+            }
+
+            var phieuChi = await db.PhieuChi_TamUngLuongs.FirstOrDefaultAsync(q => q.MaYeuCauTamUngLuong ==maYeuCauTamUng);
+
+            return phieuChi;
+
+
+        }
 
         public async Task<bool> isExist(string id)
         {

@@ -15,13 +15,17 @@
     </a>
     <hr />
 
-    <a asp-action="EditEmployee" class="btn btn-warning" asp-route-id="@Model.Employee.Id">
+    <a asp-action="EditEmployee" class="btn btn-outline-warning" asp-route-id="@Model.Employee.Id">
         <i class="fas fa-pencil-alt" aria-hidden="true"></i>
         Chỉnh sửa hồ sơ
     </a>
-    <a asp-controller="HopDongLaoDong" asp-action="Index" class="btn btn-warning" asp-route-id="@Model.Employee.Id">
-        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-        Quản lý hợp đồng lao động
+    <a asp-controller="HopDongLaoDong" asp-action="Index" class="btn btn-outline-secondary" asp-route-id="@Model.Employee.Id">
+        <i class="fas fa-info-circle" aria-hidden="true"></i>
+        Xem hợp đồng lao động
+    </a>
+    <a asp-controller="GiayToTuyThan" asp-action="Index" class="btn btn-outline-info" asp-route-id="@Model.Employee.Id">
+        <i class="fas fa-info-circle" aria-hidden="true"></i>
+        Xem giấy tờ tùy thân
     </a>
     <hr />
 

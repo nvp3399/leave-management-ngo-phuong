@@ -1,0 +1,128 @@
+﻿@model leave_management.Models.EmployeeVM
+
+@{
+    ViewData["Title"] = "Employee";
+}
+
+<h1>Thông tin nhân viên</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        
+
+        <dt class="col-sm-2">
+            Nhân viên: 
+        </dt>
+        <dd class="col-sm-10">
+
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.Id" target="_blank">
+
+                <img src="~/images/@Model.ProfilePicture"
+                     class="rounded-circle"
+                     height="60" width="60"
+                     asp-append-version="true" />
+                @Html.DisplayFor(model => model.LastName)
+                @Html.DisplayFor(model => model.MiddleName)
+                @Html.DisplayFor(model => model.FirstName)
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+           
+        </dd>
+   
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateJoined)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateJoined)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.GioiTinh == true)
+            {
+                <span>Nam</span>
+            }
+            else
+            {
+                <span>Nữ</span>
+            }
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ChucVu)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ChucVu)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ChuyenMon)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ChuyenMon)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PhongBan)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.PhongBan)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MucLuongCoBan)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MucLuongCoBan)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.LoaiNhanVien)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.LoaiNhanVien)
+        </dd>
+     
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SoCMND)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SoCMND)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.VaiTroTrenHeThong)
+        </dt>
+        <dd class="col-sm-10">
+            @ViewBag.VaiTroTrenHeThong
+        </dd>
+
+    </dl>
+</div>
+<div>
+    @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>*@
+</div>

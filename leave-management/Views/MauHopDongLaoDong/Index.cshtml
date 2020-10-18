@@ -45,23 +45,27 @@
 
                 <td>
 
-                    <a asp-action="EditMauHopDong" class="btn btn-warning" asp-route-id="@item.MaMauHopDong">
-                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-                        Chỉnh sửa
-                    </a>
+
                     <a asp-action="DetailsMauHopDong" class="btn btn-info" asp-route-id="@item.MaMauHopDong">
                         &nbsp;<i class="fas fa-info" aria-hidden="true"></i>&nbsp;
                         Chi tiết
                     </a>
-                    <a asp-action="DeleteMauHopDong" class="btn btn-danger" asp-route-id="@item.MaMauHopDong" onclick="return confirm('Bạn chắc chắn muốn xóa mẫu hợp đồng này?')">
-                        <i class="fas fa-trash" aria-hidden="true"></i>
-                        Xóa
-                    </a>
-
                     <a asp-action="DownloadMauHopDongLaoDong" class="btn btn-outline-dark" asp-route-Filename="@item.ViTriLuuMauHopDong">
                         <i class="fa fa-download" aria-hidden="true"></i>
                         Tải về
                     </a>
+                    @if (User.IsInRole("Quản trị viên") || User.IsInRole("Trưởng phòng nhân sự"))
+                    {
+                        <a asp-action="EditMauHopDong" class="btn btn-warning" asp-route-id="@item.MaMauHopDong">
+                            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                            Chỉnh sửa
+                        </a>
+                        <a asp-action="DeleteMauHopDong" class="btn btn-danger" asp-route-id="@item.MaMauHopDong" onclick="return confirm('Bạn chắc chắn muốn xóa mẫu hợp đồng này?')">
+                            <i class="fas fa-trash" aria-hidden="true"></i>
+                            Xóa
+                        </a>
+                    }
+
                 </td>
             </tr>
         }
@@ -104,9 +108,18 @@
                 </td>
                 <td>
 
-                    @Html.DisplayFor(modelItem => item.LastName)
-                    @Html.DisplayFor(modelItem => item.MiddleName)
-                    @Html.DisplayFor(modelItem => item.FirstName)
+                    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@item.Id" target="_blank">
+                        @Html.DisplayFor(modelItem => item.LastName)
+                        @Html.DisplayFor(modelItem => item.MiddleName)
+                        @Html.DisplayFor(modelItem => item.FirstName)
+
+                        &nbsp;
+                        <span style="font-size: 0.5rem;">
+                            <i class="fas fa-external-link-alt fa-sm"></i>
+                        </span>
+                    </a>
+
+                   
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Email)

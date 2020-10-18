@@ -41,6 +41,9 @@ namespace leave_management.Models
         public IEnumerable<SelectListItem> Years { get; set; }
 
         public ChamCongVMListViewForm ViewForm { get; set; }
+
+        public PhongBansVM PhongBan { get; set; }
+        public EmployeeVM TruongPhong { get; set; }
     }
 
     public class ChamCongVMListViewForm

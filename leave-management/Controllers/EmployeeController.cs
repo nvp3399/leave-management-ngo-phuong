@@ -17,8 +17,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace leave_management.Controllers
 {
-
-    [Authorize(Roles = "Quản trị viên,Trưởng phòng,Trưởng phòng nhân sự")]
+    [Authorize]
     public class EmployeeController : Controller
     {
         private readonly ILeaveTypeRepository _leaverepo;
@@ -57,6 +56,7 @@ namespace leave_management.Controllers
         }
 
         // GET: LeaveAllocationController
+        [Authorize(Roles = "Quản trị viên,Trưởng phòng,Trưởng phòng nhân sự,Nhân viên phòng nhân sự")]
         public async Task<ActionResult> Index()
         {
             var employees = await _userManager.Users
@@ -76,8 +76,8 @@ namespace leave_management.Controllers
             return View(model);
         }
 
-       
 
+        [Authorize(Roles = "Quản trị viên,Trưởng phòng nhân sự")]
         public async Task<ActionResult> SetLeave(int id)
         {
             var leavetype = await _leaverepo.FindById(id);
@@ -109,6 +109,15 @@ namespace leave_management.Controllers
         public async Task<ActionResult> Details(string id)
         {
             var user = await _userManager.FindByIdAsync(id);
+
+            var currentUser = _userManager.GetUserAsync(User).Result;
+
+            if((User.IsInRole("Nhân viên") || User.IsInRole("Kế toán"))
+                && currentUser.Id != id)
+            {
+                return NotFound("Nhân viên bình thường chỉ có thể xem hồ sơ mật của mình, không thể xem hồ sơ của người khác.");
+            }
+
             var employee = _mapper.Map<EmployeeVM>(user);
             employee.NhanVienThemVaoHeThong = _mapper.Map<EmployeeVM>(await _userManager.FindByIdAsync(user.MaNhanVienThemVaoHeThong));
             employee.ChucVu = _mapper.Map<ChucVusVM>(await _chucVuRepo.FindById(user.MaChucVu));
@@ -132,6 +141,7 @@ namespace leave_management.Controllers
         }
 
         // GET: LeaveAllocationController/Create
+        [Authorize(Roles = "Quản trị viên,Trưởng phòng nhân sự,Nhân viên phòng nhân sự")]
         public async Task<ActionResult> Create()
         {
             try
@@ -140,7 +150,7 @@ namespace leave_management.Controllers
                 var model = new CreateEmployeeVM();
 
                 model = await AddSomePropertiesToEmployeeVM(model);
-                
+                model.MaVaiTroTrenHeThong = _roleRepository.FindAll().Result.FirstOrDefault(q => q.Name.ToUpper() == "NHÂN VIÊN").Id;
                 return View(model);
             }
             catch (Exception)
@@ -153,6 +163,7 @@ namespace leave_management.Controllers
         // POST: LeaveAllocationController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Quản trị viên,Trưởng phòng nhân sự,Nhân viên phòng nhân sự")]
         public async Task<ActionResult> Create(CreateEmployeeVM model)
         {
             
@@ -210,7 +221,7 @@ namespace leave_management.Controllers
             }
         }
 
-        public async Task<CreateEmployeeVM> AddSomePropertiesToEmployeeVM(CreateEmployeeVM model)
+        private async Task<CreateEmployeeVM> AddSomePropertiesToEmployeeVM(CreateEmployeeVM model)
         {
             var chucVus = await _chucVuRepo.FindAll();
             var chucVuItems = chucVus.Select(q => new SelectListItem()
@@ -264,10 +275,11 @@ namespace leave_management.Controllers
             return model;
         }
 
-        
+
 
 
         // GET: LeaveAllocationController/Edit/5
+        [Authorize(Roles = "Quản trị viên,Trưởng phòng nhân sự")]
         public async Task<ActionResult> EditLeaveAllocation(int id)
         {
             var leaveallocation = await _leaveallocationrepo.FindById(id);
@@ -279,6 +291,7 @@ namespace leave_management.Controllers
         // POST: LeaveAllocationController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Quản trị viên,Trưởng phòng nhân sự")]
         public async Task<ActionResult> EditLeaveAllocation(EditLeaveAllocationVM model)
         {
             try
@@ -307,6 +320,7 @@ namespace leave_management.Controllers
 
 
         // GET: LeaveAllocationController/Edit/5
+        [Authorize(Roles = "Quản trị viên,Trưởng phòng nhân sự,Nhân viên phòng nhân sự")]
         public async Task<ActionResult> EditEmployee(string id)
         {
             var employee = await _userManager.FindByIdAsync(id);
@@ -322,6 +336,7 @@ namespace leave_management.Controllers
         // POST: LeaveAllocationController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Quản trị viên,Trưởng phòng nhân sự,Nhân viên phòng nhân sự")]
         public async Task<ActionResult> EditEmployee(EditEmployeeVM model)
         {
             try
@@ -387,26 +402,7 @@ namespace leave_management.Controllers
             }
         }
 
-        // GET: LeaveAllocationController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: LeaveAllocationController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+      
 
         private string UploadedProfilePicture(EmployeeVM model)
         {

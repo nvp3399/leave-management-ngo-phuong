@@ -78,15 +78,26 @@
                          class="rounded-circle"
                          height="40" width="40"
                          asp-append-version="true" />
+
+                    
+
                 </td>
                 <td>
 
-                    
+                    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@item.Id" target="_blank">
+
+                        @Html.DisplayFor(modelItem => item.LastName)
+                        @Html.DisplayFor(modelItem => item.MiddleName)
+                        @Html.DisplayFor(modelItem => item.FirstName)
+
+                        &nbsp;
+                        <span style="font-size: 0.5rem;">
+                            <i class="fas fa-external-link-alt fa-sm"></i>
+                        </span>
+                    </a>
                     
 
-                    @Html.DisplayFor(modelItem => item.LastName)
-                    @Html.DisplayFor(modelItem => item.MiddleName)
-                    @Html.DisplayFor(modelItem => item.FirstName)
+                   
                 </td>
 
                 <td>
@@ -114,8 +125,8 @@
 
                     else if (item.TrangThaiXuatLuong == true)
                     {
-                        <a asp-action="XuatLuong" asp-route-maNhanVienDuocXuatLuong="@item.Id" asp-route-selectedMonth="@Model.ViewForm.CurrentMonth" asp-route-selectedYear="@Model.ViewForm.CurrentYear" class="btn btn-outline-primary">
-                            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                        <a asp-action="XuatLuong" asp-route-maNhanVienDuocXuatLuong="@item.Id" asp-route-selectedMonth="@Model.ViewForm.CurrentMonth" asp-route-selectedYear="@Model.ViewForm.CurrentYear" class="btn btn-outline-secondary">
+                            <i class="fas fa-check" aria-hidden="true"></i>
                             &nbsp; Đã xuất lương
                         </a>
                     }

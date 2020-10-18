@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static leave_management.GeneralData.Data;
 
 namespace leave_management.Repository
 {
@@ -34,6 +35,30 @@ namespace leave_management.Repository
                 .Include(q => q.NhanVienGuiYeuCau)
                 .Include(q => q.NhanVienPheDuyet)
                 .ToListAsync();
+        }
+
+        public async Task<string> TrangThaiPhieuChi(string maYeuCauTamUng)
+        {
+            var yeuCauTamUngLuong = _db.YeuCauTamUngLuongs.FirstOrDefaultAsync(q => q.MaYeuCau == maYeuCauTamUng).Result;
+            if (yeuCauTamUngLuong == null)
+            {
+                return PhieuChiStatusString[PhieuChiStatus.KhongTonTai];
+            }
+
+            var phieuChi = _db.PhieuChi_TamUngLuongs.FirstOrDefaultAsync(q => q.MaYeuCauTamUngLuong == yeuCauTamUngLuong.MaYeuCau).Result;
+            if (phieuChi == null )
+            {
+                return PhieuChiStatusString[PhieuChiStatus.ChuaChiTien];
+            }
+
+            if (phieuChi.MaNhanVienThuHoi !=null )
+            {
+                return PhieuChiStatusString[PhieuChiStatus.DaBiThuHoi];
+            }
+
+           
+                return PhieuChiStatusString[PhieuChiStatus.DaChiTien];
+            
         }
 
         //public async Task<IEnumerable<YeuCauTamUngLuong>> FindByEmployeeChuTheId(string employeeId)

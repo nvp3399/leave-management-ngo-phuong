@@ -32,6 +32,9 @@ namespace leave_management.Models
         [DisplayName("Tình trạng phê duyệt")]
         public string TinhTrangPheDuyet { get; set; }
 
+        [DisplayName("Trạng thái phiếu chi")]
+        public string TrangThaiPhieuChi { get; set; }
+
     }
 
 
@@ -48,6 +51,9 @@ namespace leave_management.Models
 
         [DisplayName("Yêu cầu bị hủy")]
         public int CancelledRequests { get; set; }
+
+        [DisplayName("Yêu cầu đã được chi tiền")]
+        public int DaChiTienRequests { get; set; }
 
         public List<YeuCauTamUngLuongVM> YeuCauTamUngLuongs { get; set; }
     }

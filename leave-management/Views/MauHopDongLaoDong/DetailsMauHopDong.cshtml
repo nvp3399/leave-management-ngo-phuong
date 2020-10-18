@@ -26,13 +26,23 @@
         </dt>
         <dd class="col-sm-10">
 
-            <img src="~/images/@Model.NhanVienLuuMauHopDong.ProfilePicture"
-                 class="rounded-circle"
-                 height="40" width="40"
-                 asp-append-version="true" />
-            @Html.DisplayFor(model => model.NhanVienLuuMauHopDong.LastName)
-            @Html.DisplayFor(model => model.NhanVienLuuMauHopDong.MiddleName)
-            @Html.DisplayFor(model => model.NhanVienLuuMauHopDong.FirstName)
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienLuuMauHopDong.Id" target="_blank">
+                <img src="~/images/@Model.NhanVienLuuMauHopDong.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Html.DisplayFor(model => model.NhanVienLuuMauHopDong.LastName)
+                @Html.DisplayFor(model => model.NhanVienLuuMauHopDong.MiddleName)
+                @Html.DisplayFor(model => model.NhanVienLuuMauHopDong.FirstName)
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+
+           
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.NgayGuiMauHopDong)
@@ -63,13 +73,23 @@
             @Html.DisplayNameFor(model => model.MaNhanVienChinhSuaLanCuoi)
         </dt>
         <dd class="col-sm-10">
-            <img src="~/images/@Model.NhanVienChinhSuaLanCuoi.ProfilePicture"
-                 class="rounded-circle"
-                 height="40" width="40"
-                 asp-append-version="true" />
-            @Html.DisplayFor(model => model.NhanVienChinhSuaLanCuoi.LastName)
-            @Html.DisplayFor(model => model.NhanVienChinhSuaLanCuoi.MiddleName)
-            @Html.DisplayFor(model => model.NhanVienChinhSuaLanCuoi.FirstName)
+
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienChinhSuaLanCuoi.Id" target="_blank">
+                <img src="~/images/@Model.NhanVienChinhSuaLanCuoi.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Html.DisplayFor(model => model.NhanVienChinhSuaLanCuoi.LastName)
+                @Html.DisplayFor(model => model.NhanVienChinhSuaLanCuoi.MiddleName)
+                @Html.DisplayFor(model => model.NhanVienChinhSuaLanCuoi.FirstName)
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+            
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.ThoiGianChinhSuaLanCuoi)
@@ -85,19 +105,24 @@
         <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
         Quay lại danh sách
     </a>
-    <a asp-action="EditMauHopDong" class="btn btn-warning" asp-route-id="@Model.MaMauHopDong">
-        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-        Chỉnh sửa
-    </a>
 
-    <a asp-action="DeleteMauHopDong" class="btn btn-danger" asp-route-id="@Model.MaMauHopDong" onclick="return confirm('Bạn chắc chắn muốn xóa mẫu hợp đồng này?')">
-        <i class="fas fa-trash" aria-hidden="true"></i>
-        Xóa
-    </a>
+
+
+
 
     <a asp-action="DownloadMauHopDongLaoDong" class="btn btn-outline-dark" asp-route-Filename="@Model.ViTriLuuMauHopDong">
         <i class="fa fa-download" aria-hidden="true"></i>
         Tải về
     </a>
-
+    @if (User.IsInRole("Quản trị viên") || User.IsInRole("Trưởng phòng nhân sự"))
+    {
+        <a asp-action="EditMauHopDong" class="btn btn-warning" asp-route-id="@Model.MaMauHopDong">
+            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+            Chỉnh sửa
+        </a>
+        <a asp-action="DeleteMauHopDong" class="btn btn-danger" asp-route-id="@Model.MaMauHopDong" onclick="return confirm('Bạn chắc chắn muốn xóa mẫu hợp đồng này?')">
+            <i class="fas fa-trash" aria-hidden="true"></i>
+            Xóa
+        </a>
+    }
 </div>

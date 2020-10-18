@@ -15,12 +15,58 @@
             <div class="form-group">
                 <input asp-for="MaNhanVienXuatLuong" type="hidden" class="form-control" />
                 <p>
-                    Nhân viên xuất lương:
-                    @Model.NhanVienDuocXuatLuong.LastName
-                    @Model.NhanVienDuocXuatLuong.MiddleName
-                    @Model.NhanVienDuocXuatLuong.FirstName
+
+
+
+                    <strong> Nhân viên xuất lương:</strong>
+
+                    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienDuocXuatLuong.Id" target="_blank">
+
+                        <img src="~/images/@Model.NhanVienDuocXuatLuong.ProfilePicture"
+                             class="rounded-circle"
+                             height="40" width="40"
+                             asp-append-version="true" />
+                        @Model.NhanVienDuocXuatLuong.LastName
+                        @Model.NhanVienDuocXuatLuong.MiddleName
+                        @Model.NhanVienDuocXuatLuong.FirstName
+
+                        &nbsp;
+                        <span style="font-size: 0.5rem;">
+                            <i class="fas fa-external-link-alt fa-sm"></i>
+                        </span>
+                    </a>
+
                 </p>
             </div>
+
+            <div class="form-group">
+
+                <input asp-for="MaNhanVienDuocXuatLuong" type="hidden" class="form-control" />
+
+                <p>
+                    <strong> Nhân viên được xuất lương:</strong>
+
+                    <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienDuocXuatLuong.Id" target="_blank">
+
+                        <img src="~/images/@Model.NhanVienDuocXuatLuong.ProfilePicture"
+                             class="rounded-circle"
+                             height="40" width="40"
+                             asp-append-version="true" />
+                        @Model.NhanVienDuocXuatLuong.LastName
+                        @Model.NhanVienDuocXuatLuong.MiddleName
+                        @Model.NhanVienDuocXuatLuong.FirstName
+
+                        &nbsp;
+                        <span style="font-size: 0.5rem;">
+                            <i class="fas fa-external-link-alt fa-sm"></i>
+                        </span>
+                    </a>
+
+
+
+                </p>
+            </div>
+            <hr />
             <div class="row">
                 <div class="form-group">
                     <label asp-for="NamTinhLuong" class="control-label"></label>
@@ -33,17 +79,7 @@
                     <span asp-validation-for="ThangTinhLuong" class="text-danger"></span>
                 </div>
             </div>
-            <div class="form-group">
 
-                <input asp-for="MaNhanVienDuocXuatLuong" type="hidden" class="form-control" />
-
-                <p>
-                    Nhân viên được xuất lương:
-                    @Model.NhanVienDuocXuatLuong.LastName
-                    @Model.NhanVienDuocXuatLuong.MiddleName
-                    @Model.NhanVienDuocXuatLuong.FirstName
-                </p>
-            </div>
 
             <div class="form-group">
                 <label asp-for="TongSoGio.SoGio" class="control-label"></label>
@@ -74,6 +110,7 @@
                 @if (Model.TrangThaiXuatLuong == true)
                 {
                     <span class="btn btn-secondary">
+                        <i class="fas fa-check" aria-hidden="true"></i>
                         Đã xuất lương
                     </span>
                 }

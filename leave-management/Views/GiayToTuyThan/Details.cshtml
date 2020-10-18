@@ -15,13 +15,24 @@
             @Html.DisplayNameFor(model => model.NhanVien)
         </dt>
         <dd class="col-sm-10">
-            <img src="~/images/@Model.NhanVien.ProfilePicture"
-                 class="rounded-circle"
-                 height="40" width="40"
-                 asp-append-version="true" />
-            @Html.DisplayFor(model => model.NhanVien.LastName)
-            @Html.DisplayFor(model => model.NhanVien.MiddleName)
-            @Html.DisplayFor(model => model.NhanVien.FirstName)
+
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVien.Id" target="_blank">
+
+                <img src="~/images/@Model.NhanVien.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Html.DisplayFor(model => model.NhanVien.LastName)
+                @Html.DisplayFor(model => model.NhanVien.MiddleName)
+                @Html.DisplayFor(model => model.NhanVien.FirstName)
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+            
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.LoaiGiayTo.TenLoaiGiayTo)
@@ -43,13 +54,24 @@
             @Html.DisplayNameFor(model => model.NhanVienGui)
         </dt>
         <dd class="col-sm-10">
-            <img src="~/images/@Model.NhanVienGui.ProfilePicture"
-                 class="rounded-circle"
-                 height="40" width="40"
-                 asp-append-version="true" />
-            @Html.DisplayFor(model => model.NhanVienGui.LastName)
-            @Html.DisplayFor(model => model.NhanVienGui.MiddleName)
-            @Html.DisplayFor(model => model.NhanVienGui.FirstName)
+
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.NhanVienGui.Id" target="_blank">
+
+                <img src="~/images/@Model.NhanVienGui.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Html.DisplayFor(model => model.NhanVienGui.LastName)
+                @Html.DisplayFor(model => model.NhanVienGui.MiddleName)
+                @Html.DisplayFor(model => model.NhanVienGui.FirstName)
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+            
         </dd>
 
         <dt class="col-sm-2">
