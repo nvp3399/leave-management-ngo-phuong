@@ -15,10 +15,7 @@
     </a>
     <hr />
 
-    <a asp-action="EditEmployee" class="btn btn-outline-warning" asp-route-id="@Model.Employee.Id">
-        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-        Chỉnh sửa hồ sơ
-    </a>
+
     <a asp-controller="HopDongLaoDong" asp-action="Index" class="btn btn-outline-secondary" asp-route-id="@Model.Employee.Id">
         <i class="fas fa-info-circle" aria-hidden="true"></i>
         Xem hợp đồng lao động
@@ -27,6 +24,17 @@
         <i class="fas fa-info-circle" aria-hidden="true"></i>
         Xem giấy tờ tùy thân
     </a>
+
+
+    @if (User.IsInRole("Quản trị viên") || User.IsInRole("Nhân viên phòng nhân sự") || User.IsInRole("Trưởng phòng nhân sự"))
+    {
+        <a asp-action="EditEmployee" class="btn btn-outline-warning" asp-route-id="@Model.Employee.Id">
+            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+            Chỉnh sửa hồ sơ
+        </a>
+    }
+
+
     <hr />
 
     @Html.DisplayNameFor(model => model.Employee.ProfileImage)

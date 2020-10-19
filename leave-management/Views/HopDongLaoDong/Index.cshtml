@@ -42,7 +42,16 @@
 </a>
 <hr />
 <p>
-    <a asp-controller="HopDongLaoDong" asp-action="Create" asp-route-employeeId="@Model.EmployeeChuTheHopDong.Id">Tải lên bản hợp đồng mới</a>
+
+
+
+    @if (User.IsInRole("Trưởng phòng") || User.IsInRole("Trưởng phòng nhân sự") || User.IsInRole("Quản trị viên"))
+    {
+        <a asp-controller="HopDongLaoDong" asp-action="Create" asp-route-employeeId="@Model.EmployeeChuTheHopDong.Id" class="btn btn-success">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Tải lên bản hợp đồng mới
+        </a>
+    }
 </p>
 
 <table id="tblData" class="table">
@@ -97,10 +106,7 @@
                 </td>
 
                 <td>
-                    <a asp-controller="HopDongLaoDong" asp-action="Edit" class="btn btn-warning" asp-route-id="@item.MaHopDong">
-                        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-                        Chỉnh sửa
-                    </a>
+
                     <a asp-controller="HopDongLaoDong" asp-action="Details" class="btn btn-info" asp-route-id="@item.MaHopDong">
                         &nbsp;<i class="fas fa-info" aria-hidden="true"></i>&nbsp;
                         Chi tiết
@@ -113,6 +119,15 @@
                             Xóa
                         </a>
                     }
+
+                    @if (User.IsInRole("Quản trị viên") || User.IsInRole("Nhân viên phòng nhân sự") || User.IsInRole("Trưởng phòng nhân sự"))
+                    {
+                        <a asp-controller="HopDongLaoDong" asp-action="Edit" class="btn btn-warning" asp-route-id="@item.MaHopDong">
+                            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                            Chỉnh sửa
+                        </a>
+                    }
+                   
                 </td>
             </tr>
         }

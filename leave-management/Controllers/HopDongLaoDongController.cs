@@ -16,7 +16,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace leave_management.Controllers
 {
-    [Authorize(Roles ="Nhân viên phòng nhân sự,Trưởng phòng nhân sự,Quản trị viên")]
+    //[Authorize(Roles ="Nhân viên phòng nhân sự,Trưởng phòng nhân sự,Quản trị viên")]
+    [Authorize]
     public class HopDongLaoDongController : Controller
     {
         private readonly ILeaveTypeRepository leaverepo;

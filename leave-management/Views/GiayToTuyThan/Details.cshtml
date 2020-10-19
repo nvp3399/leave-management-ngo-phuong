@@ -7,7 +7,6 @@
 <h1>Chi tiết giấy tờ tùy thân</h1>
 
 <div>
-    <h4>GiayToTuyThanVM</h4>
     <hr />
     <dl class="row">
 
@@ -113,18 +112,31 @@
         <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
         Quay lại danh sách hợp đồng
     </a>
-    <a asp-action="Edit" class="btn btn-warning" asp-route-employeeId="@Model.MaNhanVien" asp-route-maLoaiGiayTo="@Model.MaLoaiGiayTo">
-        <i class="fas fa-pencil-alt" aria-hidden="true"></i>
-        Chỉnh sửa
-    </a>
-
-    <a asp-action="Delete" class="btn btn-danger" asp-route-employeeId="@Model.MaNhanVien" asp-route-maLoaiGiayTo="@Model.MaLoaiGiayTo" onclick="return confirm('Bạn chắc chắn muốn xóa hợp đồng này?')">
-        <i class="fas fa-trash" aria-hidden="true"></i>
-        Xóa
-    </a>
+ 
 
     <a asp-action="DownloadGiayToTuyThan" class="btn btn-outline-dark" asp-route-Filename="@Model.ViTriLuuBanScan">
         <i class="fa fa-download" aria-hidden="true"></i>
         Tải về
     </a>
+
+    @*<a asp-controller="GiayToTuyThan" asp-action="Details" class="btn btn-info" asp-route-employeeId="@item.MaNhanVien" asp-route-maLoaiGiayTo="@item.MaLoaiGiayTo">
+        &nbsp;<i class="fas fa-info" aria-hidden="true"></i>&nbsp;
+        Chi tiết
+    </a>*@
+
+
+    @if (User.IsInRole("Quản trị viên") || User.IsInRole("Nhân viên phòng nhân sự") || User.IsInRole("Trưởng phòng nhân sự"))
+    {
+        <a asp-controller="GiayToTuyThan" asp-action="Edit" class="btn btn-warning" asp-route-employeeId="@Model.MaNhanVien" asp-route-maLoaiGiayTo="@Model.MaLoaiGiayTo">
+            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+            Chỉnh sửa
+        </a>
+    }
+    @if (User.IsInRole("Quản trị viên") || User.IsInRole("Trưởng phòng nhân sự"))
+    {
+        <a asp-controller="GiayToTuyThan" asp-action="Delete" class="btn btn-danger" asp-route-employeeId="@Model.MaNhanVien" asp-route-maLoaiGiayTo="@Model.MaLoaiGiayTo" onclick="return confirm('Bạn chắc chắn muốn xóa hợp đồng này?')">
+            <i class="fas fa-trash" aria-hidden="true"></i>
+            Xóa
+        </a>
+    }
 </div>
