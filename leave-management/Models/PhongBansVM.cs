@@ -13,6 +13,7 @@ namespace leave_management.Models
     {
         [DisplayName("Phòng ban")]
         public string MaPhongBan { get; set; }
+        [DisplayName("Tên phòng ban")]
         public string TenPhongBan { get; set; }
 
         

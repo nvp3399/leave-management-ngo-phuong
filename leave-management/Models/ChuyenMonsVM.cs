@@ -11,6 +11,7 @@ namespace leave_management.Models
     {
         [DisplayName("Chuyên môn")]
         public string MaChuyenMon { get; set; }
+        [DisplayName("Tên chuyên môn")]
         public string TenChuyenMon { get; set; }
         public string GhiChu { get; set; }
 

@@ -369,6 +369,7 @@ namespace leave_management.Controllers
                 employeeRecord.MaPhongBan = model.MaPhongBan;
                 employeeRecord.LoaiNhanVien = model.LoaiNhanVien;
                 employeeRecord.SoCMND = model.SoCMND;
+                employeeRecord.MucLuongCoBan = model.MucLuongCoBan;
 
 
                 var uriProfilePicture = UploadedProfilePicture(model);

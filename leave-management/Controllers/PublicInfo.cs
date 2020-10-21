@@ -88,6 +88,10 @@ namespace leave_management.Controllers
 
             var model = mapper.Map<EmployeeVM>(employee);
 
+            model.ChucVu = mapper.Map<ChucVusVM>( chucVuRepo.FindById(model.MaChucVu).Result);
+            model.ChuyenMon = mapper.Map<ChuyenMonsVM>(chuyenMonRepo.FindById(model.MaChuyenMon).Result);
+            model.PhongBan = mapper.Map<PhongBansVM>(phongBanRepo.FindById(model.MaPhongBan).Result);
+
             ViewBag.VaiTroTrenHeThong = userManager.GetRolesAsync(employee).Result.FirstOrDefault();
 
             return View(model);

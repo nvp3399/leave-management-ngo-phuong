@@ -30,13 +30,24 @@
         </h3>
         <h3>
             Trưởng phòng:
-            <img src="~/images/@Model.TruongPhong.ProfilePicture"
-                 class="rounded-circle"
-                 height="40" width="40"
-                 asp-append-version="true" />
-            @Model.TruongPhong.FirstName
-            @Model.TruongPhong.MiddleName
-            @Model.TruongPhong.LastName
+
+            <a asp-controller="PublicInfo" asp-action="Employee" asp-route-id="@Model.TruongPhong.Id" target="_blank">
+
+                <img src="~/images/@Model.TruongPhong.ProfilePicture"
+                     class="rounded-circle"
+                     height="40" width="40"
+                     asp-append-version="true" />
+                @Model.TruongPhong.FirstName
+                @Model.TruongPhong.MiddleName
+                @Model.TruongPhong.LastName
+
+                &nbsp;
+                <span style="font-size: 0.5rem;">
+                    <i class="fas fa-external-link-alt fa-sm"></i>
+                </span>
+            </a>
+
+            
         </h3>
         <hr />
 

@@ -9,7 +9,7 @@
 
 <p>
 
-    <a asp-controller="CreateMauHopDong" class="btn btn-success">
+    <a asp-action="CreateMauHopDong" class="btn btn-success">
         <i class="fa fa-plus" aria-hidden="true"></i>
         Tạo mẫu hợp đồng mới
     </a>
@@ -143,15 +143,3 @@
 </table>
 
 
-@section Scripts{
-        <script>
-            $(document).ready(function () {
-                $("table[id^='TABLE']").DataTable({
-                    "scrollY": "1000px",
-                    "scrollCollapse": true,
-                    "searching": true,
-                    "paging": true
-                });
-            });
-        </script>
-    }

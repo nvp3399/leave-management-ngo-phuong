@@ -189,7 +189,7 @@
             @if ((User.IsInRole("Kế toán") || User.IsInRole("Quản trị viên"))
              && Model.MaNhanVienChiTien == null && Model.MaNhanVienThuHoi == null)
             {
-                <a asp-action="ChiTienLuongCuoiThang" title="Chi Tiền" class="btn btn-outline-success" asp-route-id="@Model.MaPhieuChi">
+                <a asp-action="XacNhanChiTien" title="Chi Tiền" class="btn btn-outline-success" asp-route-id="@Model.MaPhieuChi">
                     <i class="fa fa-dollar-sign" aria-hidden="true"></i>
                     Chi Tiền
                 </a>

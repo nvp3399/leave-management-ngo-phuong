@@ -5,3 +5,12 @@
 $(document).ready(function () {
     $('#tblData').DataTable();
 });
+
+$(document).ready(function () {
+    $("table[id^='TABLE']").DataTable({
+        "scrollY": "1000px",
+        "scrollCollapse": true,
+        "searching": true,
+        "paging": true
+    });
+});

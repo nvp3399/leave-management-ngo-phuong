@@ -40,6 +40,7 @@ namespace leave_management.Controllers
         private readonly ILeaveRequestRepository leaveRequestRepository;
         private readonly ILeaveTypeRepository leaveTypeRepository;
         private readonly IPhongBanRepository phongBanRepository;
+        private readonly IPhieuChi_NKLVRepository phieuChi_NKLVRepository;
 
         public ChamCongController(ILeaveTypeRepository leaverepo,
             ILeaveAllocationRepository leaveallocationrepo,
@@ -58,7 +59,8 @@ namespace leave_management.Controllers
             ILeaveAllocationRepository leaveAllocationRepository,
             ILeaveRequestRepository leaveRequestRepository,
             ILeaveTypeRepository leaveTypeRepository,
-            IPhongBanRepository phongBanRepository)
+            IPhongBanRepository phongBanRepository,
+            IPhieuChi_NKLVRepository phieuChi_NKLVRepository)
         {
             this.leaverepo = leaverepo;
             this.leaveallocationrepo = leaveallocationrepo;
@@ -79,6 +81,7 @@ namespace leave_management.Controllers
             this.leaveRequestRepository = leaveRequestRepository;
             this.leaveTypeRepository = leaveTypeRepository;
             this.phongBanRepository = phongBanRepository;
+            this.phieuChi_NKLVRepository = phieuChi_NKLVRepository;
         }
 
         [Authorize(Roles = "Quản trị viên,Trưởng phòng,Trưởng phòng nhân sự")]
@@ -343,6 +346,8 @@ namespace leave_management.Controllers
                     return View(model);
                 }
 
+
+
                 var LichSuChamCongList = await nhatKylamViecRepository.FindByMaNhanVien(model.NhanVien.Id);
                 foreach (var item in LichSuChamCongList)
                 {
@@ -370,6 +375,16 @@ namespace leave_management.Controllers
                         return View(model);
 
                     }
+                }
+
+                var IsThangDaXuatLuong = await phieuChi_NKLVRepository.DaXuatPhieuChiHayChua(model.MaNhanVien, model.Date.Month, model.Date.Year);
+
+                if (IsThangDaXuatLuong)
+                {
+                    ModelState.AddModelError("",
+                        $"Không thể chấm công vì tháng {model.Date.Month} năm {model.Date.Year} của nhân viên {model.NhanVien.LastName} {model.NhanVien.MiddleName} {model.NhanVien.FirstName} đã được xuất lương.");
+
+                    return View(model);
                 }
 
 

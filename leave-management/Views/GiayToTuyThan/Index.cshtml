@@ -40,10 +40,13 @@
 <hr />
 <p>
 
-    <a asp-controller="GiayToTuyThan" asp-action="Create" asp-route-employeeId="@Model.NhanVien.Id" class="btn btn-success">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-        Tải lên bản giấy tờ tùy thân mới
-    </a>
+    @if (!User.IsInRole("Nhân viên") && !User.IsInRole("Trưởng phòng") && !User.IsInRole("Kế toán"))
+    {
+        <a asp-controller="GiayToTuyThan" asp-action="Create" asp-route-employeeId="@Model.NhanVien.Id" class="btn btn-success">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Tải lên bản giấy tờ tùy thân mới
+        </a>
+    }
 </p>
 
 <table id="tblData" class="table">
